@@ -3,12 +3,12 @@ import re
 
 while 1:
     # чтение входной строки
-    input_str = str(input())
+    input_str = str(input("введи предложение: "))
 
     # определение вопроса или утвержения
     if input_str[-1:] == "?":
         q = True
-        input_str.replace('?', '')
+        input_str = input_str.replace('?', '')
 
     # перевод входной строки в список
     list_word = input_str.split(" ")
@@ -31,6 +31,13 @@ while 1:
         for _ in l:
             elements.add(_)
 
+    if q:
+        if list_word[0] in elements:
+            print("я знаю: "+str(list_word[0]))
+        else:
+            print("я не знаю: "+str(list_word[0])+" запомню его")
+        
+
     # добавление несуществующих элементов и связей
     for i, word in enumerate(list_word):
         if word not in elements:
@@ -49,9 +56,9 @@ while 1:
     # выделение несвязанных элементов
     uniq_elements = elements.difference(elements_link)
 
-    print("все элементы: "+str(elements))
-    print("элементы в не связях: "+str(uniq_elements))
-    print("связи: "+str(links))
+    # print("все элементы: "+str(elements))
+    # print("элементы в не связях: "+str(uniq_elements))
+    # print("связи: "+str(links))
 
     # запись в файл
     with open("graph.dot", 'w') as f:
@@ -61,4 +68,7 @@ while 1:
         for e in uniq_elements:
             f.write("  "+e+"\n")
         f.write("}\n")
+
+    
+
 

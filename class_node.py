@@ -1,20 +1,22 @@
 class Node():
 	name = ""
-	bind = []
 
-	def __init__(self, name, binds=None):
+	def __init__(self, name):
 		self.name = name
+		self.links = []
 
-		if binds:
-			for i in binds:
-				self.bind.append(i)
+	def create_link(self, node):
+		print("create_link")
+		# self.links = [node]
+		self.links.append(node)
 
 
-stol = Node("стол")
+# stol = Node("стол")
 
 # print(stol.name)
 
-stul = Node("стол")
-pol = Node("пол", [stol, stul])
+# stul = Node("стол")
+# pol = Node("пол", [stol, stul])
 
-print(pol.bind)
+# print(stol.name)
+

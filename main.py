@@ -1,6 +1,5 @@
 from class_node import Node
-
-# import re
+import re
 
 # while 1:
 #     # чтение входной строки
@@ -76,39 +75,81 @@ def draw_graph(list_nodes):
         for node in list_nodes:
             f.write("  " + node.name + ";\n")
             if len(node.links) > 0:
-
-                # print(node.links)
-
                 for link in node.links:
                     f.write("  " + node.name + " -> " + link.name + ";\n")
-
-        
-#         for _link in links:
-#             f.write("  "+_link[0]+" -> "+_link[1]+";\n")
-#         for e in uniq_elements:
-#             f.write("  "+e+"\n")
         f.write("}\n")
+
+def get_obj_graph():
+    with open("graph.dot", 'r') as f:
+        lines = f.readlines()
+
+        elements = set()
+        links = set()
+        elements_link = set()
+        for line in lines[1:-1]:
+            l = re.sub(" |;|\n", "", line)
+            l = l.split("->")
+            if len(l) > 1:
+                links.add((l[0], l[1]))
+                elements_link.add(l[0])
+                elements_link.add(l[1])
+            for _ in l:
+                elements.add(_)
+
+    graph_list_nodes = []
+    for element in elements:
+        graph_list_nodes.append(Node(element))
+
+    # добавляю ссылки в список нод
+    for link in links:
+        for node in graph_list_nodes:
+            if node.name == link[0]:
+                for node_2 in graph_list_nodes:
+                    if node_2.name == link[1]:
+                        node.create_link(node_2)
+
+    return graph_list_nodes
 
 if __name__ == "__main__":
 
-    # связать с первым
-    # отобразить в графе
 
-    stol = Node("стол")
-    print(stol.name)
-    stul = Node("стул")
+    while 1:
+        graph_list_nodes = get_obj_graph()
+        input_str = input("Введи факт: ")
+        input_list_words = input_str.split(" ")
 
-    # stol.create_link(stul)
-    stol.create_link(stul)
+        input_list_nodes = []
 
-    # stol.links = [stul]
+        for i, word in enumerate(input_list_words):
+            node = Node(word)
+            try:
+                node_2 = Node(input_list_words[i+1])
+                node.create_link(node_2)
+                input_list_nodes.append(node)
+            except IndexError:
+                break
+      
+        graph_list_nodes += input_list_nodes
 
-    print(stol.links)
-    # print(stul.links)
+        draw_graph(graph_list_nodes)
 
-    draw_graph([stol, stul])
+        # есть баги
+        # повторно записывается уже существующий элемент
+        # если граф пустой ничего не записывается или ставится точка с запятой
+        # одиночные элементы не добавляются
 
-    # print(stol.name)
+    # _1 = Node("1")
+    # _2 = Node("2")
+    # _3 = Node("3")
+    # _4 = Node("4")
+
+    # _1.create_link(_2)
+    # _1.create_link(_3)
+    # _2.create_link(_1)
+    # _2.create_link(_4)
+
+    # draw_graph([_1, _2, _3, _4])
+
 
 
 

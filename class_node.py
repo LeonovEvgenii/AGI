@@ -8,5 +8,6 @@ class Node():
 	def create_link(self, node):
 		self.links.append(node)
 
-
+	def __repr__(self):
+		return repr(self.name)
 

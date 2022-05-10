@@ -88,11 +88,14 @@ def get_obj_graph():
         elements_link = set()
         for line in lines[1:-1]:
             l = re.sub(" |;|\n", "", line)
+            if l == '':
+                continue
             l = l.split("->")
             if len(l) > 1:
                 links.add((l[0], l[1]))
                 elements_link.add(l[0])
                 elements_link.add(l[1])
+            
             for _ in l:
                 elements.add(_)
 
@@ -110,6 +113,25 @@ def get_obj_graph():
 
     return graph_list_nodes
 
+def convert_words_to_nodes(input_list_words):
+    input_list_nodes = []
+
+    # if len(input_list_words)  1:
+
+    # for i, word in enumerate(input_list_words):
+    #     node = Node(word)
+        
+    #     try:
+    #         node_2 = Node(input_list_words[i+1])
+    #         node.create_link(node_2)
+    #         input_list_nodes.append(node)
+    #     except IndexError:
+    #         break
+        
+
+    return input_list_nodes
+
+
 if __name__ == "__main__":
 
 
@@ -118,16 +140,12 @@ if __name__ == "__main__":
         input_str = input("Введи факт: ")
         input_list_words = input_str.split(" ")
 
-        input_list_nodes = []
+        input_list_nodes = convert_words_to_nodes(input_list_words)
 
-        for i, word in enumerate(input_list_words):
-            node = Node(word)
-            try:
-                node_2 = Node(input_list_words[i+1])
-                node.create_link(node_2)
-                input_list_nodes.append(node)
-            except IndexError:
-                break
+        # Входные слова преобразовать в формат узлов
+        # Если узел не входит в текущий граф, то добавить
+
+        
       
         graph_list_nodes += input_list_nodes
 

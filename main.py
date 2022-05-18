@@ -2,8 +2,8 @@ from class_node import Node
 import re
 
 
-def write_to_graph(list_nodes):
-	with open("graph.dot", 'w') as f:
+def write_to_graph(list_nodes, file_name):
+	with open(file_name, 'w') as f:
 		f.write("digraph G {\n")
 		for node in list_nodes:
 			f.write("  \"" + node.name + "\";\n")
@@ -12,13 +12,13 @@ def write_to_graph(list_nodes):
 					f.write("  \"" + node.name + "\" -> \"" + link.name + "\";\n")
 		f.write("}\n")
 
-def clear_graph():
-	with open("graph.dot", 'w') as f:
+def clear_graph(file_name):
+	with open(file_name, 'w') as f:
 		f.write("digraph G {\n\n")
 		f.write("}\n")
 
-def get_obj_graph():
-	with open("graph.dot", 'r') as f:
+def get_obj_graph(file_name):
+	with open(file_name, 'r') as f:
 		lines = f.readlines()
 
 		elements = set()
@@ -125,25 +125,58 @@ def delete_node_to_graph(input_list_nodes, graph_list_nodes):
 		
 	return graph_list_nodes
 
+def read_node_to_graph(input_list_nodes, graph_list_nodes, i = 0):
+	print(i)
+	input_node = input_list_nodes[0]
+	
+	for node_graph in graph_list_nodes:
+		if input_node == node_graph:
+			print(node_graph.links)
+
+			for link in node_graph.links:
+				i += 1
+				read_node_to_graph([link], graph_list_nodes, i)
+
+			# print(node_graph.revert_links)
+
+
 if __name__ == "__main__":
 
-	clear_graph()
+	# file_name = "local_graph.dot"
+	# clear_graph(file_name)
+
+	file_name = "global_graph.dot"
 
 	while 1:
-		graph_list_nodes = get_obj_graph()
+		question = False
+
+		graph_list_nodes = get_obj_graph(file_name)
 		input_str = input("Введи факт: ")
 		if input_str == "":
 			print("Введена пустая строка")
 			continue
+
+		if input_str[-1] == "?":
+			question = True
+			input_str = input_str[:-1]
+
 		input_list_words = input_str.split(" ")
 
 		input_list_nodes = convert_words_to_nodes(input_list_words)
 
-		graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
-		# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)
+		if question:
+			read_node_to_graph(input_list_nodes, graph_list_nodes)
+		else:
+			graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
+			# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)
 
-		write_to_graph(graph_list_nodes)
+			write_to_graph(graph_list_nodes, file_name)
 
+
+# Чтение - это выдача соседа ноды, упомянутом в вопросе с длинной стрелки 1
+# Длинна стрелки регулируется
+# Добавить парсинг по знаку вопроса в конце строки
+# если есть знак - чтение, если нет - создание
 
 
 

@@ -93,11 +93,6 @@ def add_node_to_graph(input_list_nodes, graph_list_nodes):
 					if link_input not in graph_list_nodes[number_compare_node].links:
 						graph_list_nodes[number_compare_node].links.append(link_input)
 						link_input.create_revert_link(graph_list_nodes[number_compare_node])
-
-			# если нужно ссылку добавить, то и в новом элементе обратную ссылку делаем
-			# в функции обратной ссылки можно и прямую делать и абзац выше убать с ручным сравнением
-
-			# позже проверть как удалятся элементы, которые друг на друга ссылаются, должен остаться один, который не удаляется	
 		
 		else:
 			graph_list_nodes.append(node_input)
@@ -142,10 +137,10 @@ def read_node_to_graph(input_list_nodes, graph_list_nodes, i = 0):
 
 if __name__ == "__main__":
 
-	# file_name = "local_graph.dot"
-	# clear_graph(file_name)
+	file_name = "local_graph.dot"
+	clear_graph(file_name)
 
-	file_name = "global_graph.dot"
+	# file_name = "global_graph.dot"
 
 	while 1:
 		question = False
@@ -156,11 +151,20 @@ if __name__ == "__main__":
 			print("Введена пустая строка")
 			continue
 
+		input_str = input_str.lower()
+
+		punctuation = '!"#$%&\'()*,-./:;<=>@[\\]^_`{|}~'
+		for p in punctuation:
+			if p in input_str:
+				input_str = input_str.replace(p, '')
+
 		if input_str[-1] == "?":
 			question = True
 			input_str = input_str[:-1]
 
 		input_list_words = input_str.split(" ")
+
+		input_list_words = [ i for i in input_list_words if i]
 
 		input_list_nodes = convert_words_to_nodes(input_list_words)
 

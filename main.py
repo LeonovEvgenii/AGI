@@ -121,6 +121,9 @@ def delete_node_to_graph(input_list_nodes, graph_list_nodes):
 	return graph_list_nodes
 
 def read_node_to_graph(input_list_nodes, graph_list_nodes, i = 0):
+	if i > 5:
+		return
+	
 	print(i)
 	input_node = input_list_nodes[0]
 	
@@ -175,13 +178,4 @@ if __name__ == "__main__":
 			# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)
 
 			write_to_graph(graph_list_nodes, file_name)
-
-
-# Чтение - это выдача соседа ноды, упомянутом в вопросе с длинной стрелки 1
-# Длинна стрелки регулируется
-# Добавить парсинг по знаку вопроса в конце строки
-# если есть знак - чтение, если нет - создание
-
-
-
 

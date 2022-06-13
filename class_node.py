@@ -1,6 +1,5 @@
 class Node():
 	name = ""
-	definition = ""
 
 	def __init__(self, name):
 		self.name = name
@@ -23,3 +22,6 @@ class Node():
 			return True
 		else:
 			return False
+
+	def defenition(self):
+		pass

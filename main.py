@@ -141,7 +141,7 @@ def read_node_to_graph(input_list_nodes, graph_list_nodes, i = 0):
 if __name__ == "__main__":
 
 	file_name = "local_graph.dot"
-	clear_graph(file_name)
+	# clear_graph(file_name)
 
 	# file_name = "global_graph.dot"
 
@@ -172,7 +172,8 @@ if __name__ == "__main__":
 		input_list_nodes = convert_words_to_nodes(input_list_words)
 
 		if question:
-			read_node_to_graph(input_list_nodes, graph_list_nodes)
+			pass
+			# read_node_to_graph(input_list_nodes, graph_list_nodes)
 		else:
 			graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
 			# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)

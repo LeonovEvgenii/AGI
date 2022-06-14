@@ -1,7 +1,8 @@
 digraph G {
-  с
-  subgraph cluster_yellow {
-    a 
-    b 
+  compound=true;
+  "выведи" -> "time.py" [lhead=cluster1];
+  subgraph cluster1 {
+    label="время"
+    "time.py"
   }
 }

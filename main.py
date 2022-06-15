@@ -146,7 +146,8 @@ if __name__ == "__main__":
 	# file_name = "global_graph.dot"
 
 	while 1:
-		question = False
+		question_mode = False
+		definition = False
 
 		graph_list_nodes = get_obj_graph(file_name)
 		input_str = input("Введи факт: ")
@@ -156,14 +157,26 @@ if __name__ == "__main__":
 
 		input_str = input_str.lower()
 
-		punctuation = '!"#$%&\'()*,-./:;<=>@[\\]^_`{|}~'
+		punctuation = '!"#$%&\'()*,./:;<=>@[\\]^_`{|}~'
 		for p in punctuation:
 			if p in input_str:
 				input_str = input_str.replace(p, '')
 
+
+
+
 		if input_str[-1] == "?":
-			question = True
+			question_mode = True
 			input_str = input_str[:-1]
+
+		
+
+		# if "-" in input_str:
+		# 	input_list_definition = input_str.split("-")
+		# 	definition_word = input_list_definition[0]
+
+
+			
 
 		input_list_words = input_str.split(" ")
 
@@ -171,7 +184,7 @@ if __name__ == "__main__":
 
 		input_list_nodes = convert_words_to_nodes(input_list_words)
 
-		if question:
+		if question_mode:
 			pass
 			# read_node_to_graph(input_list_nodes, graph_list_nodes)
 		else:

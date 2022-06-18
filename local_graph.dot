@@ -1,8 +1,5 @@
 digraph G {
-  compound=true;
-  "выведи" -> "time.py" [lhead=cluster1];
-  subgraph cluster1 {
-    label="время"
-    "time.py"
-  }
+  "time.py";
+  "time.py" -> "время";
+  "время";
 }

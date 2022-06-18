@@ -1,5 +1,7 @@
 from class_node import Node
 import re
+import os
+import subprocess
 
 
 def write_to_graph(list_nodes, file_name):
@@ -137,6 +139,21 @@ def read_node_to_graph(input_list_nodes, graph_list_nodes, i = 0):
 
 			# print(node_graph.revert_links)
 
+def run_programm(node_name):
+	path = os.getcwd() + "/python_programm"
+	files = os.listdir(path)
+	for file in files:
+		if node_name == file:
+			output = subprocess.check_output(["python3", path + "/" + file])
+			output = str(output)[2:-3]
+			return output
+
+def run_node(input_list_nodes, graph_list_nodes):
+	for graph_node in graph_list_nodes:
+		if input_list_nodes[0] == graph_node:
+			output = run_programm(graph_node.revert_links[0].name)
+			print(output)
+			
 
 if __name__ == "__main__":
 
@@ -147,7 +164,7 @@ if __name__ == "__main__":
 
 	while 1:
 		question_mode = False
-		definition = False
+		definition_mode = False
 
 		graph_list_nodes = get_obj_graph(file_name)
 		input_str = input("Введи факт: ")
@@ -157,26 +174,18 @@ if __name__ == "__main__":
 
 		input_str = input_str.lower()
 
-		punctuation = '!"#$%&\'()*,./:;<=>@[\\]^_`{|}~'
+		punctuation = '!"#$%&\'()*,/:;<=>@[\\]^_`{|}~'
 		for p in punctuation:
 			if p in input_str:
 				input_str = input_str.replace(p, '')
-
-
-
 
 		if input_str[-1] == "?":
 			question_mode = True
 			input_str = input_str[:-1]
 
-		
-
 		# if "-" in input_str:
 		# 	input_list_definition = input_str.split("-")
 		# 	definition_word = input_list_definition[0]
-
-
-			
 
 		input_list_words = input_str.split(" ")
 
@@ -186,6 +195,8 @@ if __name__ == "__main__":
 
 		if question_mode:
 			pass
+			# run_programm(input_list_nodes, graph_list_nodes)
+			run_node(input_list_nodes, graph_list_nodes)
 			# read_node_to_graph(input_list_nodes, graph_list_nodes)
 		else:
 			graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)

@@ -23,5 +23,3 @@ class Node():
 		else:
 			return False
 
-	def defenition(self):
-		pass

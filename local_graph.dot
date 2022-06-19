@@ -1,5 +1,0 @@
-digraph G {
-  "time.py";
-  "time.py" -> "время";
-  "время";
-}

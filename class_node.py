@@ -1,7 +1,10 @@
 class Node():
 	name = ""
+	view_shape = "ellipse"
 
 	def __init__(self, name):
+		if ".py" in name:
+			self.view_shape = "box"
 		self.name = name
 		self.links = list() # не нужно делать множестовм ссылки. Массивом будет проще удалять и сложнее объединять
 		self.revert_links = list()
@@ -22,4 +25,13 @@ class Node():
 			return True
 		else:
 			return False
+
+	def view_to_graph(self):
+		output = "	\"" + self.name + "\" [shape=" + self.view_shape + "]\n"
+		output += "	\"" + self.name + "\" -> {"
+		for link in self.links:
+			output += link.name + " "
+		output += "}\n"
+		return output
+
 

@@ -8,6 +8,9 @@ def write_to_graph(list_nodes, file_name):
 	with open(file_name, 'w') as f:
 		f.write("digraph G {\n")
 		for node in list_nodes:
+
+			print(node.view_to_graph())
+
 			f.write("  \"" + node.name + "\";\n")
 			if len(node.links) > 0:
 				for link in node.links:
@@ -157,10 +160,10 @@ def run_node(input_list_nodes, graph_list_nodes):
 
 if __name__ == "__main__":
 
-	file_name = "local_graph.dot"
+	file_name = "graphs/local_graph.dot"
 	# clear_graph(file_name)
 
-	# file_name = "global_graph.dot"
+	# file_name = "graphs/global_graph.dot"
 
 	while 1:
 		question_mode = False
@@ -174,7 +177,7 @@ if __name__ == "__main__":
 
 		input_str = input_str.lower()
 
-		punctuation = '!"#$%&\'()*,/:;<=>@[\\]^_`{|}~'
+		punctuation = '!"#$%&\'()*,-/:;<=>@[\\]^_`{|}~'
 		for p in punctuation:
 			if p in input_str:
 				input_str = input_str.replace(p, '')
@@ -182,10 +185,6 @@ if __name__ == "__main__":
 		if input_str[-1] == "?":
 			question_mode = True
 			input_str = input_str[:-1]
-
-		# if "-" in input_str:
-		# 	input_list_definition = input_str.split("-")
-		# 	definition_word = input_list_definition[0]
 
 		input_list_words = input_str.split(" ")
 

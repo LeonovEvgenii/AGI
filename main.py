@@ -1,3 +1,4 @@
+from cgitb import reset
 from class_node import Node
 import re
 import os
@@ -9,12 +10,12 @@ def write_to_graph(list_nodes, file_name):
 		f.write("digraph G {\n")
 		for node in list_nodes:
 
-			print(node.view_to_graph())
+			f.write(node.view_to_graph())
 
-			f.write("  \"" + node.name + "\";\n")
-			if len(node.links) > 0:
-				for link in node.links:
-					f.write("  \"" + node.name + "\" -> \"" + link.name + "\";\n")
+			# f.write("  \"" + node.name + "\";\n")
+			# if len(node.links) > 0:
+			# 	for link in node.links:
+			# 		f.write("  \"" + node.name + "\" -> \"" + link.name + "\";\n")
 		f.write("}\n")
 
 def clear_graph(file_name):
@@ -30,34 +31,52 @@ def get_obj_graph(file_name):
 		links = set()
 		elements_link = set()
 		for line in lines[1:-1]:
-			l = re.sub(" |;|\n|\"", "", line)
-			if l == '':
-				continue
-			l = l.split("->")
-			if len(l) > 1:
-				links.add((l[0], l[1]))
-				elements_link.add(l[0])
-				elements_link.add(l[1])
+			if "shape" in line:
+				pass
+			if "->" in line:
+
+
+				result = re.findall(r'"(.*)" -> {(.*)}', line)
+
+				node = Node(result[0])
+				
+				
+
+
+				print(result)
+				print(line)
+
+
+		exit(0)
+
+	# 		l = re.sub(" |;|\n|\"", "", line)
+	# 		if l == '':
+	# 			continue
+	# 		l = l.split("->")
+	# 		if len(l) > 1:
+	# 			links.add((l[0], l[1]))
+	# 			elements_link.add(l[0])
+	# 			elements_link.add(l[1])
 			
-			for _ in l:
-				elements.add(_)
+	# 		for _ in l:
+	# 			elements.add(_)
 
-	graph_list_nodes = []
-	for element in elements:
-		graph_list_nodes.append(Node(element))
+	# graph_list_nodes = []
+	# for element in elements:
+	# 	graph_list_nodes.append(Node(element))
 
-	# добавляю ссылки в список нод
-	for link in links:
-		for node in graph_list_nodes:
-			if node.name == link[0]:
-				for node_2 in graph_list_nodes:
-					if node_2.name == link[1]:
-						node.create_link(node_2)
+	# # добавляю ссылки в список нод
+	# for link in links:
+	# 	for node in graph_list_nodes:
+	# 		if node.name == link[0]:
+	# 			for node_2 in graph_list_nodes:
+	# 				if node_2.name == link[1]:
+	# 					node.create_link(node_2)
 
-	if len(graph_list_nodes) == 0:
-		print("Граф был пустым")
+	# if len(graph_list_nodes) == 0:
+	# 	print("Граф был пустым")
 
-	return graph_list_nodes
+	# return graph_list_nodes
 
 def convert_words_to_nodes(input_list_words):
 	input_list_nodes = []

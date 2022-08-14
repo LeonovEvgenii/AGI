@@ -1,8 +1,8 @@
-from cgitb import reset
 from class_node import Node
 import re
 import os
 import subprocess
+import json
 
 
 def write_to_graph(list_nodes, file_name):
@@ -179,31 +179,68 @@ def run_node(input_list_nodes, graph_list_nodes):
 
 if __name__ == "__main__":
 
-	file_name = "graphs/local_graph.dot"
+	# file_name = "graphs/local_graph.dot"
 	# clear_graph(file_name)
 
 	# file_name = "graphs/global_graph.dot"
 
 	while 1:
-		question_mode = False
-		definition_mode = False
 
-		graph_list_nodes = get_obj_graph(file_name)
-		input_str = input("Введи факт: ")
+		# graph_list_nodes = get_obj_graph(file_name)
+		input_str = input("Ввод: ")
 		if input_str == "":
 			print("Введена пустая строка")
 			continue
 
 		input_str = input_str.lower()
 
-		punctuation = '!"#$%&\'()*,-/:;<=>@[\\]^_`{|}~'
+		punctuation = '!"#$%&\'()*,-/;<=>@[\\]^_`{|}~'
 		for p in punctuation:
 			if p in input_str:
 				input_str = input_str.replace(p, '')
 
-		if input_str[-1] == "?":
-			question_mode = True
-			input_str = input_str[:-1]
+		# if input_str[-1] == "?":
+		# 	question_mode = True
+		# 	input_str = input_str[:-1]
+
+		# избаиться от забинденых ключевых слов, сделать их тоже понятиями
+		if "создай новое определение первого рода: " in input_str:
+			# definition_mode = True
+			input_str = input_str[39:] # 39, пототому что команда константой задана
+
+			input_list_words = input_str.split(" ")
+
+			# сейчас работает только один шаблон "слово file.py"
+			defenition = {}
+			defenition_name = input_list_words[0]
+			defenition['name'] = defenition_name
+			defenition['file'] = input_list_words[1]
+
+			with open("json/" + defenition_name + ".json", 'w') as outfile:
+				json.dump(defenition, outfile, ensure_ascii=False)
+
+		# подумать над выполнением команды "сохрани время"
+		# сохрани тоже превородное, вопрос в том, как папраметры передаются
+		
+
+		if "дай определение: " in input_str:
+			# question_mode = False
+			input_str = input_str[17:]
+			
+			input_list_words = input_str.split(" ")
+
+			path = os.getcwd() + "/json"
+			files = os.listdir(path)
+			for file in files:
+				if input_list_words[0] == file[:-5]:
+					with open("json/" + file) as json_file:
+						data = json.load(json_file)
+						
+						path = os.getcwd() + "/python_programm"
+						output = subprocess.check_output(["python3", path + "/" + data["file"]])
+						output = str(output)[2:-3]
+
+						print("Вывод: " + output)
 
 		input_list_words = input_str.split(" ")
 
@@ -211,14 +248,14 @@ if __name__ == "__main__":
 
 		input_list_nodes = convert_words_to_nodes(input_list_words)
 
-		if question_mode:
-			pass
+		# if question_mode:
+			# pass
 			# run_programm(input_list_nodes, graph_list_nodes)
-			run_node(input_list_nodes, graph_list_nodes)
+			# run_node(input_list_nodes, graph_list_nodes)
 			# read_node_to_graph(input_list_nodes, graph_list_nodes)
-		else:
-			graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
+		# else:
+			# graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
 			# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)
 
-			write_to_graph(graph_list_nodes, file_name)
+			# write_to_graph(graph_list_nodes, file_name)
 

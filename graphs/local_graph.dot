@@ -1,26 +1,5 @@
 digraph G {
-	"5" [shape=ellipse]
-	"5" -> {4 }
-	"4" [shape=ellipse]
-	"4" -> {}
-	"33.py" [shape=box]
-	"33.py" -> {}
-	"2" [shape=ellipse]
-	"2" -> {}
-	"4.py" [shape=box]
-	"4.py" -> {}
-	"3.py" [shape=box]
-	"3.py" -> {}
-	"time.py" [shape=box]
-	"time.py" -> {время }
-	"время" [shape=ellipse]
-	"время" -> {}
-	"2.py" [shape=box]
-	"2.py" -> {}
-	"3" [shape=ellipse]
-	"3" -> {2 4 }
-	"5.py" [shape=box]
-	"5.py" -> {}
-	"1" [shape=ellipse]
-	"1" -> {}
+сохрани_узлы
+1658921962
+время
 }

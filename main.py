@@ -31,7 +31,7 @@ def get_input_words():
 
 def run_nodes(input_list_words):
 	
-	path_json = os.getcwd() + "/json"
+	path_json = os.getcwd() + "/json/local/"
 	json_files = os.listdir(path_json)
 
 	path_python = os.getcwd() + "/python_programm"
@@ -40,31 +40,33 @@ def run_nodes(input_list_words):
 
 		for file in json_files:
 			if word == file[:-5]:
-				with open("json/" + file) as json_file:
+				with open(path_json + file) as json_file:
 					data = json.load(json_file)
 
-					list_without_run_word = input_list_words.copy()
-					list_without_run_word.remove(word)
+					if "file" in data: # если нет питона то не выполняем, а так все слова в предложении выполняются
+						list_without_run_word = input_list_words.copy()
+						list_without_run_word.remove(word)
 
-					output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
+						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-					print(output)
+						# print(output)
+						# вывод обрантый никак не обрабатываю
 
+def draw_graphviz():
+	file_name = "graphs/local_graph.dot"
+	with open(file_name, 'w') as f:
+		f.write("digraph G {\n")
 
+		#вынести в глобальную переменную или в параметр
+		path_json = os.getcwd() + "/json/local/"
+		files_json = os.listdir(path_json)
 
+		for file in files_json:
+			with open(path_json + file) as json_file:
+				data = json.load(json_file)
+				f.write(data["name"] + "\n")
 
-					# output_string = str(output)
-
-					# output_list = output_string.split(r'\r\n')
-
-					# for e in output_list:
-					# 	print(e)
-
-					# print(output.decode('utf-8'))
-
-
-	# сохранение всех параметров строки
-	# открытие и запуск программы с параметрами
+		f.write("}\n")
 
 
 
@@ -75,6 +77,8 @@ if __name__ == "__main__":
 		input_list_words = get_input_words()
 
 		run_nodes(input_list_words)
+
+		draw_graphviz()
 
 		exit(0)
 

@@ -4,6 +4,7 @@ import json
 for word in sys.argv[1:]:
     defenition = {}
     defenition['name'] = word
+    defenition['link'] = ["сохрани_узлы"] + sys.argv[1:]
     # defenition['file'] = 
 
     with open("json/local/" + word + ".json", 'w') as outfile:

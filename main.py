@@ -64,7 +64,21 @@ def draw_graphviz():
 		for file in files_json:
 			with open(path_json + file) as json_file:
 				data = json.load(json_file)
-				f.write(data["name"] + "\n")
+
+
+				if "link" in data:
+					for link in data["link"]:
+						
+						if link == data["name"]:
+							continue
+
+						
+
+						f.write(data["name"] + " -> " + link + "\n")
+
+
+						# print(link)
+
 
 		f.write("}\n")
 

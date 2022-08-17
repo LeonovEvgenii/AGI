@@ -4,6 +4,8 @@ import os
 import subprocess
 import json
 
+path_json = os.getcwd() + "/json/local/"
+
 def get_input_words():
 
 	while 1:
@@ -31,7 +33,7 @@ def get_input_words():
 
 def run_nodes(input_list_words):
 	
-	path_json = os.getcwd() + "/json/local/"
+	
 	json_files = os.listdir(path_json)
 
 	path_python = os.getcwd() + "/python_programm"
@@ -49,22 +51,22 @@ def run_nodes(input_list_words):
 
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-						# print(output)
+
+						print(output)
 						# вывод обрантый никак не обрабатываю
 
 def draw_graphviz():
 	file_name = "graphs/local_graph.dot"
 	with open(file_name, 'w') as f:
-		f.write("digraph G {\n")
+		f.write("strict graph G {\n")
 
 		#вынести в глобальную переменную или в параметр
-		path_json = os.getcwd() + "/json/local/"
+		# path_json = os.getcwd() + "/json/local/"
 		files_json = os.listdir(path_json)
 
 		for file in files_json:
 			with open(path_json + file) as json_file:
 				data = json.load(json_file)
-
 
 				if "link" in data:
 					for link in data["link"]:
@@ -72,13 +74,7 @@ def draw_graphviz():
 						if link == data["name"]:
 							continue
 
-						
-
-						f.write(data["name"] + " -> " + link + "\n")
-
-
-						# print(link)
-
+						f.write(data["name"] + " -- " + link + "\n")
 
 		f.write("}\n")
 
@@ -94,7 +90,7 @@ if __name__ == "__main__":
 
 		draw_graphviz()
 
-		exit(0)
+		continue
 
 		
 

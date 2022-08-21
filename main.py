@@ -32,8 +32,7 @@ def get_input_words():
 
 
 def run_nodes(input_list_words):
-	
-	
+
 	json_files = os.listdir(path_json)
 
 	path_python = os.getcwd() + "/python_programm"
@@ -45,14 +44,20 @@ def run_nodes(input_list_words):
 				with open(path_json + file) as json_file:
 					data = json.load(json_file)
 
-					if "file" in data: # если нет питона то не выполняем, а так все слова в предложении выполняются
+					# !!! если нет питона то не выполняем, а так все слова в предложении выполняются
+					if "file" in data: 
 						list_without_run_word = input_list_words.copy()
 						list_without_run_word.remove(word)
 
+
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-
+						print("внутри майна обработал " + word)
 						print(output)
+
+						if output == "ok":
+							return 0
+
 						# вывод обрантый никак не обрабатываю
 
 def draw_graphviz():
@@ -60,8 +65,6 @@ def draw_graphviz():
 	with open(file_name, 'w') as f:
 		f.write("strict graph G {\n")
 
-		#вынести в глобальную переменную или в параметр
-		# path_json = os.getcwd() + "/json/local/"
 		files_json = os.listdir(path_json)
 
 		for file in files_json:

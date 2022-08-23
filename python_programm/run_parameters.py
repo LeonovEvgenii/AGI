@@ -27,9 +27,11 @@ for file in json_files:
 
                 list_without_run_word = sys.argv[2:]
 
-                print(list_without_run_word)
+                # print(list_without_run_word)
 
                 output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
+
+                print(output)
 
             # !!! нужно как то вернуть информацию наверх, 
             # что остальные параметры не выполняем
@@ -37,4 +39,3 @@ for file in json_files:
             # print("не выполняем")
     #             # вывод обрантый никак не обрабатываю
 
-                print("ok")

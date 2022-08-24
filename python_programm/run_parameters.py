@@ -1,41 +1,21 @@
+from re import I
 import sys
-import os
-import json
-import subprocess
+import re
 
-# print(sys.argv)
+# input_l = ["разница", "1658921963", "1658921962"]
 
-# ищем дсон с 1 параметром
+output = {}
 
-# и выполняем его уже
+count_parameters = 1
+for i in sys.argv[1:]:
+    match_operator = re.match(r'\D*', i)
+    match_parametr = re.match(r'\d*', i)
+    if match_operator.group():
+        output["оператор"] = i
+    if match_parametr.group():
+        output["параметр_" + str(count_parameters)] = i
+        count_parameters += 1
 
+print(output)
 
-
-
-path_json = os.getcwd() + "/json/local/"
-json_files = os.listdir(path_json)
-
-path_python = os.getcwd() + "/python_programm"
-
-for file in json_files:
-    if sys.argv[1] == file[:-5]:
-        with open(path_json + file) as json_file:
-            data = json.load(json_file)
-
-    #         # !!! если нет питона то не выполняем, а так все слова в предложении выполняются
-            if "file" in data: 
-
-                list_without_run_word = sys.argv[2:]
-
-                # print(list_without_run_word)
-
-                output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
-
-                print(output)
-
-            # !!! нужно как то вернуть информацию наверх, 
-            # что остальные параметры не выполняем
-
-            # print("не выполняем")
-    #             # вывод обрантый никак не обрабатываю
-
+    

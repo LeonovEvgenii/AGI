@@ -49,17 +49,10 @@ def run_nodes(input_list_words):
 						list_without_run_word = input_list_words.copy()
 						list_without_run_word.remove(word)
 
-
-						print("перед выполением слова ", word, " в майне")
-
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-
 						print(output)
-
-						if output == "1":
-							return 0
-
+						exit(0)
 						# вывод обрантый никак не обрабатываю
 
 def draw_graphviz():

@@ -1,6 +1,6 @@
-from re import I
 import sys
 import re
+import json
 
 # input_l = ["разница", "1658921963", "1658921962"]
 
@@ -16,6 +16,10 @@ for i in sys.argv[1:]:
         output["параметр_" + str(count_parameters)] = i
         count_parameters += 1
 
-print(output)
+with open("output.json", 'w') as outfile:
+    json.dump(output, outfile, ensure_ascii=False)
+
+
+# print(output)
 
     

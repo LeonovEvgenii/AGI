@@ -52,8 +52,10 @@ def run_nodes(input_list_words):
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
 						print(output)
-						exit(0)
-						# вывод обрантый никак не обрабатываю
+
+
+
+
 
 def draw_graphviz():
 	file_name = "graphs/local_graph.dot"

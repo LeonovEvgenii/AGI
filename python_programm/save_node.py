@@ -18,20 +18,35 @@ def check_file(word):
 
 for word in sys.argv[1:]:
     if check_file(word):
+        # пока не потребовалась обработка, если слово есть
+
         pass
-        # ???
-        # пока работает и ладно
-        # вообще, должно добавлять только ссылки в существующий файл
-        # with open(path + word + ".json") as json_file:
+
+        # with open(path + word + ".json", 'r+') as json_file:
         #     data = json.load(json_file)
-        #     data['link'] = ["сохрани_узлы"] + sys.argv[1:]
-            # json.dump(data, outfile, ensure_ascii=False)
+
+        #     if "link" in data:
+        #         if not("сохрани_узлы" in data["link"]):
+        #             data["link"].append("сохрани_узлы")
+        #     else:
+        #         data["link"] = []
+        #         data["link"].append("сохрани_узлы")
+
+        #     if data['file'] == sys.argv[-1]:
+        #         json.dump(defenition, outfile, ensure_ascii=False)
+        #         continue
+            
     else:
+
+        if word[-3:] == ".py":
+            continue
+
         defenition = {}
         defenition['name'] = word
 
         if ".py" in sys.argv[-1]:
             defenition['file'] = sys.argv[-1]
+            defenition['link'] = ["сохрани_узлы"] + sys.argv[1:-1]
             with open("json/local/" + word + ".json", 'w') as outfile:
                 json.dump(defenition, outfile, ensure_ascii=False)
             break
@@ -40,8 +55,7 @@ for word in sys.argv[1:]:
         with open("json/local/" + word + ".json", 'w') as outfile:
             json.dump(defenition, outfile, ensure_ascii=False)
 
-
-print("ok")
+# print("сохрани_узлы_выполнилось")
 
 
 

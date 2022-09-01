@@ -5,6 +5,8 @@ import os
 
 path = os.getcwd() + "/json/local/"
 
+output = {}
+
 def check_file(word):
     files = os.listdir(path)
     for file in files:
@@ -57,7 +59,9 @@ for word in sys.argv[1:]:
 
 # print("сохрани_узлы_выполнилось")
 
-
+output["необходимость_дальнейшего_выполнения"] = False
+with open("output.json", 'w') as outfile:
+    json.dump(output, outfile, ensure_ascii=False)
 
 # есть косяк, если добавить больше двух нод, то образуются местами связи все 
 # со всеми

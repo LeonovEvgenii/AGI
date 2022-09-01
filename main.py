@@ -33,6 +33,8 @@ def get_input_words():
 
 def run_nodes(input_list_words):
 
+	output = ""
+
 	json_files = os.listdir(path_json)
 
 	path_python = os.getcwd() + "/python_programm"
@@ -51,7 +53,7 @@ def run_nodes(input_list_words):
 
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-						print(output)
+	return output
 
 
 
@@ -86,7 +88,9 @@ if __name__ == "__main__":
 
 		input_list_words = get_input_words()
 
-		run_nodes(input_list_words)
+		output = run_nodes(input_list_words)
+
+		print("Вывод: ", output)
 
 		draw_graphviz()
 

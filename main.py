@@ -53,7 +53,15 @@ def run_nodes(input_list_words):
 
 						output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-	return output
+						if output:
+							output = output.replace("\n", "")
+							outout_list_words = []
+							outout_list_words.append("сохрани_узлы")
+							outout_list_words.append(output.split(" "))
+							outout_list_words.append(word)
+							run_nodes(outout_list_words)
+
+						return output
 
 
 
@@ -90,57 +98,86 @@ if __name__ == "__main__":
 
 		output = run_nodes(input_list_words)
 
-		print("Вывод: ", output)
+		print("Вывод:", output)
 
 		draw_graphviz()
 
-		continue
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		#############################
+
+		# версия 2
+
+		# if "создай новое определение первого рода: " in input_str:
+		# 	# definition_mode = True
+		# 	input_str = input_str[39:] # 39, пототому что команда константой задана
+
+		# 	input_list_words = input_str.split(" ")
+
+		# 	# сейчас работает только один шаблон "слово file.py"
+		# 	defenition = {}
+		# 	defenition_name = input_list_words[0]
+		# 	defenition['name'] = defenition_name
+		# 	defenition['file'] = input_list_words[1]
+
+		# 	with open("json/" + defenition_name + ".json", 'w') as outfile:
+		# 		json.dump(defenition, outfile, ensure_ascii=False)
+
+		# # подумать над выполнением команды "сохрани время"
+		# # сохрани тоже превородное, вопрос в том, как папраметры передаются
 		
 
-		if "создай новое определение первого рода: " in input_str:
-			# definition_mode = True
-			input_str = input_str[39:] # 39, пототому что команда константой задана
-
-			input_list_words = input_str.split(" ")
-
-			# сейчас работает только один шаблон "слово file.py"
-			defenition = {}
-			defenition_name = input_list_words[0]
-			defenition['name'] = defenition_name
-			defenition['file'] = input_list_words[1]
-
-			with open("json/" + defenition_name + ".json", 'w') as outfile:
-				json.dump(defenition, outfile, ensure_ascii=False)
-
-		# подумать над выполнением команды "сохрани время"
-		# сохрани тоже превородное, вопрос в том, как папраметры передаются
-		
-
-		if "дай определение: " in input_str:
-			# question_mode = False
-			input_str = input_str[17:]
+		# if "дай определение: " in input_str:
+		# 	# question_mode = False
+		# 	input_str = input_str[17:]
 			
-			input_list_words = input_str.split(" ")
+		# 	input_list_words = input_str.split(" ")
 
-			path = os.getcwd() + "/json"
-			files = os.listdir(path)
-			for file in files:
-				if input_list_words[0] == file[:-5]:
-					with open("json/" + file) as json_file:
-						data = json.load(json_file)
+		# 	path = os.getcwd() + "/json"
+		# 	files = os.listdir(path)
+		# 	for file in files:
+		# 		if input_list_words[0] == file[:-5]:
+		# 			with open("json/" + file) as json_file:
+		# 				data = json.load(json_file)
 						
-						path = os.getcwd() + "/python_programm"
-						output = subprocess.check_output(["python3", path + "/" + data["file"]])
-						output = str(output)[2:-3]
+		# 				path = os.getcwd() + "/python_programm"
+		# 				output = subprocess.check_output(["python3", path + "/" + data["file"]])
+		# 				output = str(output)[2:-3]
 
-						print("Вывод: " + output)
+		# 				print("Вывод: " + output)
 
-		input_list_words = input_str.split(" ")
+		# input_list_words = input_str.split(" ")
 
-		input_list_words = [ i for i in input_list_words if i]
+		# input_list_words = [ i for i in input_list_words if i]
 
-		input_list_nodes = convert_words_to_nodes(input_list_words)
+		# input_list_nodes = convert_words_to_nodes(input_list_words)
+
+		########################
+		# версия 1
 
 		# if question_mode:
 			# pass

@@ -2,8 +2,16 @@ import sys
 import json
 import os
 
+with open(os.getcwd() + "/output.json") as json_file:
+    data = json.load(json_file)
 
-path = os.getcwd() + "/json/local/"
+    if "необходимость_дальнейшего_выполнения" in data:
+        if data["необходимость_дальнейшего_выполнения"] == False:
+            exit(0)
+
+path = os.getcwd() + "/json/local/" # !!!!!
+# path = "/home/evgeniy/git/AGI/json/local"
+
 
 output = {}
 
@@ -49,12 +57,14 @@ for word in sys.argv[1:]:
         if ".py" in sys.argv[-1]:
             defenition['file'] = sys.argv[-1]
             defenition['link'] = ["сохрани_узлы"] + sys.argv[1:-1]
-            with open("json/local/" + word + ".json", 'w') as outfile:
+            with open("json/local/" + word + ".json", 'w') as outfile: # !!!!!
+            # with open("/home/evgeniy/git/AGI/json/local/" + word + ".json", 'w') as outfile:
                 json.dump(defenition, outfile, ensure_ascii=False)
             break
 
         defenition['link'] = ["сохрани_узлы"] + sys.argv[1:]
-        with open("json/local/" + word + ".json", 'w') as outfile:
+        with open("json/local/" + word + ".json", 'w') as outfile: # !!!!!
+        # with open("/home/evgeniy/git/AGI/json/local/" + word + ".json", 'w') as outfile:
             json.dump(defenition, outfile, ensure_ascii=False)
 
 # print("сохрани_узлы_выполнилось")

@@ -2,14 +2,18 @@ import json
 import sys
 import os
 
-with open(os.getcwd() + "/output.json") as json_file:
-    data = json.load(json_file)
+if os.stat(os.getcwd() + "/output.json").st_size != 0:
+    # не пустой файл
+    with open(os.getcwd() + "/output.json") as json_file:
+        # if json_file != None:
+        data = json.load(json_file)
 
-#### дйсон ouput пустой обработать исключение
+    #### дйсон ouput пустой обработать исключение
 
-    if "необходимость_дальнейшего_выполнения" in data:
-        if data["необходимость_дальнейшего_выполнения"] == False:
-            exit(0)
+        if "необходимость_дальнейшего_выполнения" in data:
+            if data["необходимость_дальнейшего_выполнения"] == False:
+                exit(0)
+
 
 path_json = os.getcwd() + "/json/local/"
 # path_json = "/home/evgeniy/git/AGI/json/local/"

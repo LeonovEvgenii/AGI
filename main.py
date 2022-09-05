@@ -57,7 +57,7 @@ def run_nodes(input_list_words):
 							output = output.replace("\n", "")
 							outout_list_words = []
 							outout_list_words.append("сохрани_узлы")
-							outout_list_words.append(output.split(" "))
+							outout_list_words += output.split(" ")
 							outout_list_words.append(word)
 							run_nodes(outout_list_words)
 
@@ -92,6 +92,9 @@ def draw_graphviz():
 
 if __name__ == "__main__":
 
+	f = open('output.json', 'w')
+	f.close()
+
 	while 1:
 
 		input_list_words = get_input_words()
@@ -102,7 +105,8 @@ if __name__ == "__main__":
 
 		draw_graphviz()
 
-
+		f = open('output.json', 'w')
+		f.close()
 
 
 

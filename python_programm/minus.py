@@ -3,13 +3,14 @@ import json
 import os
 
 
+if os.stat(os.getcwd() + "/output.json").st_size != 0:
+    # не пустой файл
+    with open(os.getcwd() + "/output.json") as json_file:
+        data = json.load(json_file)
 
-with open(os.getcwd() + "/output.json") as json_file:
-    data = json.load(json_file)
-
-    if "необходимость_дальнейшего_выполнения" in data:
-        if data["необходимость_дальнейшего_выполнения"] == False:
-            exit(0)
+        if "необходимость_дальнейшего_выполнения" in data:
+            if data["необходимость_дальнейшего_выполнения"] == False:
+                exit(0)
 
     rezult = int(data["параметр_1"]) - int(data["параметр_2"])
     

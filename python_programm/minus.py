@@ -19,8 +19,8 @@ if os.stat(os.getcwd() + "/output.json").st_size != 0:
     # output["ответ"] = rezult
     output = rezult
 
-with open(os.getcwd() + "/output.json", 'w') as json_file:
-    json.dump(output, json_file, ensure_ascii=False)
+# with open(os.getcwd() + "/output.json", 'w') as json_file:
+#     json.dump(output, json_file, ensure_ascii=False)
 
     print(output)
 

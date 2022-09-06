@@ -61,7 +61,7 @@ def run_nodes(input_list_words):
 							outout_list_words.append(word)
 							run_nodes(outout_list_words)
 
-						return output
+	return output
 
 
 

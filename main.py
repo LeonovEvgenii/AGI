@@ -89,6 +89,27 @@ def draw_graphviz():
 		f.write("}\n")
 
 
+def write_to_local_graph(input_list_words):
+	file_name = "graphs/local_graph.dot"
+	with open(file_name, 'w') as f:
+		f.write("strict graph G {\n")
+
+		for word in input_list_words:
+			for word_next in input_list_words:
+
+				if word == word_next:
+					continue
+
+				# нужно дозаписывать в старый файл
+				# если он нулевой, создавать верх и низ
+				# в начале работы удалять
+
+
+				f.write(word + " -- " + word_next + "\n")
+
+
+		f.write("}\n")
+
 
 if __name__ == "__main__":
 
@@ -99,14 +120,16 @@ if __name__ == "__main__":
 
 		input_list_words = get_input_words()
 
-		output = run_nodes(input_list_words)
+		write_to_local_graph(input_list_words)
 
-		print("Вывод:", output)
+		# output = run_nodes(input_list_words)
 
-		draw_graphviz()
+		# print("Вывод:", output)
 
-		f = open('output.json', 'w')
-		f.close()
+		# # draw_graphviz()
+
+		# f = open('output.json', 'w')
+		# f.close()
 
 
 

@@ -90,6 +90,34 @@ def draw_graphviz():
 
 
 def write_to_local_graph(input_list_words):
+
+	print("входные", input_list_words)
+
+	if os.stat(os.getcwd() + "/output.json").st_size != 0:
+		with open("graphs/local_graph.json") as json_file:
+			data = json.load(json_file)
+
+			print("уже есть записи")
+	else:
+		new_data = []
+		for index, word in enumerate(input_list_words):
+			temp = []
+			temp.append(word)
+			try:
+				temp.append(input_list_words[index + 1])
+				new_data.append(temp)
+			except IndexError:
+				break
+		
+		print(new_data)
+
+		# with open("graphs/local_graph.json", 'w') as outfile:
+		# 	json.dump(defenition, outfile, ensure_ascii=False)
+
+	return
+
+
+
 	file_name = "graphs/local_graph.dot"
 	with open(file_name, 'w') as f:
 		f.write("strict graph G {\n")

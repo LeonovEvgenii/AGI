@@ -97,8 +97,11 @@ def write_to_local_graph(input_list_words):
 		with open("graphs/local_graph.json") as json_file:
 			data = json.load(json_file)
 
+			# почему то не заходит сюда, когда в файле что-то есть
+
 			print("уже есть записи")
 	else:
+		# использую список списков т к множества json не поддерживает
 		new_data = []
 		for index, word in enumerate(input_list_words):
 			temp = []
@@ -111,8 +114,8 @@ def write_to_local_graph(input_list_words):
 		
 		print(new_data)
 
-		# with open("graphs/local_graph.json", 'w') as outfile:
-		# 	json.dump(defenition, outfile, ensure_ascii=False)
+		with open("graphs/local_graph.json", 'w') as outfile:
+			json.dump(new_data, outfile, ensure_ascii=False)
 
 	return
 

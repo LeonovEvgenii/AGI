@@ -64,80 +64,57 @@ def run_nodes(input_list_words):
 	return output
 
 
+def write_to_local_graph_json(input_list_words):
 
+	# print("входные слова", input_list_words)
 
+	input_pairs = []
+	for index, word in enumerate(input_list_words):
+		input_pair = []
+		input_pair.append(word)
+		try:
+			input_pair.append(input_list_words[index + 1])
+			input_pairs.append(input_pair)
+		except IndexError:
+			break
 
-def draw_graphviz():
-	file_name = "graphs/local_graph.dot"
-	with open(file_name, 'w') as f:
-		f.write("strict graph G {\n")
+	# print("образованные пары", input_pairs)
 
-		files_json = os.listdir(path_json)
-
-		for file in files_json:
-			with open(path_json + file) as json_file:
-				data = json.load(json_file)
-
-				if "link" in data:
-					for link in data["link"]:
-						
-						if link == data["name"]:
-							continue
-
-						f.write(data["name"] + " -- " + link + "\n")
-
-		f.write("}\n")
-
-
-def write_to_local_graph(input_list_words):
-
-	print("входные", input_list_words)
-
-	if os.stat(os.getcwd() + "/output.json").st_size != 0:
+	if os.stat("graphs/local_graph.json").st_size != 0:
+		save_pairs = None
 		with open("graphs/local_graph.json") as json_file:
-			data = json.load(json_file)
+			save_pairs = json.load(json_file)
 
-			# почему то не заходит сюда, когда в файле что-то есть
-
-			print("уже есть записи")
-	else:
-		# использую список списков т к множества json не поддерживает
-		new_data = []
-		for index, word in enumerate(input_list_words):
-			temp = []
-			temp.append(word)
-			try:
-				temp.append(input_list_words[index + 1])
-				new_data.append(temp)
-			except IndexError:
-				break
-		
-		print(new_data)
+			for input_pair in input_pairs:
+				if input_pair in save_pairs or [input_pair[1], input_pair[0]] in save_pairs:
+					continue
+				else:
+					save_pairs.append(input_pair)
 
 		with open("graphs/local_graph.json", 'w') as outfile:
-			json.dump(new_data, outfile, ensure_ascii=False)
+			json.dump(save_pairs, outfile, ensure_ascii=False)
 
-	return
+	else:
+		# использую список списков т к множества json не поддерживает
+
+		with open("graphs/local_graph.json", 'w') as outfile:
+			json.dump(input_pairs, outfile, ensure_ascii=False)
+
+			
 
 
+def print_to_xdot():
+
+	save_pairs = None
+	with open("graphs/local_graph.json") as json_file:
+		save_pairs = json.load(json_file)
 
 	file_name = "graphs/local_graph.dot"
 	with open(file_name, 'w') as f:
 		f.write("strict graph G {\n")
 
-		for word in input_list_words:
-			for word_next in input_list_words:
-
-				if word == word_next:
-					continue
-
-				# нужно дозаписывать в старый файл
-				# если он нулевой, создавать верх и низ
-				# в начале работы удалять
-
-
-				f.write(word + " -- " + word_next + "\n")
-
+		for save_pair in save_pairs:
+			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
 
 		f.write("}\n")
 
@@ -154,7 +131,9 @@ if __name__ == "__main__":
 
 		input_list_words = get_input_words()
 
-		write_to_local_graph(input_list_words)
+		write_to_local_graph_json(input_list_words)
+
+		print_to_xdot()
 
 		# output = run_nodes(input_list_words)
 
@@ -175,88 +154,11 @@ if __name__ == "__main__":
 	# бесконечный цикл +
 
 	# 	преобразование входных слов в  список понятий +
-	# 	запись связей между понятиями в предложении в локальный граф
+	# 	запись связей между понятиями в предложении в локальный граф +
 	# 	выполнение поочередно каждого слова в предложении с сохранением результата в общий файл
 	# 		при наличии ответа создание новых узлов и связей
 	# 		при рекурсивной зависимости выполнение других узлов внутри определения
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		#############################
-
-		# версия 2
-
-		# if "создай новое определение первого рода: " in input_str:
-		# 	# definition_mode = True
-		# 	input_str = input_str[39:] # 39, пототому что команда константой задана
-
-		# 	input_list_words = input_str.split(" ")
-
-		# 	# сейчас работает только один шаблон "слово file.py"
-		# 	defenition = {}
-		# 	defenition_name = input_list_words[0]
-		# 	defenition['name'] = defenition_name
-		# 	defenition['file'] = input_list_words[1]
-
-		# 	with open("json/" + defenition_name + ".json", 'w') as outfile:
-		# 		json.dump(defenition, outfile, ensure_ascii=False)
-
-		# # подумать над выполнением команды "сохрани время"
-		# # сохрани тоже превородное, вопрос в том, как папраметры передаются
-		
-
-		# if "дай определение: " in input_str:
-		# 	# question_mode = False
-		# 	input_str = input_str[17:]
-			
-		# 	input_list_words = input_str.split(" ")
-
-		# 	path = os.getcwd() + "/json"
-		# 	files = os.listdir(path)
-		# 	for file in files:
-		# 		if input_list_words[0] == file[:-5]:
-		# 			with open("json/" + file) as json_file:
-		# 				data = json.load(json_file)
-						
-		# 				path = os.getcwd() + "/python_programm"
-		# 				output = subprocess.check_output(["python3", path + "/" + data["file"]])
-		# 				output = str(output)[2:-3]
-
-		# 				print("Вывод: " + output)
-
-		# input_list_words = input_str.split(" ")
-
-		# input_list_words = [ i for i in input_list_words if i]
-
-		# input_list_nodes = convert_words_to_nodes(input_list_words)
-
-		########################
-		# версия 1
-
-		# if question_mode:
-			# pass
-			# run_programm(input_list_nodes, graph_list_nodes)
-			# run_node(input_list_nodes, graph_list_nodes)
-			# read_node_to_graph(input_list_nodes, graph_list_nodes)
-		# else:
-			# graph_list_nodes = add_node_to_graph(input_list_nodes, graph_list_nodes)
-			# graph_list_nodes = delete_node_to_graph(input_list_nodes, graph_list_nodes)
-
-			# write_to_graph(graph_list_nodes, file_name)
 

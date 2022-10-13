@@ -33,6 +33,8 @@ def get_input_words():
 
 def run_nodes(input_list_words):
 
+	# обработка последовательная т к при параллельной дублирование
+
 	output = ""
 
 	json_files = os.listdir(path_json)
@@ -46,8 +48,8 @@ def run_nodes(input_list_words):
 				with open(path_json + file) as json_file:
 					data = json.load(json_file)
 
-					# !!! если нет питона то не выполняем, а так все слова в предложении выполняются
-					if "file" in data: 
+					# если нет питона то не выполняем, а так все слова в предложении выполняются
+					if "file" in data:
 						list_without_run_word = input_list_words.copy()
 						list_without_run_word.remove(word)
 
@@ -55,18 +57,21 @@ def run_nodes(input_list_words):
 
 						if output:
 							output = output.replace("\n", "")
-							outout_list_words = []
-							outout_list_words.append("сохрани_узлы")
-							outout_list_words += output.split(" ")
-							outout_list_words.append(word)
-							run_nodes(outout_list_words)
+							output_list_words = []
+							output_list_words += output.split(" ")
+							save_new_nodes(output_list_words)
+
+
 
 	return output
 
 
 def write_to_local_graph_json(input_list_words):
 
-	# print("входные слова", input_list_words)
+	# сейчас образуются пары слов
+	# альтернатива сделать связи все со всеми
+
+	# запись идет во внутрениний формат, т к xdot ограничен
 
 	input_pairs = []
 	for index, word in enumerate(input_list_words):
@@ -78,7 +83,7 @@ def write_to_local_graph_json(input_list_words):
 		except IndexError:
 			break
 
-	# print("образованные пары", input_pairs)
+	# добавить сортировку input_pairs
 
 	if os.stat("graphs/local_graph.json").st_size != 0:
 		save_pairs = None
@@ -100,8 +105,6 @@ def write_to_local_graph_json(input_list_words):
 		with open("graphs/local_graph.json", 'w') as outfile:
 			json.dump(input_pairs, outfile, ensure_ascii=False)
 
-			
-
 
 def print_to_xdot():
 
@@ -117,6 +120,18 @@ def print_to_xdot():
 			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
 
 		f.write("}\n")
+
+
+def save_new_nodes(input_list_words):
+
+	path = os.getcwd() + "/json/local/"
+	files = os.listdir(path)
+	for word in input_list_words:
+		if not word + ".json" in files:
+			defenition = {}
+			defenition['name'] = word
+			with open("json/local/" + word + ".json", 'w') as outfile:
+				json.dump(defenition, outfile, ensure_ascii=False)
 
 
 if __name__ == "__main__":
@@ -135,17 +150,20 @@ if __name__ == "__main__":
 
 		print_to_xdot()
 
-		# output = run_nodes(input_list_words)
+		save_new_nodes(input_list_words)
 
-		# print("Вывод:", output)
+		output = run_nodes(input_list_words)
+
+		print("Вывод:", output)
 
 		# # draw_graphviz()
 
-		# f = open('output.json', 'w')
-		# f.close()
+		f = open('output.json', 'w')
+		f.close()
 
 
-
+	# отсутсвует деление на вопросы и ответы
+	# т к любое слово обрабатывается, правда по разному
 
 
 

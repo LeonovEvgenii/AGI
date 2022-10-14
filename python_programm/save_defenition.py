@@ -4,8 +4,7 @@ import json
 
 defenition = {}
 defenition['name'] = sys.argv[1]
-defenition['link'] = ["сохрани_определение"] + sys.argv[2:]
-
+defenition['definition'] = sys.argv[2:]
 
 with open("json/local/" + str(defenition['name']) + ".json", 'w') as outfile:
     json.dump(defenition, outfile, ensure_ascii=False)

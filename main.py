@@ -57,10 +57,11 @@ def run_nodes(input_list_words):
 
 						if output:
 							output = output.replace("\n", "")
-							output_list_words = []
+							output_list_words = [word]
 							output_list_words += output.split(" ")
 							save_new_nodes(output_list_words)
-
+							write_to_local_graph_json(output_list_words)
+							print_to_xdot()
 
 
 	return output
@@ -156,7 +157,7 @@ if __name__ == "__main__":
 
 		print("Вывод:", output)
 
-		# # draw_graphviz()
+
 
 		f = open('output.json', 'w')
 		f.close()

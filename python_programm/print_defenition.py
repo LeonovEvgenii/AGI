@@ -26,10 +26,9 @@ for file in json_files:
         with open(path_json + file) as json_file:
             data = json.load(json_file)
 
-            link_without_meta = data['link'].copy()
-            link_without_meta.remove("сохрани_определение")
+            definition = data['definition'].copy()
 
-            output_str = " ".join(link_without_meta)
+            output_str = " ".join(definition)
             break
 
 

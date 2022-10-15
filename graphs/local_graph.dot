@@ -10,4 +10,12 @@ strict graph G {
 "разница" -- "время"
 "выведи_определение" -- "секунда"
 "выведи_определение" -- "1"
+"на_что_похоже" -- "1"
+"на_что_похоже" -- "время"
+"cd" -- "homeevgeniygitagi"
+"homeevgeniygitagi" -- "usrbinenv"
+"usrbinenv" -- "binpython"
+"binpython" -- "homeevgeniy.vscodeextensionsmspython.python2022.16.0pythonfileslibpythondebugpyadapter....debugpylauncher"
+"homeevgeniy.vscodeextensionsmspython.python2022.16.0pythonfileslibpythondebugpyadapter....debugpylauncher" -- "39853"
+"39853" -- "homeevgeniygitagimain.py"
 }

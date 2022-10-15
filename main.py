@@ -1,5 +1,4 @@
 from class_node import Node
-import re
 import os
 import subprocess
 import json
@@ -137,8 +136,8 @@ def save_new_nodes(input_list_words):
 
 if __name__ == "__main__":
 
-	f = open('graphs/local_graph.json', 'w')
-	f.close()
+	# f = open('graphs/local_graph.json', 'w')
+	# f.close()
 
 	f = open('output.json', 'w')
 	f.close()

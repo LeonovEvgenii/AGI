@@ -7,34 +7,29 @@ search_words = sys.argv[1:]
 with open(os.getcwd() + "/graphs/local_graph.json") as json_file:
     save_pairs = json.load(json_file)
 
-    
-    # после того как связи прокинешь в определении
+    sets = []
 
-    # здесь
-    # содаешь множество по принципу
-    # в паре должен быть один search_words хотя бы
-    # количество множеств равно количеству слов в определении
+    # сужаем поиск
+    for word in search_words:
+        words_in_pair = set()
+        for pair in save_pairs:
+            if word in pair:
+                pair.remove(word)
+                if pair:
+                    words_in_pair.add(pair[0])
+        sets.append(words_in_pair)
 
-    # потом пересечение множеств
-    # в нем должна остаться секунда
+    # пересечение
+    rez_set = sets[0]
+    for _set in sets:
+        try:
+            rez_set = rez_set.intersection(_set)
+        except IndexError:
+            pass
 
-    ####
-
-    # for pair in save_pairs:
-
-    #     flag_delete_pair = True
-
-    #     for word in search_words:
-    #         if word in pair:
-    #             flag_delete_pair = False
-    #             break
-
-    #     if flag_delete_pair:
-    #         save_pairs.remove(pair)
-
-
-
-    # print(save_pairs[0][0])
+    # так выводится множество
+    for element in rez_set:
+        print(element)
 
 output = {}
 output["необходимость_дальнейшего_выполнения"] = False

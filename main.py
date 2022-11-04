@@ -3,7 +3,7 @@ import os
 import subprocess
 import json
 
-from utils.functions import write_to_local_graph_json, print_to_xdot
+from util.functions import write_to_local_graph_json, print_to_xdot
 
 path_json = os.getcwd() + "/json/local/"
 

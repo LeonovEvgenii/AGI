@@ -3,7 +3,7 @@ import json
 import os
 
 sys.path.append(os.getcwd())
-from utils.functions import write_to_local_graph_json, print_to_xdot
+from util.functions import write_to_local_graph_json, print_to_xdot
 
 
 defenition = {}

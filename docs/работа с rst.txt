@@ -1,0 +1,6 @@
+https://pypi.org/project/ReText/
+
+команда на запуск
+
+retext
+

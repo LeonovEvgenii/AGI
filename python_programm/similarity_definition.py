@@ -28,8 +28,14 @@ with open(os.getcwd() + "/graphs/local_graph.json") as json_file:
             pass
 
     # так выводится множество
+    # можно переделать на перевод множества в список
+    # объединение спискав строку через разделитель пробел
+    output_str = ""
     for element in rez_set:
-        print(element)
+        output_str += element
+        output_str += " "
+    output_str = output_str[:-1]
+    print(output_str)
 
 output = {}
 output["необходимость_дальнейшего_выполнения"] = False

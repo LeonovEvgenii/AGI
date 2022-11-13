@@ -63,8 +63,9 @@ def run_nodes(input_list_words):
 							output_list_words = [word]
 							output_list_words += output.split(" ")
 							save_new_nodes(output_list_words)
-							write_to_local_graph_json(output_list_words)
-							print_to_xdot()
+							if word != "рекурсия":
+								write_to_local_graph_json(output_list_words)
+								print_to_xdot()
 							global_output += " "
 							global_output += output
 
@@ -82,25 +83,30 @@ def save_new_nodes(input_list_words):
 			with open("json/local/" + word + ".json", 'w') as outfile:
 				json.dump(defenition, outfile, ensure_ascii=False)
 
-
-if __name__ == "__main__":
-
+def clear_local_graph():
 	f = open('graphs/local_graph.json', 'w')
-	# f = open('graphs/local_graph.dot', 'w')
+
+	with open('graphs/local_graph.dot', 'w') as f:
+		f.write("strict graph G {\n")
+		f.write("}\n")
 	f.close()
 
 	f = open('output.json', 'w')
 	f.close()
 
+
+if __name__ == "__main__":
+
+	clear_local_graph()
+
 	while 1:
 
 		input_list_words = get_input_words()
 
-		write_to_local_graph_json(input_list_words)
-
-		print_to_xdot()
-
-		save_new_nodes(input_list_words)
+		if "рекурсия" not in input_list_words:
+			write_to_local_graph_json(input_list_words)
+			print_to_xdot()
+			save_new_nodes(input_list_words)
 
 		output = run_nodes(input_list_words)
 

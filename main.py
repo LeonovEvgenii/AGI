@@ -103,9 +103,9 @@ def open_graph(path):
 
 	data_json = []
 	for line in lines:
-		match = re.findall(r'"(.*)".{0,}->.{0,}"(.*)";{0,}', line)
+		match = re.findall(r'"(.*)".{0,}(->|--).{0,}"(.*)";{0,}', line)
 		if match != []:
-			tmp = [match[0][0], match[0][1]]
+			tmp = [match[0][0], match[0][2]]
 			data_json.append(tmp)
 
 	with open("graphs/local_graph.json", 'w') as json_file:

@@ -1,7 +1,8 @@
-from class_node import Node
+# from class_node import Node
 import os
 import subprocess
 import json
+import re
 
 from util.functions import write_to_local_graph_json, print_to_xdot
 
@@ -94,10 +95,34 @@ def clear_local_graph():
 	f = open('output.json', 'w')
 	f.close()
 
+def open_graph(path):
+	lines = None
+	with open(path, "r") as original_file:
+		lines = original_file.readlines()
+	original_file.close()
+
+	data_json = []
+	for line in lines:
+		match = re.findall(r'"(.*)".{0,}->.{0,}"(.*)";{0,}', line)
+		if match != []:
+			tmp = [match[0][0], match[0][1]]
+			data_json.append(tmp)
+
+	with open("graphs/local_graph.json", 'w') as json_file:
+		json.dump(data_json, json_file, ensure_ascii=False)
+	json_file.close()
+
+	with open('graphs/local_graph.dot', 'w') as write_file_graph:
+		for line in lines:
+			write_file_graph.write(line)
+	write_file_graph.close()
+
 
 if __name__ == "__main__":
 
 	clear_local_graph()
+
+	# open_graph("graphs/kolobok.dot")
 
 	while 1:
 

@@ -75,6 +75,8 @@ def run_nodes(input_list_words):
 							global_output += " "
 							global_output += output
 
+	global_output = global_output.strip()
+
 	return global_output
 
 
@@ -155,10 +157,17 @@ def run_dialog(path):
 		output = run_nodes(input_list_words)
 
 		if pair[1] != output:
-			print(str(pair[1])+" не соответсвует "+str(output))
+			print("\nожидаемый ответ < " + str(pair[1]) + " > не соответсвует полученному < " + str(output) + " >\n")
+			print("перываю выполнение")
+			return
+		else:
+			print("Ввод: "+pair[0])
+			print("Вывод: "+pair[1])
 
 		f = open('output.json', 'w')
 		f.close()
+
+	print("\nдиалог выполнился")
 		
 
 if __name__ == "__main__":
@@ -167,8 +176,9 @@ if __name__ == "__main__":
 
 	# open_graph("graphs/kolobok.dot")
 
-	run_dialog("dialogs/second.txt")
-	exit(0)
+	# run_dialog("dialogs/second.txt")
+	# run_dialog("dialogs/recursion.txt")
+	# exit(0)
 
 	while 1:
 

@@ -8,6 +8,20 @@ from util.functions import write_to_local_graph_json, print_to_xdot
 
 path_json = os.getcwd() + "/json/local/"
 
+def proseccing_input_words(input_str):
+	input_str = input_str.lower()
+
+	punctuation = '!"#$%&\'()*,-/;<=>@[\\]^`{|}~'
+	for p in punctuation:
+		if p in input_str:
+			input_str = input_str.replace(p, '')
+
+	input_list_words = input_str.split(" ")
+	
+	input_list_words = [ i for i in input_list_words if i]
+
+	return input_list_words
+
 def get_input_words():
 
 	while 1:
@@ -16,16 +30,7 @@ def get_input_words():
 			print("Введена пустая строка")
 			continue
 
-		input_str = input_str.lower()
-
-		punctuation = '!"#$%&\'()*,-/;<=>@[\\]^`{|}~'
-		for p in punctuation:
-			if p in input_str:
-				input_str = input_str.replace(p, '')
-
-		input_list_words = input_str.split(" ")
-		
-		input_list_words = [ i for i in input_list_words if i]
+		input_list_words = proseccing_input_words(input_str)
 
 		if input_list_words:
 			return input_list_words
@@ -117,12 +122,53 @@ def open_graph(path):
 			write_file_graph.write(line)
 	write_file_graph.close()
 
+def run_dialog(path):
+	lines = None
+	with open(path, "r") as dialog_file:
+		lines = dialog_file.readlines()
+	dialog_file.close()
+
+	inputs = []
+	outputs = []
+
+	pair = []
+	pairs = []
+
+	for line in lines:
+		if "Ввод: " in line:
+			strip = line[6:-1]
+			pair.append(strip)
+		if "Вывод: " in line:
+			strip = line[7:-1]
+			pair.append(strip)
+			pairs.append(pair)
+			pair = []
+
+	for pair in pairs:
+		input_list_words = proseccing_input_words(pair[0])
+
+		if "рекурсия" not in input_list_words:
+			write_to_local_graph_json(input_list_words)
+			print_to_xdot()
+			save_new_nodes(input_list_words)
+
+		output = run_nodes(input_list_words)
+
+		if pair[1] != output:
+			print(str(pair[1])+" не соответсвует "+str(output))
+
+		f = open('output.json', 'w')
+		f.close()
+		
 
 if __name__ == "__main__":
 
 	clear_local_graph()
 
 	# open_graph("graphs/kolobok.dot")
+
+	run_dialog("dialogs/second.txt")
+	exit(0)
 
 	while 1:
 

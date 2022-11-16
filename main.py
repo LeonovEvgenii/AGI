@@ -167,8 +167,17 @@ def run_dialog(path):
 		f = open('output.json', 'w')
 		f.close()
 
-	print("\nдиалог выполнился")
+	print("\nдиалог выполнился\n")
 		
+
+def all_tests():
+
+	test_files = os.listdir("dialogs/")
+
+	for file in test_files:
+		run_dialog("dialogs/" + file)
+		clear_local_graph()
+
 
 if __name__ == "__main__":
 
@@ -178,6 +187,9 @@ if __name__ == "__main__":
 
 	# run_dialog("dialogs/second.txt")
 	# run_dialog("dialogs/recursion.txt")
+	# exit(0)
+
+	# all_tests()
 	# exit(0)
 
 	while 1:

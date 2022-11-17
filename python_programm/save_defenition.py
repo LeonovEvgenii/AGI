@@ -3,7 +3,7 @@ import json
 import os
 
 sys.path.append(os.getcwd())
-from util.functions import write_to_local_graph_json, print_to_xdot
+from util.functions import write_to_local_graph_json, print_to_xdot_local
 
 
 defenition = {}
@@ -22,4 +22,4 @@ output["необходимость_дальнейшего_выполнения"]
 with open("output.json", 'w') as outfile:
     json.dump(output, outfile, ensure_ascii=False)
 
-print_to_xdot()
+print_to_xdot_local()

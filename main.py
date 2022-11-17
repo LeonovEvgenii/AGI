@@ -4,7 +4,7 @@ import subprocess
 import json
 import re
 
-from util.functions import write_to_local_graph_json, print_to_xdot
+from util.functions import write_to_local_graph_json, print_to_xdot_local
 
 path_json = os.getcwd() + "/json/local/"
 
@@ -71,7 +71,7 @@ def run_nodes(input_list_words):
 							save_new_nodes(output_list_words)
 							if word != "рекурсия":
 								write_to_local_graph_json(output_list_words)
-								print_to_xdot()
+								print_to_xdot_local()
 							global_output += " "
 							global_output += output
 
@@ -151,7 +151,7 @@ def run_dialog(path):
 
 		if "рекурсия" not in input_list_words:
 			write_to_local_graph_json(input_list_words)
-			print_to_xdot()
+			print_to_xdot_local()
 			save_new_nodes(input_list_words)
 
 		output = run_nodes(input_list_words)
@@ -181,7 +181,7 @@ def all_tests():
 
 if __name__ == "__main__":
 
-	clear_local_graph()
+	# clear_local_graph()
 
 	# open_graph("graphs/kolobok.dot")
 
@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 		if "рекурсия" not in input_list_words:
 			write_to_local_graph_json(input_list_words)
-			print_to_xdot()
+			print_to_xdot_local()
 			save_new_nodes(input_list_words)
 
 		output = run_nodes(input_list_words)

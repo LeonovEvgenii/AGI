@@ -102,6 +102,12 @@ def clear_local_graph():
 	f = open('output.json', 'w')
 	f.close()
 
+	path_json = os.getcwd() + "/json/local/"
+	local_files = os.listdir(path_json)
+	if local_files:
+		os.system("rm " + path_json + "*")
+
+
 def open_graph(path):
 	lines = None
 	with open(path, "r") as original_file:
@@ -181,7 +187,7 @@ def all_tests():
 
 if __name__ == "__main__":
 
-	# clear_local_graph()
+	clear_local_graph()
 
 	# open_graph("graphs/kolobok.dot")
 

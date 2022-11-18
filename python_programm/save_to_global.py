@@ -1,27 +1,33 @@
 import os
 import json
 import shutil
+import sys
 
-from functions_temp import print_to_xdot_global
+sys.path.append(os.getcwd())
+from util.functions import print_to_xdot_global
+
 
 path_to_local = os.getcwd() + "/json/local/"
 path_to_global = os.getcwd() + "/json/global/"
 
+# копирование файлов слов .json
 files_local = os.listdir(path_to_local)
 files_global = os.listdir(path_to_global)
 
-# for file in files_local:
-#     if file not in files_global:
-#         shutil.copyfile(path_to_local + file, path_to_global + file)
-#     else:
-#         pass
-#         # добавить пометку о противоречии определений
+for file in files_local:
+    if file not in files_global:
+        shutil.copyfile(path_to_local + file, path_to_global + file)
+    else:
+        pass
+        # добавить пометку о противоречии определений
+        # дополнить поля когда будет уточнение определений
 
+
+# копирование связей .json
 local_pairs = None
 with open(os.getcwd() + "/graphs/local_graph.json") as local_graph_file:
     local_pairs = json.load(local_graph_file)
     local_graph_file.close()
-
 
 with open(os.getcwd() + "/graphs/global_graph.json", 'w') as global_graph_file:
 
@@ -37,15 +43,8 @@ with open(os.getcwd() + "/graphs/global_graph.json", 'w') as global_graph_file:
     json.dump(global_pairs, global_graph_file, ensure_ascii=False)
     global_graph_file.close()
 
+# перерисовка
 print_to_xdot_global()
-
-# local_graph.json скопировать в global_graph.json
-
-# проверять если слова нет, то добавлять
-# если слово есть, то доплнить поля (сделаю но не сразу, а когда будет уточнение определений)
-
-# если есть связь со служебным словом, то не добавлять ее
-# xdot глобальный перересовать
 
 
 

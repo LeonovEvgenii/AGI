@@ -1,5 +1,5 @@
 __pycache__
 output.json
-json/local/*
+json/local/
 graphs/local_graph.json
 graphs/local_graph.dot

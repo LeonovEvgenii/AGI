@@ -204,8 +204,8 @@ if __name__ == "__main__":
 
 	# open_graph("graphs/kolobok.dot")
 
-	run_dialog("dialogs/second.txt")
-	# run_dialog("dialogs/recursion.txt")
+	# run_dialog("dialogs/second.txt")
+	run_dialog("dialogs/recursion.txt")
 	# exit(0)
 
 	# all_tests()

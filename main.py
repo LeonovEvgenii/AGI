@@ -4,7 +4,7 @@ import subprocess
 import json
 import re
 
-from util.functions import write_to_local_graph_json, print_to_xdot_local
+from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/json/global/"
@@ -99,29 +99,6 @@ def save_new_nodes(input_list_words):
 				json.dump(defenition, outfile, ensure_ascii=False)
 
 
-def clear_local_graph():
-
-	print("\nочищаю локальный граф\n")
-
-	f = open('graphs/local_graph.json', 'w')
-
-	with open('graphs/local_graph.dot', 'w') as f:
-		f.write("strict graph G {\n")
-		f.write("}\n")
-	f.close()
-
-	f = open('output.json', 'w')
-	f.close()
-
-	try:
-		local_files = os.listdir(path_json_local)
-	except FileNotFoundError:
-		return
-
-	if local_files:
-		os.system("rm " + path_json_local + "*")
-
-
 def open_graph(path):
 	lines = None
 	with open(path, "r") as original_file:
@@ -204,8 +181,8 @@ if __name__ == "__main__":
 
 	# open_graph("graphs/kolobok.dot")
 
-	# run_dialog("dialogs/second.txt")
-	run_dialog("dialogs/recursion.txt")
+	run_dialog("dialogs/second.txt")
+	# run_dialog("dialogs/recursion.txt")
 	# exit(0)
 
 	# all_tests()
@@ -222,10 +199,7 @@ if __name__ == "__main__":
 			print_to_xdot_local()
 			save_new_nodes(input_list_words)
 
-
 		print("Вывод:", output)
-
-
 
 		f = open('output.json', 'w')
 		f.close()

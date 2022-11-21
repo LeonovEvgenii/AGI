@@ -1,6 +1,8 @@
 import os
 import json
 
+path_json_local = os.getcwd() + "/json/local/"
+
 def write_to_local_graph_json(input_list_words):
 
 	# сейчас образуются пары слов
@@ -70,3 +72,26 @@ def print_to_xdot_global():
 			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
 
 		f.write("}\n")
+
+
+def clear_local_graph():
+
+	print("\nочищаю локальный граф\n")
+
+	f = open('graphs/local_graph.json', 'w')
+
+	with open('graphs/local_graph.dot', 'w') as f:
+		f.write("strict graph G {\n")
+		f.write("}\n")
+	f.close()
+
+	f = open('output.json', 'w')
+	f.close()
+
+	try:
+		local_files = os.listdir(path_json_local)
+	except FileNotFoundError:
+		return
+
+	if local_files:
+		os.system("rm " + path_json_local + "*")

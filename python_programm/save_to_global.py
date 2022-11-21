@@ -44,12 +44,14 @@ with open(os.getcwd() + "/graphs/local_graph.json") as local_graph_file:
     local_pairs = json.load(local_graph_file)
     local_graph_file.close()
 
-with open(os.getcwd() + "/graphs/global_graph.json", 'w') as global_graph_file:
-    # global_pairs = json.load(global_graph_file)
+global_graph_file = open(os.getcwd() + "/graphs/global_graph.json")
+global_pairs = json.load(global_graph_file)
+global_graph_file.close()
 
+with open(os.getcwd() + "/graphs/global_graph.json", "w") as global_graph_file:
     meta_words = ["выведи_определение", "выполни_с_параметрами", "на_что_похоже", "привяжи_к _питону", "рекурсия", "сохрани_в_глобальный", "сохрани_определение", "сохрани_узлы"]
 
-    global_pairs = []
+    # global_pairs = []
     for pair in local_pairs:
         if pair[0] in meta_words or pair[1] in meta_words:
             continue

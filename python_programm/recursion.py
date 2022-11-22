@@ -18,10 +18,12 @@ def recursion(goal_word, depth, exception_list):
         data = json.load(file_graph)
 
         for pair in data:
-
-            if goal_word in pair and pair[0] not in exception_list and pair[1] not in exception_list:
-                pair.remove(goal_word)
-                neighbors_list.append(pair[0])
+            if len(pair) == 2:
+                if goal_word in pair and pair[0] not in exception_list and pair[1] not in exception_list:
+                    pair.remove(goal_word)
+                    neighbors_list.append(pair[0])
+            else:
+                continue
 
     exception_list.append(goal_word)
 

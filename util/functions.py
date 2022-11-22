@@ -18,6 +18,8 @@ def write_to_local_graph_json(input_list_words):
 			input_pair.append(input_list_words[index + 1])
 			input_pairs.append(input_pair)
 		except IndexError:
+			if len(input_list_words) == 1:
+				input_pairs.append(input_pair)
 			break
 
 	# добавить сортировку input_pairs
@@ -28,10 +30,17 @@ def write_to_local_graph_json(input_list_words):
 			save_pairs = json.load(json_file)
 
 			for input_pair in input_pairs:
-				if input_pair in save_pairs or [input_pair[1], input_pair[0]] in save_pairs:
-					continue
+				if len(input_pair) == 2:
+					if input_pair in save_pairs or [input_pair[1], input_pair[0]] in save_pairs:
+						continue
+					else:
+						save_pairs.append(input_pair)
 				else:
-					save_pairs.append(input_pair)
+					if input_pair in save_pairs:
+						continue
+					else:
+						save_pairs.append(input_pair)
+
 
 		with open("graphs/local_graph.json", 'w') as outfile:
 			json.dump(save_pairs, outfile, ensure_ascii=False)
@@ -54,7 +63,10 @@ def print_to_xdot_local():
 		f.write("strict graph G {\n")
 
 		for save_pair in save_pairs:
-			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
+			if len(save_pair) == 2: 
+				f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
+			else:
+				f.write('"' + save_pair[0] + '"\n')
 
 		f.write("}\n")
 

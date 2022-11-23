@@ -23,6 +23,7 @@ def proseccing_input_words(input_str):
 
 	return input_list_words
 
+
 def get_input_words():
 
 	while 1:
@@ -121,6 +122,7 @@ def open_graph(path):
 			write_file_graph.write(line)
 	write_file_graph.close()
 
+
 def run_dialog(path):
 	lines = None
 	with open(path, "r") as dialog_file:
@@ -181,8 +183,9 @@ if __name__ == "__main__":
 
 	# open_graph("graphs/kolobok.dot")
 
-	# run_dialog("dialogs/second.txt")
 	# run_dialog("dialogs/recursion.txt")
+	# run_dialog("dialogs/second.txt")
+	# run_dialog("dialogs/year.txt")
 	# exit(0)
 
 	# all_tests()

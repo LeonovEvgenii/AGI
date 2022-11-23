@@ -4,7 +4,7 @@ import sys
 
 search_words = sys.argv[1:]
 
-with open(os.getcwd() + "/graphs/local_graph.json") as json_file:
+with open(os.getcwd() + "/graphs/global_graph.json") as json_file:
     save_pairs = json.load(json_file)
 
     sets = []

@@ -6,24 +6,34 @@ import sys
 sys.path.append(os.getcwd())
 from util.functions import print_to_xdot_local
 
+del_word = sys.argv[1]
 
 with open(os.getcwd() + "/graphs/local_graph.json") as local_graph_file:
     local_pairs = json.load(local_graph_file)
     local_graph_file.close()
 
 
-with open(os.getcwd() + "/graphs/local_graph.json", "w") as global_graph_file:
+with open(os.getcwd() + "/graphs/local_graph.json", "w") as local_graph_file:
+    copy_pairs = local_pairs.copy()
     for pair in local_pairs:
-        if sys.argv[1] in pair:
-            local_pairs.remove(pair)
+        if del_word in pair:
+            copy_pairs.remove(pair)
 
-    json.dump(local_pairs, global_graph_file, ensure_ascii=False)
-    global_graph_file.close()
+    json.dump(copy_pairs, local_graph_file, ensure_ascii=False)
+    local_graph_file.close()
+
+
+try:
+    path_del_file = os.listdir(os.getcwd() + "/json/local/" + del_word + ".json")
+    print(path_del_file)
+    # shutil.rmtree()
+    # os.remove(os.listdir(os.getcwd() + "/json/local/" + del_word + ".json"))
+except FileNotFoundError:
+    pass
+
 
 # перерисовка
 print_to_xdot_local()
-
-
 
 
 

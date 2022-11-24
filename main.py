@@ -197,7 +197,14 @@ if __name__ == "__main__":
 
 		output = run_nodes(input_list_words)
 
-		if "рекурсия" not in input_list_words:
+		stop_words = ["рекурсия", "удали_из_локального"]
+
+		flag_print = True
+		for word in input_list_words:
+			if word in stop_words:
+				flag_print = False
+
+		if flag_print:
 			write_to_local_graph_json(input_list_words)
 			print_to_xdot_local()
 			save_new_nodes(input_list_words)

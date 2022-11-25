@@ -98,6 +98,7 @@ def save_new_nodes(input_list_words):
 			defenition['name'] = word
 			with open("json/local/" + word + ".json", 'w') as outfile:
 				json.dump(defenition, outfile, ensure_ascii=False)
+			outfile.close()
 
 
 def open_graph(path):

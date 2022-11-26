@@ -39,27 +39,28 @@ for file in files_local:
 
 
 # копирование связей .json
-local_pairs = None
+json_local = None
 with open(os.getcwd() + "/graphs/local_graph.json") as local_graph_file:
-    local_pairs = json.load(local_graph_file)
+    json_local = json.load(local_graph_file)
     local_graph_file.close()
 
 global_graph_file = open(os.getcwd() + "/graphs/global_graph.json")
-global_pairs = json.load(global_graph_file)
+json_global = json.load(global_graph_file)
 global_graph_file.close()
 
 with open(os.getcwd() + "/graphs/global_graph.json", "w") as global_graph_file:
     meta_words = ["очисти_граф", "очищаю", "локальный", "граф", "выведи_определение", "выполни_с_параметрами", "на_что_похоже", "привяжи_к _питону", "рекурсия", "сохрани_в_глобальный", "сохрани_определение", "сохрани_узлы"]
 
-    # global_pairs = []
-    for pair in local_pairs:
+    json_global['nodes'] = list(set((json_global['nodes'] + json_local['nodes'])))
+
+    for pair in json_local['links']:
         if pair[0] in meta_words or pair[1] in meta_words:
             continue
         else:
-            if pair not in global_pairs:
-                global_pairs.append(pair)
+            if pair not in json_global['links']:
+                json_global['links'].append(pair)
 
-    json.dump(global_pairs, global_graph_file, ensure_ascii=False)
+    json.dump(json_global, global_graph_file, ensure_ascii=False)
     global_graph_file.close()
 
 # перерисовка

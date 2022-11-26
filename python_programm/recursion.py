@@ -17,7 +17,7 @@ def recursion(goal_word, depth, exception_list):
     with open("graphs/local_graph.json") as file_graph:
         data = json.load(file_graph)
 
-        for pair in data:
+        for pair in data['links']:
             if len(pair) == 2:
                 if goal_word in pair and pair[0] not in exception_list and pair[1] not in exception_list:
                     pair.remove(goal_word)

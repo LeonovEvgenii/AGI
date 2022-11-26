@@ -4,15 +4,15 @@ import sys
 
 search_words = sys.argv[1:]
 
-with open(os.getcwd() + "/graphs/global_graph.json") as json_file:
-    save_pairs = json.load(json_file)
+with open(os.getcwd() + "/graphs/local_graph.json") as json_file:
+    input_json = json.load(json_file)
 
     sets = []
 
     # сужаем поиск
     for word in search_words:
         words_in_pair = set()
-        for pair in save_pairs:
+        for pair in input_json['links']:
             if word in pair:
                 pair.remove(word)
                 if pair:

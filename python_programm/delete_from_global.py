@@ -30,3 +30,8 @@ except FileNotFoundError:
 
 # перерисовка
 print_to_xdot_global()
+
+output = {}
+output["файл_удален"] = True
+with open("output.json", 'w') as outfile:
+    json.dump(output, outfile, ensure_ascii=False)

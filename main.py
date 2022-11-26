@@ -58,11 +58,14 @@ def run_nodes(input_list_words):
 
 		for file in list_all_json_files:
 			if word == file[:-5]:
-				try:
-					json_file = open(path_json_global + file)
-				except FileNotFoundError:
-					json_file = open(path_json_local + file)
 
+				if file in list_globa_json_files:
+					json_file = open(path_json_global + file)
+				elif file in list_local_json_files:
+					json_file = open(path_json_local + file)
+				else:
+					continue
+					
 				data = json.load(json_file)
 
 				# если нет питона то не выполняем, а так все слова в предложении выполняются
@@ -71,6 +74,20 @@ def run_nodes(input_list_words):
 					list_without_run_word.remove(word)
 
 					output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
+
+					# проверка, если удалялись файлы, актуализировать из список
+					if os.stat(os.getcwd() + "/output.json").st_size != 0:
+						# не пустой файл
+						with open(os.getcwd() + "/output.json") as json_file:
+							data = json.load(json_file)
+
+							if "файл_удален" in data:
+								if data["файл_удален"] == True:
+									list_local_json_files = os.listdir(path_json_local)
+									list_globa_json_files = os.listdir(path_json_global)
+									list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+									continue
+							json_file.close()
 
 					if output:
 						output = output.replace("\n", "")

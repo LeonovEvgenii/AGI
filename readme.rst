@@ -68,6 +68,13 @@
 ------
 
 sudo apt install xdot
+xdot
+
+Средство для просмотра rst
+------
+
+pip install ReText
+retext
 
 Запуск
 ------

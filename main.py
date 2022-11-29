@@ -4,7 +4,7 @@ import subprocess
 import json
 import re
 
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph
+from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/json/global/"
@@ -105,17 +105,6 @@ def run_nodes(input_list_words):
 
 	return global_output
 
-
-def save_new_nodes(input_list_words):
-
-	files = os.listdir(path_json_local)
-	for word in input_list_words:
-		if not word + ".json" in files:
-			defenition = {}
-			defenition['name'] = word
-			with open("json/local/" + word + ".json", 'w') as outfile:
-				json.dump(defenition, outfile, ensure_ascii=False)
-			outfile.close()
 
 
 def open_graph(path):

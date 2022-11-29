@@ -122,3 +122,15 @@ def clear_local_graph():
 
 	if local_files:
 		os.system("rm " + path_json_local + "*")
+
+
+def save_new_nodes(input_list_words):
+
+	files = os.listdir(path_json_local)
+	for word in input_list_words:
+		if not word + ".json" in files:
+			defenition = {}
+			defenition['name'] = word
+			with open("json/local/" + word + ".json", 'w') as outfile:
+				json.dump(defenition, outfile, ensure_ascii=False)
+			outfile.close()

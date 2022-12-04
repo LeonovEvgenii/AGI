@@ -30,12 +30,15 @@ def search(input_json, search_words):
 
 
 search_words = sys.argv[1:]
+str_print = ""
 
-local_file =  open(os.getcwd() + "/graphs/local_graph.json")
-local_json = json.load(local_file)
-local_file.close()
+if os.stat(os.getcwd() + "/output.json").st_size != 0:
+    local_file =  open(os.getcwd() + "/graphs/local_graph.json")
+    local_json = json.load(local_file)
+    local_file.close()
 
-str_print = search(local_json, search_words)
+    str_print = search(local_json, search_words)
+    
 
 if str_print == "":
     global_file =  open(os.getcwd() + "/graphs/global_graph.json")

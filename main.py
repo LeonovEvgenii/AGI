@@ -193,6 +193,7 @@ if __name__ == "__main__":
 	# run_dialog("dialogs/recursion.txt")
 	# run_dialog("dialogs/second.txt")
 	# run_dialog("dialogs/year.txt")
+	# run_dialog("dialogs/history.txt") # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
 	# exit(0)
 
 	# all_tests()

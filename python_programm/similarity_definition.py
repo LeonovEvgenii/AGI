@@ -2,11 +2,7 @@ import json
 import os
 import sys
 
-search_words = sys.argv[1:]
-
-with open(os.getcwd() + "/graphs/global_graph.json") as json_file:
-    input_json = json.load(json_file)
-
+def search(input_json, search_words):
     sets = []
 
     # сужаем поиск
@@ -29,7 +25,26 @@ with open(os.getcwd() + "/graphs/global_graph.json") as json_file:
 
     # так выводится множество
     out_list = list(rez_set)
-    print(" ".join(out_list))
+    out_str = " ".join(out_list)
+    return out_str
+
+
+search_words = sys.argv[1:]
+
+local_file =  open(os.getcwd() + "/graphs/local_graph.json")
+local_json = json.load(local_file)
+local_file.close()
+
+str_print = search(local_json, search_words)
+
+if str_print == "":
+    global_file =  open(os.getcwd() + "/graphs/global_graph.json")
+    global_json = json.load(global_file)
+    global_file.close()
+
+    str_print = search(global_json, search_words)
+
+print(str_print)
 
 output = {}
 output["необходимость_дальнейшего_выполнения"] = False

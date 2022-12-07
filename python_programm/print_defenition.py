@@ -26,9 +26,9 @@ for file in json_files:
         with open(path_json + file) as json_file:
             data = json.load(json_file)
 
-            definition = data['definition'].copy()
+            definition = data['definitions'].copy()
 
-            output_str = " ".join(definition)
+            output_str = " ".join(definition[0])
             break
 
 

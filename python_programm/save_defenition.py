@@ -8,10 +8,10 @@ from util.functions import write_to_local_graph_json, print_to_xdot_local
 
 defenition = {}
 defenition['name'] = sys.argv[1]
-defenition['definitions'] = sys.argv[2:]
+defenition['definitions'] = [sys.argv[2:]]
 
 # создание связей слова которое определяется с каждым словом входящим в его состав
-for node in defenition['definitions']:
+for node in defenition['definitions'][0]:
     write_to_local_graph_json([defenition['name'], node])
 
 
@@ -22,7 +22,7 @@ if os.path.exists(path_to_file):
     file.close()
 
     if "definitions" in json_file:
-        json_file["definitions"].append(defenition['definitions'])
+        json_file["definitions"].append(defenition['definitions'][0])
 
     with open(path_to_file, 'w') as outfile:
         json.dump(json_file, outfile, ensure_ascii=False)

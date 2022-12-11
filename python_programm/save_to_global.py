@@ -19,23 +19,33 @@ for file in files_local:
         shutil.copyfile(path_to_local + file, path_to_global + file)
     else:
         
-        # # дополнить поля когда будет уточнение определений
+        local_file = open(path_to_local + file)
+        global_file = open(path_to_global + file)
 
-        # local_file = open(path_to_local + file)
-        # global_file = open(path_to_global + file)
+        data_local = json.load(local_file)
+        data_global = json.load(global_file)
 
-        # data_local = json.load(local_file)
-        # data_global = json.load(global_file)
+        if "definitions" not in data_local and "definitions" not in data_global:
+            continue
 
-        # if "file" in data_local:
-        #     shutil.copyfile(path_to_local + file, path_to_global + file)
-        # else:
-        #     print("локальное слово больше глоабального", str(file))
+        if "definitions" in data_local and "definitions" not in data_global:
+            shutil.copyfile(path_to_local + file, path_to_global + file)
+            continue
+            
+        if "definitions" in data_local and "definitions" in data_global:
+            for definition in data_local["definitions"]:
+                if definition not in data_global["definitions"]:
+                    data_global["definitions"].append(definition)
+
+            local_file.close()
+            global_file.close()
+
+            with open(path_to_global + file, "w") as global_file:
+                json.dump(data_global, global_file, ensure_ascii=False)
+
         
-        # local_file.close()
-        # global_file.close()
 
-        pass
+
 
 
 # копирование связей .json

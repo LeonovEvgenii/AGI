@@ -12,7 +12,7 @@ path_json_global = os.getcwd() + "/json/global/"
 def proseccing_input_words(input_str):
 	input_str = input_str.lower()
 
-	punctuation = '!"#$%&\'()*,-/;<=>@[\\]^`{|}~'
+	punctuation = '!"#$%&\'()*,;@[\\]^`{|}~'
 	for p in punctuation:
 		if p in input_str:
 			input_str = input_str.replace(p, '')

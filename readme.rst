@@ -78,12 +78,14 @@
 ------
 
 sudo apt install xdot
+
 xdot
 
 Средство для просмотра rst
 ------
 
 pip install ReText
+
 retext
 
 Запуск
@@ -92,6 +94,19 @@ retext
 Команда в терминале linux:
 
 python3 main.py
+
+Установка на windows
+------
+
+https://www.python.org/downloads/windows/
+https://code.visualstudio.com/Download
+winget install --id Git.Git -e --source winget
+перезагрузить cmd
+cd C:\
+mkdir git
+cd git
+git clone https://github.com/LeonovEvgenii/AGI.git
+cd AGI
 
 Дополнительная документация
 ---------------------------

@@ -2,12 +2,14 @@ import random
 
 # in_str = "00010000100000100000100010"
 # in_str = "00010000100000100000100010"
-in_str = "00011000010000010011000100010"
+# in_str = "00011000010000010011000100010"
 
-# for i in range(1000):
-#     in_str += str(random.randint(0,1))
+in_str = ""
 
-# print(in_str)
+for i in range(1000):
+    in_str += str(random.randint(0,1))
+
+print(in_str)
 
 # for n in range(1,6):
 #     template = "1"*n
@@ -27,18 +29,19 @@ in_str = "00011000010000010011000100010"
 #     if telpate in in_str[i:i+len_templ]:
 #         print(i)
 
-len_window = 3
+for len_window in range(2,5):
 
-templates = []
+    templates = []
 
-for i, val in enumerate(in_str):
-    current_window = in_str[i:i+len_window]
-    
-    if len(current_window) < len_window:
-        break
+    for i, val in enumerate(in_str):
+        current_window = in_str[i:i+len_window]
+        
+        if len(current_window) < len_window:
+            break
 
-    if current_window not in templates:
-        templates.append(current_window)
+        if current_window not in templates:
+            templates.append(current_window)
 
+    templates.sort()
 
-print(templates)
+    print(templates)

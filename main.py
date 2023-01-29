@@ -4,40 +4,13 @@ import subprocess
 import json
 import re
 
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes
+# это не все существующие функции и приходится импортировать только избранные
+from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_words, proseccing_input_words
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/json/global/"
 
-def proseccing_input_words(input_str):
-	input_str = input_str.lower()
 
-	punctuation = '!"#$%&\'()*,;@[\\]^`{|}~'
-	for p in punctuation:
-		if p in input_str:
-			input_str = input_str.replace(p, '')
-
-	input_list_words = input_str.split(" ")
-	
-	input_list_words = [ i for i in input_list_words if i]
-
-	return input_list_words
-
-
-def get_input_words():
-
-	while 1:
-		input_str = input("Ввод: ")
-		if input_str == "":
-			print("Введена пустая строка")
-			continue
-
-		input_list_words = proseccing_input_words(input_str)
-
-		if input_list_words:
-			return input_list_words
-		else:
-			print("Строка не содержит ни одного ключевого слова")
 
 
 def run_nodes(input_list_words):
@@ -191,7 +164,7 @@ if __name__ == "__main__":
 	# open_graph("graphs/kolobok.dot")
 
 	# run_dialog("dialogs/recursion.txt")
-	# run_dialog("dialogs/second.txt")
+	run_dialog("dialogs/second.txt")
 	# run_dialog("dialogs/year.txt")
 	# run_dialog("dialogs/history.txt") # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
 	# exit(0)

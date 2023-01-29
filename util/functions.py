@@ -1,7 +1,45 @@
 import os
 import json
+import time
 
 path_json_local = os.getcwd() + "/json/local/"
+
+def proseccing_input_words(input_str):
+	input_str = input_str.lower()
+
+	punctuation = '!"#$%&\'()*,;@[\\]^`{|}~'
+	for p in punctuation:
+		if p in input_str:
+			input_str = input_str.replace(p, '')
+
+	input_list_words = input_str.split(" ")
+	
+	input_list_words = [ i for i in input_list_words if i ]
+	
+	second = int(time.time())
+
+	divider = 1 / len(input_list_words)
+
+	input_list_words = [ word + "$" + str(second + divider * i) for i, word in enumerate(input_list_words) ]
+
+	return input_list_words
+
+
+def get_input_words():
+
+	while 1:
+		input_str = input("Ввод: ")
+		if input_str == "":
+			print("Введена пустая строка")
+			continue
+
+		input_list_words = proseccing_input_words(input_str)
+
+		if input_list_words:
+			return input_list_words
+		else:
+			print("Строка не содержит ни одного ключевого слова")
+
 
 def write_to_local_graph_json(input_list_words):
 
@@ -23,7 +61,8 @@ def write_to_local_graph_json(input_list_words):
 				input_pairs.append(input_pair)
 			break
 
-	# добавить сортировку input_pairs
+	# добавить сортировку input_pairs # зачем?
+	# зачем я в файле графа в json в ключе links пишу ноды, у которых нет связей?
 
 	# добавление новых пар в список уже существующих
 	if os.stat("graphs/local_graph.json").st_size != 0:
@@ -82,6 +121,7 @@ def print_to_xdot_local():
 
 		f.write("}\n")
 
+
 def print_to_xdot_global():
 
 	input_json = None
@@ -128,9 +168,28 @@ def save_new_nodes(input_list_words):
 
 	files = os.listdir(path_json_local)
 	for word in input_list_words:
-		if not word + ".json" in files:
+		word_class = word[:word.rfind("$")]
+
+		word_instance = word[word.rfind("$"):]
+
+		path_file_class = "json/local/" + word_class + ".json"
+
+		if not word_class + ".json" in files:
 			defenition = {}
-			defenition['name'] = word
-			with open("json/local/" + word + ".json", 'w') as outfile:
+			defenition['name'] = word_class
+			defenition['instances'] = []
+			defenition['instances'].append(word_instance)
+			with open(path_file_class, 'w') as outfile:
 				json.dump(defenition, outfile, ensure_ascii=False)
 			outfile.close()
+		else:
+
+			defenition = None
+			with open(path_file_class) as json_file:
+				defenition = json.load(json_file)
+
+			defenition["instances"].append(word_instance)
+
+			file_name = path_file_class
+			with open(file_name, 'w') as json_file:
+				json.dump(defenition, json_file, ensure_ascii=False)

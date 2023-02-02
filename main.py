@@ -30,7 +30,10 @@ def run_nodes(input_list_words):
 	for i, word in enumerate(input_list_words):
 
 		for file in list_all_json_files:
-			if word == file[:-5]:
+
+			word_class = word[:word.rfind("$")]
+
+			if word_class == file[:-5]:
 
 				if file in list_globa_json_files:
 					json_file = open(path_json_global + file)
@@ -64,10 +67,10 @@ def run_nodes(input_list_words):
 
 					if output:
 						output = output.replace("\n", "")
-						output_list_words = [word]
+						output_list_words = [word_class] # !!!  экземпляр скорей всеого придется по новому делать. Раньше класс делался.
 						output_list_words += output.split(" ")
 						save_new_nodes(output_list_words)
-						if word != "рекурсия":
+						if word_class != "рекурсия":
 							write_to_local_graph_json(output_list_words)
 							print_to_xdot_local()
 						global_output += " "

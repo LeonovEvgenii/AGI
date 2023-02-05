@@ -912,3 +912,6 @@ https://neo4j.com/developer/example-project/
 https://github.com/orgs/neo4j-examples/repositories?q=python&type=all&language=&sort=
 тоже не разбирал
 
+https://neo4j.com/docs/operations-manual/current/installation/linux/debian/#debian-installation
+
+https://neo4j.com/docs/operations-manual/current/installation/linux/

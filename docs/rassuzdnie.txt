@@ -894,3 +894,21 @@ https://sofakingcode.medium.com/экскурс-в-графовая-базу-да
 поискать по запросу
 neo4j python example
 
+--------------
+
+https://console.neo4j.io/?product=aura-db
+зашел под гугловским аккаунтом
+
+https://neo4j.com/download/
+локальные версии не скачиваются
+
+https://neo4j.com/developer/python/
+официаальная страничка
+первый пример с ошибкой выполняется
+
+https://neo4j.com/developer/example-project/
+не разбирал
+
+https://github.com/orgs/neo4j-examples/repositories?q=python&type=all&language=&sort=
+тоже не разбирал
+

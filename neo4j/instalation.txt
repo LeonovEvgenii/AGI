@@ -1,5 +1,5 @@
 pip install neo4j
-pip3 install neo4j-driver
+pip3 install neo4j-driver (старый)
 
 
 F5T6g5OqpphGHJeDXsZKRc7i0U7ZRT8Zj_6EC_jnmU4

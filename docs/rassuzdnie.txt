@@ -915,3 +915,30 @@ https://github.com/orgs/neo4j-examples/repositories?q=python&type=all&language=&
 https://neo4j.com/docs/operations-manual/current/installation/linux/debian/#debian-installation
 
 https://neo4j.com/docs/operations-manual/current/installation/linux/
+
+
+при попытке скачать приложение Neo4j Desktop получаю 403 ошибку. емаил яндекса верефицировался
+с гугловским аккаунтом тоже не получалось
+
+кнопка на Neo4j Browser тоже 403
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-neo4j-on-ubuntu-20-04
+https://github.com/neo4j/neo4j
+https://neo4j.com/docs/operations-manual/current/installation/linux/tarball/
+neo4j desktop linux run
+https://debian.pkgs.org/11/debian-main-amd64/neo4j-client_2.2.0-1.1_amd64.deb.html (старая версия наверно)
+
+aura зарегал яндексовскую почту
+
+download neo4j desktop linux
+
+https://towardsdatascience.com/neo4j-cypher-python-7a919a372be7
+
+https://github.com/neo4j/neo4j-python-driver
+
+https://rdf.nitrosbase.ru/
+перезжаю на другую БД
+
+российская графовая база данных
+поискать еще
+

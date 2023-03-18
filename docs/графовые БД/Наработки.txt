@@ -1,0 +1,56 @@
+на будущее, почему я эти не взял
+Nebula Graph 3.2 - нет линукса
+Comindware ElasticData - платная
+NitrosBase - не смог скачать
+neo4j - тоже не смог скачать
+
+искал по запросу
+российская графовая база данных
+
+https://rdf.nitrosbase.ru/
+
+
+https://github.com/neo4j/neo4j-python-driver
+
+запросы поисковые
+download neo4j desktop linux
+neo4j python example
+
+
+aura зарегал яндексовскую почту
+
+https://console.neo4j.io/?product=aura-db
+зашел под гугловским аккаунтом
+
+https://neo4j.com/download/
+локальные версии не скачиваются
+
+https://neo4j.com/developer/python/
+официаальная страничка
+первый пример с ошибкой выполняется
+
+https://neo4j.com/developer/example-project/
+не разбирал
+
+https://github.com/orgs/neo4j-examples/repositories?q=python&type=all&language=&sort=
+тоже не разбирал
+
+https://neo4j.com/docs/operations-manual/current/installation/linux/debian/#debian-installation
+
+https://neo4j.com/docs/operations-manual/current/installation/linux/
+
+
+при попытке скачать приложение Neo4j Desktop получаю 403 ошибку. емаил яндекса верефицировался
+с гугловским аккаунтом тоже не получалось
+
+кнопка на Neo4j Browser тоже 403
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-neo4j-on-ubuntu-20-04
+https://github.com/neo4j/neo4j
+https://neo4j.com/docs/operations-manual/current/installation/linux/tarball/
+neo4j desktop linux run
+https://debian.pkgs.org/11/debian-main-amd64/neo4j-client_2.2.0-1.1_amd64.deb.html (старая версия наверно)
+
+
+https://sofakingcode.medium.com/экскурс-в-графовая-базу-данных-neo4j-9d5c515186e8
+

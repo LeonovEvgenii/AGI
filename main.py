@@ -5,7 +5,7 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects, proseccing_input_words
+from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/json/global/"
@@ -175,19 +175,36 @@ if __name__ == "__main__":
 	# all_tests()
 	# exit(0)
 
+	local_list_objects = []
+	local_list_classes = []
+
 	while 1:
 
-		input_list_objects = get_input_objects()
+		input_list_objects, input_list_classes = get_input_objects_and_classes(local_list_objects, local_list_classes)
 
+		# не забываем, что input_list_classes только новые классы возвращаются
+		# если ничего не вернулось, значит они уже есть в local_list_classes
+
+		print("список входных объектов")
 		[ print(i) for i in input_list_objects ]
+		print("список входных классов")
+		[ print(i) for i in input_list_classes ]
+
+		print("\nсписок локальных объектов")
+		[ print(i) for i in local_list_objects ]
+		print("список локальных классов")
+		[ print(i) for i in local_list_classes ]
 
 
 		# save_new_objects()
 
-		exit(0)
+		continue
+
+		# сначало выполнение кода, потом запись в БД вместе со сгенерированными ответами
 
 		output = run_nodes(input_list_objects)
 
+		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение с частью, это возможный ответ.
 
 		stop_words = ["рекурсия", "удали_из_локального"]
 

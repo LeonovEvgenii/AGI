@@ -23,7 +23,8 @@ def proseccing_input_words(input_str):
 	return input_list_words
 
 
-def get_input_objects():
+def get_input_objects_and_classes(local_list_objects, local_list_classes):
+# def get_input_objects_and_classes():
 
 	while 1:
 		input_str = input("Ввод: ")
@@ -33,9 +34,42 @@ def get_input_objects():
 
 		input_list_words = proseccing_input_words(input_str)
 
+		input_list_objects = []
+		input_list_classes = []
+
 		if input_list_words:
-			input_list_objects = [ _Object(word, i + 1) for i, word in enumerate(input_list_words) ]
-			return input_list_objects
+
+			for i, word in enumerate(input_list_words):
+				
+				class_in_list = False
+
+				for _class in local_list_classes:
+					if _class.name == word:
+						new_object = _Object(_class, i + 1)
+						input_list_objects.append(_Object(_class, i + 1))
+						local_list_objects.append(_Object(_class, i + 1))
+
+						_class.list_objects.append(new_object)
+						# создаем объект с сылкой на класс
+						# добавляем ссылку на объект в класс
+						print("существует")
+						class_in_list = True
+					
+				if not class_in_list:
+					new_class = _Class(word)
+					input_list_classes.append(new_class)
+					local_list_classes.append(new_class)
+
+					new_object = _Object(new_class, i + 1)
+					input_list_objects.append(new_object)
+					local_list_objects.append(new_object)
+
+
+
+			
+				
+
+			return input_list_objects, input_list_classes
 		else:
 			print("Строка не содержит ни одного ключевого слова")
 

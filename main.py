@@ -5,7 +5,7 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_words, proseccing_input_words
+from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects, proseccing_input_words
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/json/global/"
@@ -177,9 +177,17 @@ if __name__ == "__main__":
 
 	while 1:
 
-		input_list_words = get_input_words()
+		input_list_objects = get_input_objects()
 
-		output = run_nodes(input_list_words)
+		[ print(i) for i in input_list_objects ]
+
+
+		# save_new_objects()
+
+		exit(0)
+
+		output = run_nodes(input_list_objects)
+
 
 		stop_words = ["рекурсия", "удали_из_локального"]
 

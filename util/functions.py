@@ -2,6 +2,10 @@ import os
 import json
 import time
 
+from classes._Class import _Class
+from classes._Object import _Object
+
+
 path_json_local = os.getcwd() + "/json/local/"
 
 def proseccing_input_words(input_str):
@@ -15,17 +19,11 @@ def proseccing_input_words(input_str):
 	input_list_words = input_str.split(" ")
 	
 	input_list_words = [ i for i in input_list_words if i ]
-	
-	second = int(time.time())
-
-	divider = 1 / len(input_list_words)
-
-	input_list_words = [ word + "$" + str(second + divider * i) for i, word in enumerate(input_list_words) ]
 
 	return input_list_words
 
 
-def get_input_words():
+def get_input_objects():
 
 	while 1:
 		input_str = input("Ввод: ")
@@ -36,9 +34,11 @@ def get_input_words():
 		input_list_words = proseccing_input_words(input_str)
 
 		if input_list_words:
-			return input_list_words
+			input_list_objects = [ _Object(word, i + 1) for i, word in enumerate(input_list_words) ]
+			return input_list_objects
 		else:
 			print("Строка не содержит ни одного ключевого слова")
+
 
 
 def write_to_local_graph_json(input_list_words):

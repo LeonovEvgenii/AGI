@@ -860,3 +860,14 @@
 
 выполнение слов, если есть код
 и сравнение с частью графа, если есть совпадение
+
+
+
+
+Рассмотрю еще одну графовую БД
+https://dgraph.io/docs/clients/python/
+https://github.com/dgraph-io/pydgraph
+https://dgraph.io/tour/
+https://github.com/dgraph-io/dgraph
+https://dgraph.io/
+

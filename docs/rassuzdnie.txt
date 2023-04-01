@@ -864,17 +864,6 @@
 
 
 
-Рассмотрю еще одну графовую БД
-https://dgraph.io/docs/clients/python/
-https://github.com/dgraph-io/pydgraph
-https://dgraph.io/tour/
-https://github.com/dgraph-io/dgraph
-https://dgraph.io/
 
-Dgraph binaries v22.0.2 have been installed successfully in /usr/local/bin.
-Please visit https://dgraph.io/docs/get-started for further instructions on usage.
-
-https://computingforgeeks.com/how-to-install-dgraph-on-ubuntu/
-How To Install Dgraph on Ubuntu 22.04|20.04|18.04
 
 

@@ -51,6 +51,12 @@ def get_input_objects_and_classes(local_list_objects, local_list_classes):
 						_class.list_objects.append(new_object)
 						class_in_list = True
 					
+				# Проверки на уже существование класса осуществляются только для локального графа.
+				# Во время выполненения нод может быть косяк, когда сначала поиск идет по локальному графу
+				# потом по глобальному. В слове из локального графа может не оказаться определения.
+				# Но логично, что сначала смотрим на локальный граф, т к это последний контекст.
+				# Сейчас переход в глобальный осуществляется только по команде в ручном режиме.
+
 				if not class_in_list:
 					new_class = _Class(word)
 					input_list_classes.append(new_class)
@@ -59,7 +65,6 @@ def get_input_objects_and_classes(local_list_objects, local_list_classes):
 					new_object = _Object(new_class, i + 1)
 					input_list_objects.append(new_object)
 					local_list_objects.append(new_object)
-
 
 			return input_list_objects, input_list_classes
 		else:

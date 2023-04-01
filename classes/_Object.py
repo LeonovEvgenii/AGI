@@ -6,13 +6,10 @@ from classes._Class import _Class
 
 class _Object():
     def __init__(self, new_class, number_in_sentence):
-        self.class_name = new_class.name # ссылка на класс должна быть
+        self.class_name = new_class.name
 
+        # добавить в список объектов в файл класса (локальный)
 
-
-        # проверка на существование класса в общем списке в монго
-        # здесь же запись в монго объектов
-        # решить локально или глобально
 
 
         self.number_in_sentence = number_in_sentence

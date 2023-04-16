@@ -201,7 +201,7 @@ if __name__ == "__main__":
 		# потом запись в БД вместе со сгенерированными ответами
 
 		# хранение графа в локальном фале в этом участке кода не делаю
-		# его сожно сделать после или при выполненни нод,
+		# его можно сделать после или при выполненни нод,
 		# т к последовательность в предложении есть и пары можно и там образовать
 		
 		# Помнится, ты примнал решение всегда образовывать пары после ввода
@@ -210,26 +210,29 @@ if __name__ == "__main__":
 
 		# может локальный граф целиком в массивах хранить, все равно при каждом перезапуске чистится
 
-		output = run_nodes(input_list_objects)
+		# output = run_nodes(input_list_objects)
 		
-		continue
 
 		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение с частью, это возможный ответ.
 
-		stop_words = ["рекурсия", "удали_из_локального"]
+		# stop_words = ["рекурсия", "удали_из_локального"]
 
-		flag_print = True
-		for word in input_list_words:
-			if word in stop_words:
-				flag_print = False
+		# flag_print = True
+		# for word in input_list_words:
+		# 	if word in stop_words:
+		# 		flag_print = False
 
-		if flag_print:
-			write_to_local_graph_json(input_list_words)
-			print_to_xdot_local()
-			save_new_nodes(input_list_words)
+		# if flag_print:
+			# write_to_local_graph_json(input_list_words)
+			# print_to_xdot_local()
+			# save_new_nodes(input_list_words)
 
-		print("Вывод:", output)
+		# print("Вывод:", output)
 
-		f = open('output.json', 'w')
-		f.close()
+		# f = open('output.json', 'w')
+		# f.close()
 
+		# брать id для отрисовки объектов из индекса списка объектов в классе
+		# производить дозапись или перезапись всего файла
+		# xdot так то проще полностью перезаписвывать и не мелочиться
+		print_to_xdot_local(local_list_classes)

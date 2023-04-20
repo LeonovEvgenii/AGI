@@ -19,6 +19,12 @@ def run_nodes(input_list_words):
 
 	output = ""
 
+	# в классе "класс" должна храниться ссылка на python программу
+	# проверить на тестовй программе, типа print("1"), что она работает
+	# запихать в "палка" временно
+	# проходим по списку и выходим, т к в палке кода не должно быть
+
+
 	list_local_json_files = os.listdir(path_json_local)
 	list_globa_json_files = os.listdir(path_json_global)
 	list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
@@ -185,15 +191,15 @@ if __name__ == "__main__":
 		# не забываем, что input_list_classes только новые классы возвращаются
 		# если ничего не вернулось, значит они уже есть в local_list_classes
 
-		print("список входных объектов")
-		[ print(i) for i in input_list_objects ]
-		print("список входных классов")
-		[ print(i) for i in input_list_classes ]
+		# print("список входных объектов")
+		# [ print(i) for i in input_list_objects ]
+		# print("список входных классов")
+		# [ print(i) for i in input_list_classes ]
 
-		print("\nсписок локальных объектов")
-		[ print(i) for i in local_list_objects ]
-		print("список локальных классов")
-		[ print(i) for i in local_list_classes ]
+		# print("\nсписок локальных объектов")
+		# [ print(i) for i in local_list_objects ]
+		# print("список локальных классов")
+		# [ print(i) for i in local_list_classes ]
 
 		# сначало выполнение кода, 
 		# сгенерированные ответы не всегда записываются в БД
@@ -210,10 +216,11 @@ if __name__ == "__main__":
 
 		# может локальный граф целиком в массивах хранить, все равно при каждом перезапуске чистится
 
-		# output = run_nodes(input_list_objects)
+		output = run_nodes(input_list_objects)
 		
 
-		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение с частью, это возможный ответ.
+		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение
+		#  с частью, это возможный ответ.
 
 		# stop_words = ["рекурсия", "удали_из_локального"]
 
@@ -232,7 +239,5 @@ if __name__ == "__main__":
 		# f = open('output.json', 'w')
 		# f.close()
 
-		# брать id для отрисовки объектов из индекса списка объектов в классе
-		# производить дозапись или перезапись всего файла
 		# xdot так то проще полностью перезаписвывать и не мелочиться
 		print_to_xdot_local(local_list_classes)

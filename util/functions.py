@@ -132,7 +132,7 @@ def write_to_local_graph_json(input_list_words):
 			json.dump(out_json, outfile, ensure_ascii=False)
 
 
-def print_to_xdot_local(input_list_objects):
+def print_to_xdot_local(local_list_classes):
 
 	# Источником связей могут служить список и файл json
 	# Приоритетный источник список
@@ -142,8 +142,9 @@ def print_to_xdot_local(input_list_objects):
 	with open(file_name, 'w') as f:
 		f.write("strict graph G {\n")
 
-		for obj in input_list_objects:
-			f.write('"' + obj.class_name + '\n' + 'время' + '"\n')
+		for _class in local_list_classes:
+			for i, obj in enumerate(_class.list_objects):
+				f.write('"' + obj.class_name + '\n' + str(i + 1) + '"\n')
 
 		f.write("}\n")
 

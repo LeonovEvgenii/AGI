@@ -6,6 +6,7 @@ from classes._Class import _Class
 
 class _Object():
     def __init__(self, new_class, number_in_sentence):
+        self.link_class = new_class
         self.class_name = new_class.name
 
         self.number_in_sentence = number_in_sentence

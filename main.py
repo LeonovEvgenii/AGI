@@ -13,11 +13,9 @@ path_json_global = os.getcwd() + "/json/global/"
 
 
 
-def run_nodes(input_list_words):
+def run_nodes(input_list_objects, local_list_classes):
 
-	# обработка последовательная т к при параллельной дублирование
 
-	output = ""
 
 	# в классе "класс" должна храниться ссылка на python программу
 	# проверить на тестовй программе, типа print("1"), что она работает
@@ -25,68 +23,99 @@ def run_nodes(input_list_words):
 	# проходим по списку и выходим, т к в палке кода не должно быть
 
 
-	list_local_json_files = os.listdir(path_json_local)
-	list_globa_json_files = os.listdir(path_json_global)
-	list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+	# + Взять список локальных слов
+	# Взять список глобальных слов (позже)
 
-	path_python = os.getcwd() + "/python_programm"
+	# Цикл по всем входным словам
+	for in_obj in input_list_objects:
+		print(in_obj.class_name)
+		# подумать как в класск  _Class будет храниться ссылка напрограмму
+		# может просто как подключаемый import, чтоб дебажить удобно было. или функция класса
+		# должен быть файл, который можно было бы написать независимо от структуры моей программы.
+		# хотя прием пареметров это уже зависимость. Пока стремлюсь к независимости
+		#  может независимость пока отложить, и для тестов сделать что то зависимое.
+		# в самом классе код на лету пока не получится изменять, только ссылка на другой файл
 
-	global_output = ""
+	# 	Введенное слово есть в локальном списке
+	# 	Если да
+	# 		сохраняем путь к программе
+	# 	иначе, есть в глобальном списке
+	# 		сохраняем путь к программе
+		
+	# 	запускаем субпроцесс, выполняем программу, передаем остальные параметры (передавать ли выполняемое слово как параметр ? )
+	# 	Результат возвращается в виде объектов. Если не объект, то можно подумать убрать субпроцесс. Еще можно строковый вывод через конструктор объекта пропускать. Может ли быть несколько возвращенных объектов?
+	# 	дополняем локальный граф новыми возвращенными элементами и связями
+	# 	вызываем программу "на_что_похоже", пареметры введенное предложение (можно в локальном, потом в глобальном поиск делать)
+	# 	Выдаем ответ после результата на что похоже, если он не пустой
+	# Позже завести класс Core и занести все основные фунции манипуляции с нодами туда. В main оставить зпуски, тесты.
 
-	for i, word in enumerate(input_list_words):
 
-		for file in list_all_json_files:
 
-			word_class = word[:word.rfind("$")]
+	# обработка последовательная т к при параллельной дублирование
 
-			if word_class == file[:-5]:
+	# output = ""
 
-				if file in list_globa_json_files:
-					json_file = open(path_json_global + file)
-				elif file in list_local_json_files:
-					json_file = open(path_json_local + file)
-				else:
-					continue
+	# list_local_json_files = os.listdir(path_json_local)
+	# list_globa_json_files = os.listdir(path_json_global)
+	# list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+
+	# path_python = os.getcwd() + "/python_programm"
+
+	# global_output = ""
+
+	# for i, word in enumerate(input_list_words):
+
+	# 	for file in list_all_json_files:
+
+	# 		word_class = word[:word.rfind("$")]
+
+	# 		if word_class == file[:-5]:
+
+	# 			if file in list_globa_json_files:
+	# 				json_file = open(path_json_global + file)
+	# 			elif file in list_local_json_files:
+	# 				json_file = open(path_json_local + file)
+	# 			else:
+	# 				continue
 					
-				data = json.load(json_file)
+	# 			data = json.load(json_file)
 
-				# если нет питона то не выполняем, а так все слова в предложении выполняются
-				if "file" in data:
-					list_without_run_word = input_list_words.copy()
-					list_without_run_word.remove(word)
+	# 			# если нет питона то не выполняем, а так все слова в предложении выполняются
+	# 			if "file" in data:
+	# 				list_without_run_word = input_list_words.copy()
+	# 				list_without_run_word.remove(word)
 
-					output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
+	# 				output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
 
-					# проверка, если удалялись файлы, актуализировать из список
-					if os.stat(os.getcwd() + "/output.json").st_size != 0:
-						# не пустой файл
-						with open(os.getcwd() + "/output.json") as json_file:
-							data = json.load(json_file)
+	# 				# проверка, если удалялись файлы, актуализировать из список
+	# 				if os.stat(os.getcwd() + "/output.json").st_size != 0:
+	# 					# не пустой файл
+	# 					with open(os.getcwd() + "/output.json") as json_file:
+	# 						data = json.load(json_file)
 
-							if "файл_удален" in data:
-								if data["файл_удален"] == True:
-									list_local_json_files = os.listdir(path_json_local)
-									list_globa_json_files = os.listdir(path_json_global)
-									list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
-									continue
-							json_file.close()
+	# 						if "файл_удален" in data:
+	# 							if data["файл_удален"] == True:
+	# 								list_local_json_files = os.listdir(path_json_local)
+	# 								list_globa_json_files = os.listdir(path_json_global)
+	# 								list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+	# 								continue
+	# 						json_file.close()
 
-					if output:
-						output = output.replace("\n", "")
-						output_list_words = [word_class] # !!!  экземпляр скорей всеого придется по новому делать. Раньше класс делался.
-						output_list_words += output.split(" ")
-						save_new_nodes(output_list_words)
-						if word_class != "рекурсия":
-							write_to_local_graph_json(output_list_words)
-							print_to_xdot_local()
-						global_output += " "
-						global_output += output
-				json_file.close()
+	# 				if output:
+	# 					output = output.replace("\n", "")
+	# 					output_list_words = [word_class] # !!!  экземпляр скорей всеого придется по новому делать. Раньше класс делался.
+	# 					output_list_words += output.split(" ")
+	# 					save_new_nodes(output_list_words)
+	# 					if word_class != "рекурсия":
+	# 						write_to_local_graph_json(output_list_words)
+	# 						print_to_xdot_local()
+	# 					global_output += " "
+	# 					global_output += output
+	# 			json_file.close()
 
-	global_output = global_output.strip()
+	# global_output = global_output.strip()
 
-	return global_output
-
+	# return global_output
 
 
 def open_graph(path):
@@ -216,7 +245,7 @@ if __name__ == "__main__":
 
 		# может локальный граф целиком в массивах хранить, все равно при каждом перезапуске чистится
 
-		output = run_nodes(input_list_objects)
+		output = run_nodes(input_list_objects, local_list_classes)
 		
 
 		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение

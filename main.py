@@ -5,10 +5,10 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words
+from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words
 
 path_json_local = os.getcwd() + "/json/local/"
-path_json_global = os.getcwd() + "/json/global/"
+path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
 
 def run_nodes(input_list_objects, local_list_classes):
 
@@ -22,7 +22,10 @@ def run_nodes(input_list_objects, local_list_classes):
 
 	# + Взять список локальных слов
 	# Взять список глобальных слов (позже)
-	list_globa_json_files = os.listdir(path_json_global)
+	# очистка от расширения .json
+	list_name_class_global = [file[:-5] for file in os.listdir(path_json_global)]
+
+	list_name_input_object = [obj.class_name for obj in input_list_objects]
 
 	# Цикл по всем входным словам
 	for in_obj in input_list_objects:
@@ -35,24 +38,45 @@ def run_nodes(input_list_objects, local_list_classes):
 		# как будут храниться сохраненные локальные опрееления, пусть даже первородные ?
 		# - в поле класса в списке храниться
 
-		# 	Введенное слово есть в локальном списке
-		if in_obj.link_class in local_list_classes:
-		# 	Если да
-			pass
-			print("есть в локальном")
+		python_file = ""
 
-		# 		сохраняем путь к программе
-		# 	иначе, есть в глобальном списке
-		elif in_obj.class_name in list_globa_json_files:
+		# У введенного слова есть код 
+		# (введенные слова всегда в локальном списке есть, они же только что ввелись)
+		if in_obj.link_class.name_python_programm:
+			print("есть в локальном")
+			print(in_obj.link_class.name_python_programm)
+			# сохраняем путь к программе
+
+		# иначе, есть в глобальном списке
+		elif in_obj.class_name in list_name_class_global:
 			print("есть в глобальном")
-		# 		сохраняем путь к программе
-		
-	# 	запускаем субпроцесс, выполняем программу, передаем остальные параметры (передавать ли выполняемое слово как параметр ? )
-	# 	Результат возвращается в виде объектов. Если не объект, то можно подумать убрать субпроцесс. Еще можно строковый вывод через конструктор объекта пропускать. Может ли быть несколько возвращенных объектов?
-	# 	дополняем локальный граф новыми возвращенными элементами и связями
-	# 	вызываем программу "на_что_похоже", пареметры введенное предложение (можно в локальном, потом в глобальном поиск делать)
-	# 	Выдаем ответ после результата на что похоже, если он не пустой
-	# Позже завести класс Core и занести все основные фунции манипуляции с нодами туда. В main оставить зпуски, тесты.
+
+			# это должно быть в классе knoewledge как метод возвращающий путь
+			with open(os.getcwd() + "/knowledge_base/json_description_words/global/" + in_obj.class_name + ".json") as json_file:
+				data = json.load(json_file)
+				if "python_file" in data:
+					# сохраняем путь к программе
+					python_file = data["python_file"]
+
+		if python_file:
+			# запускаем субпроцесс, выполняем программу, передаем остальные параметры (передавать ли выполняемое слово как параметр ? )
+
+			path_python = os.getcwd() + "/knowledge_base/python_programm/" + python_file
+
+			output = subprocess.check_output(["python3", path_python] + list_name_input_object, encoding='utf-8')
+
+			print(output)
+
+			# Результат возвращается в виде объектов. 
+			# Если не объект, то можно подумать убрать субпроцесс. 
+			# Еще можно строковый вывод через конструктор объекта пропускать. 
+			# Может ли быть несколько возвращенных объектов?
+	
+			# дополняем локальный граф новыми возвращенными элементами и связями
+			
+			# вызываем программу "на_что_похоже", пареметры введенное предложение (можно в локальном, потом в глобальном поиск делать)
+			# Выдаем ответ после результата на что похоже, если он не пустой
+			# Позже завести класс Core и занести все основные фунции манипуляции с нодами туда. В main оставить запуски, тесты.
 
 
 

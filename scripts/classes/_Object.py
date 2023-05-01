@@ -1,7 +1,7 @@
 from time import time
 from datetime import datetime, timedelta
 
-from classes._Class import _Class
+from scripts.classes._Class import _Class
 
 
 class _Object():

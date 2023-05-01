@@ -2,8 +2,8 @@ import os
 import json
 import time
 
-from classes._Class import _Class
-from classes._Object import _Object
+from scripts.classes._Class import _Class
+from scripts.classes._Object import _Object
 
 
 path_json_local = os.getcwd() + "/json/local/"
@@ -138,7 +138,7 @@ def print_to_xdot_local(local_list_classes):
 	# Приоритетный источник список
 	# Файл позже продублируется
 
-	file_name = "graphs/local_graph.dot"
+	file_name = "knowledge_base/graphs_links/local_graph.dot"
 	with open(file_name, 'w') as f:
 		f.write("strict graph G {\n")
 
@@ -193,9 +193,9 @@ def clear_local_graph():
 
 	print("\nочищаю локальный граф\n")
 
-	f = open('graphs/local_graph.json', 'w')
+	# f = open('knowledge_base/graphs_links/local_graph.json', 'w') # вынести в класс !!!!!
 
-	with open('graphs/local_graph.dot', 'w') as f:
+	with open('knowledge_base/graphs_links/local_graph.dot', 'w') as f:
 		f.write("strict graph G {\n")
 		f.write("}\n")
 	f.close()

@@ -5,7 +5,7 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words
+from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words, write_local_links
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
@@ -241,6 +241,7 @@ if __name__ == "__main__":
 
 	local_list_objects = []
 	local_list_classes = []
+	local_list_links = []
 
 	while 1:
 
@@ -273,8 +274,10 @@ if __name__ == "__main__":
 		# write_link_to_local_graph_json(input_list_words)
 
 		# может локальный граф целиком в массивах хранить, все равно при каждом перезапуске чистится
+		# второй параметр передается только ради изменения по ссылке. Класс напрашивается.
+		write_local_links(input_list_objects, local_list_links)
 
-		output = run_nodes(input_list_objects, local_list_classes)
+		# output = run_nodes(input_list_objects, local_list_classes)
 		
 
 		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение

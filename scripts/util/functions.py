@@ -223,27 +223,7 @@ def print_to_xdot_global():
 		f.write("}\n")
 
 
-def clear_local_graph():
 
-	print("\nочищаю локальный граф\n")
-
-	# f = open('knowledge_base/graphs_links/local_graph.json', 'w') # вынести в класс !!!!!
-
-	with open('knowledge_base/graphs_links/local_graph.dot', 'w') as f:
-		f.write("strict graph G {\n")
-		f.write("}\n")
-	f.close()
-
-	f = open('output.json', 'w')
-	f.close()
-
-	try:
-		local_files = os.listdir(path_json_local)
-	except FileNotFoundError:
-		return
-
-	if local_files:
-		os.system("rm " + path_json_local + "*")
 
 
 def save_new_nodes(input_list_words):

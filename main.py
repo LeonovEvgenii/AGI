@@ -5,7 +5,9 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes, get_input_objects_and_classes, proseccing_input_words, write_local_links
+from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, save_new_nodes, get_input_objects_and_classes, proseccing_input_words, write_local_links
+
+from scripts.classes.Core import Core
 
 path_json_local = os.getcwd() + "/json/local/"
 path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
@@ -226,7 +228,9 @@ def all_tests():
 
 if __name__ == "__main__":
 
-	clear_local_graph()
+	core = Core()
+
+	exit(0)
 
 	# open_graph("graphs/kolobok.dot")
 

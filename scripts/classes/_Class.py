@@ -1,7 +1,9 @@
 import os
 import json
 
-class _Class():
+from scripts.classes.Node import Node
+
+class _Class(Node):
     def __init__(self, word):
         self.name = word
         self.list_objects = []

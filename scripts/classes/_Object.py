@@ -2,9 +2,9 @@ from time import time
 from datetime import datetime, timedelta
 
 from scripts.classes._Class import _Class
+from scripts.classes.Node import Node
 
-
-class _Object():
+class _Object(Node):
     def __init__(self, new_class, number_in_sentence):
         self.link_class = new_class
         self.class_name = new_class.name

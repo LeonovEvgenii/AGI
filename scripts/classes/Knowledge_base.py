@@ -1,3 +1,5 @@
+import os # !!! починить, убрать, проверить использование
+
 class Knowledge_base():
     def __init__(self):
         
@@ -9,10 +11,13 @@ class Knowledge_base():
         self.local_nodes = []
         self.local_links = []
 
+        self.path_json_local = os.getcwd() + "/json/local/" # !!!! убрать, локальный json не нужен
+
+
 
     # бесполезный метод на тот случай, если локальный граф хранится  в json файлах
     # может быть переписан, чтобы очищать локальную память без перезагрузки
-    def clear_local_graph():
+    def clear_local_graph(self):
 
         print("\nочищаю локальный граф\n")
 
@@ -27,11 +32,11 @@ class Knowledge_base():
         f.close()
 
         try:
-            local_files = os.listdir(path_json_local)
+            local_files = os.listdir(self.path_json_local)
         except FileNotFoundError:
             return
 
         if local_files:
-            os.system("rm " + path_json_local + "*")
+            os.system("rm " + self.path_json_local + "*")
 
     

@@ -217,20 +217,18 @@ def run_dialog(path):
 	print("\nдиалог выполнился\n")
 		
 
-def all_tests():
+def all_tests(core):
 
 	test_files = os.listdir("dialogs/")
 
 	for file in test_files:
 		run_dialog("dialogs/" + file)
-		clear_local_graph()
+		core.clear_local_graph()
 
 
 if __name__ == "__main__":
 
 	core = Core()
-
-	exit(0)
 
 	# open_graph("graphs/kolobok.dot")
 
@@ -240,16 +238,19 @@ if __name__ == "__main__":
 	# run_dialog("dialogs/history.txt") # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
 	# exit(0)
 
-	# all_tests()
+	# all_tests(core)
 	# exit(0)
 
-	local_list_objects = []
-	local_list_classes = []
-	local_list_links = []
+	# local_list_objects = []
+	# local_list_classes = []
+	# local_list_links = []
 
 	while 1:
 
-		input_list_objects, input_list_classes = get_input_objects_and_classes(local_list_objects, local_list_classes)
+		# параметры локальные списки берутся из нутри класса
+		# переименовать функцию в input_words
+
+		input_list_objects, input_list_classes = core.get_input_objects_and_classes(local_list_objects, local_list_classes)
 
 		# не забываем, что input_list_classes только новые классы возвращаются
 		# если ничего не вернулось, значит они уже есть в local_list_classes

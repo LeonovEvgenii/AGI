@@ -20,12 +20,11 @@ class Knowledge_base():
 
         self.path_json_local = os.getcwd() + "/json/local/" # !!!! убрать, локальный json не нужен
 
-    def create_local_link(self, _class, obj):
+    def create_local_link(self, obj_1, obj_2):
 
-        pair = set([_class, obj])
+        pair = [obj_1, obj_2]
 
         # возможная проверка на недопущение дублей пар
-        # сам local_links может быть set
         # есть пробелема, но это не точно что set setов делать нелзя
         # по хорошему, local_links сделать множеством, т к оно больше,
         # а перед добалением искать возможную дублирующую пару (для (a, b) искать (b, a) и не добалять вторую)

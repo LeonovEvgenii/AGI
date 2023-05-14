@@ -5,7 +5,9 @@ from scripts.classes.Node import Node
 
 class _Class(Node):
     def __init__(self, word):
-        self.name = word
+        
+        super().__init__(word)
+        
         self.list_objects = []
 
         # self.create_empty_local_file_class()

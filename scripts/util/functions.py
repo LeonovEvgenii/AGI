@@ -9,11 +9,6 @@ from scripts.classes._Object import _Object
 path_json_local = os.getcwd() + "/json/local/"
 
 
-
-
-
-
-
 def write_to_local_graph_json(input_list_words):
 
 	# сейчас образуются пары слов
@@ -71,40 +66,6 @@ def write_to_local_graph_json(input_list_words):
 			json.dump(out_json, outfile, ensure_ascii=False)
 
 
-def write_local_links(input_list_objects, local_list_links):
-
-	count_obj = len(input_list_objects)
-	for index, obj in enumerate(input_list_objects):
-		
-		input_pair = set()
-		
-		if index % 2 == 0:
-			if index + 1 == count_obj:
-				input_pair.add(obj)
-				# проверка на существование элемнта не нужна
-				# т к из за разного времени ввода экземпляры класса объект всегда будут разные
-				# даже если делать проверку, то через оператор in, а не через set
-				local_list_links.append(input_pair)
-			else:
-				input_pair.add(obj)
-				input_pair.add(input_list_objects[index + 1])
-				local_list_links.append(input_pair)
-		else:
-			continue
-
-	# теперь нужно добавить связь ноды объекта с нодой класса
-	# по хорошему надо сделать класс нода, от которого наследуются класс класс и обект
-	# отрисовка переопределяется в каждом
-	# будут ли бругие типы нод, например датчик?
-
-	# отрисовка пар
-	# for i in local_list_links:
-	# 	print("пара")
-	# 	for j in i:
-	# 		print(j.class_name)
-
-
-
 def print_to_xdot_local(local_list_classes):
 
 	# Источником связей могут служить список и файл json
@@ -143,8 +104,6 @@ def print_to_xdot_local(local_list_classes):
 	# 	f.write("}\n")
 
 
-
-
 def print_to_xdot_global():
 
 	input_json = None
@@ -162,9 +121,6 @@ def print_to_xdot_global():
 			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
 
 		f.write("}\n")
-
-
-
 
 
 def save_new_nodes(input_list_words):

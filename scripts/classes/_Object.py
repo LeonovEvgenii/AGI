@@ -6,8 +6,10 @@ from scripts.classes.Node import Node
 
 class _Object(Node):
     def __init__(self, new_class, number_in_sentence):
+        
+        super().__init__(new_class.name)
+        
         self.link_class = new_class
-        self.class_name = new_class.name
 
         self.number_in_sentence = number_in_sentence
 

@@ -5,7 +5,7 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, save_new_nodes, get_input_objects_and_classes, proseccing_input_words, write_local_links
+from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, save_new_nodes
 
 from scripts.classes.Core import Core
 
@@ -241,46 +241,25 @@ if __name__ == "__main__":
 	# all_tests(core)
 	# exit(0)
 
-	# local_list_objects = []
-	# local_list_classes = []
-	# local_list_links = []
-
 	while 1:
 
-		# параметры локальные списки берутся из нутри класса
-		# переименовать функцию в input_words
+		input_objects, input_classes = core.input_words()
+		# core.test_intput_lists(input_objects, input_classes)
 
-		input_list_objects, input_list_classes = core.get_input_objects_and_classes(local_list_objects, local_list_classes)
+		# в принятые решения
+		# локальный граф не храню в json, т к он все равно чистится при перезапусках.
+		# с дебагом без файлов, я надеюсь справлюсь
+		# связи образуются между соседними членами предложения, 
+		# т к предложение несет логику связи именно этих слов в таком порядке
+		# дополнительные связи и порядок образуются при выполнении нод
+		core.write_local_links(input_objects, input_classes)
 
-		# не забываем, что input_list_classes только новые классы возвращаются
-		# если ничего не вернулось, значит они уже есть в local_list_classes
-
-		# print("список входных объектов")
-		# [ print(i) for i in input_list_objects ]
-		# print("список входных классов")
-		# [ print(i) for i in input_list_classes ]
-
-		# print("\nсписок локальных объектов")
-		# [ print(i) for i in local_list_objects ]
-		# print("список локальных классов")
-		# [ print(i) for i in local_list_classes ]
+		# отрисовку надо посмотреть !!!!
 
 		# сначало выполнение кода, 
 		# сгенерированные ответы не всегда записываются в БД
 		# в список локальных нод попадают
 		# потом запись в БД вместе со сгенерированными ответами
-
-		# хранение графа в локальном фале в этом участке кода не делаю
-		# его можно сделать после или при выполненни нод,
-		# т к последовательность в предложении есть и пары можно и там образовать
-		
-		# Помнится, ты примнал решение всегда образовывать пары после ввода
-
-		# write_link_to_local_graph_json(input_list_words)
-
-		# может локальный граф целиком в массивах хранить, все равно при каждом перезапуске чистится
-		# второй параметр передается только ради изменения по ссылке. Класс напрашивается.
-		write_local_links(input_list_objects, local_list_links)
 
 		# output = run_nodes(input_list_objects, local_list_classes)
 		
@@ -306,4 +285,4 @@ if __name__ == "__main__":
 		# f.close()
 
 		# xdot так то проще полностью перезаписвывать и не мелочиться
-		print_to_xdot_local(local_list_classes)
+		# print_to_xdot_local(local_list_classes)

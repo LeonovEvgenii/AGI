@@ -5,7 +5,7 @@ import json
 import re
 
 # это не все существующие функции и приходится импортировать только избранные
-from scripts.util.functions import write_to_local_graph_json, print_to_xdot_local, save_new_nodes
+from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 
 from scripts.classes.Core import Core
 
@@ -149,7 +149,7 @@ def run_nodes(input_list_objects, local_list_classes):
 	# return global_output
 
 
-def open_graph(path):
+def open_graph(path, core):
 	lines = None
 	with open(path, "r") as original_file:
 		lines = original_file.readlines()
@@ -172,7 +172,7 @@ def open_graph(path):
 	write_file_graph.close()
 
 
-def run_dialog(path):
+def run_dialog(path, core):
 	lines = None
 	with open(path, "r") as dialog_file:
 		lines = dialog_file.readlines()
@@ -192,7 +192,7 @@ def run_dialog(path):
 			pair = []
 
 	for pair in pairs:
-		input_list_words = proseccing_input_words(pair[0])
+		input_list_words = core.formatting(pair[0])
 
 		print("Ввод: "+pair[0])
 
@@ -200,7 +200,7 @@ def run_dialog(path):
 
 		if "рекурсия" not in input_list_words:
 			write_to_local_graph_json(input_list_words)
-			print_to_xdot_local()
+			core.print_to_xdot_local()
 			save_new_nodes(input_list_words)
 
 
@@ -232,13 +232,15 @@ if __name__ == "__main__":
 
 	# open_graph("graphs/kolobok.dot")
 
-	# run_dialog("dialogs/recursion.txt")
-	# run_dialog("dialogs/second.txt")
-	# run_dialog("dialogs/year.txt")
-	# run_dialog("dialogs/history.txt") # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
+	# временная мера по передаче core параметром
+	# решить: сделать функцию частью core и вызывать как метод или оставить в main
+	# run_dialog("dialogs/recursion.txt", core)
+	# run_dialog("dialogs/second.txt", core)
+	# run_dialog("dialogs/year.txt", core)
+	# run_dialog("dialogs/history.txt", core) # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
 	# exit(0)
 
-	# all_tests(core)
+	# core.all_tests(core)
 	# exit(0)
 
 	while 1:
@@ -285,4 +287,4 @@ if __name__ == "__main__":
 		# f.close()
 
 		# xdot так то проще полностью перезаписвывать и не мелочиться
-		# print_to_xdot_local(local_list_classes)
+		core.drawer.print_to_xdot_local()

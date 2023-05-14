@@ -20,6 +20,6 @@ class _Object(Node):
         # Пока не добавляю в список объектов в файл класса (локальный).
         # Общеснено, почему объеснено в классе _Class
 
-    def __str__(self):
-        return self.class_name + "\t" + self.short_readable_time + "\t" + str(self.number_in_sentence)
+    # def __str__(self):
+    #     return self.name + "\t" + self.short_readable_time + "\t" + str(self.number_in_sentence)
 

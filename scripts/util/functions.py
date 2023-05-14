@@ -66,44 +66,6 @@ def write_to_local_graph_json(input_list_words):
 			json.dump(out_json, outfile, ensure_ascii=False)
 
 
-def print_to_xdot_local(local_list_classes):
-
-	# Источником связей могут служить список и файл json
-	# Приоритетный источник список
-	# Файл позже продублируется
-
-	file_name = "knowledge_base/graphs_links/local_graph.dot"
-	with open(file_name, 'w') as f:
-		f.write("strict graph G {\n")
-
-		for _class in local_list_classes:
-			for i, obj in enumerate(_class.list_objects):
-				f.write('"' + obj.class_name + '\n' + str(i + 1) + '"\n')
-
-		f.write("}\n")
-
-	# Старый код чтения из json
-
-	# input_json = None
-	# with open("graphs/local_graph.json") as json_file:
-	# 	input_json = json.load(json_file)
-
-	# file_name = "graphs/local_graph.dot"
-	# with open(file_name, 'w') as f:
-	# 	f.write("strict graph G {\n")
-
-	# 	for node in input_json['nodes']:
-	# 		f.write('"' + node + '"\n')
-
-	# 	for save_pair in input_json['links']:
-	# 		if len(save_pair) == 2: 
-	# 			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
-	# 		else:
-	# 			f.write('"' + save_pair[0] + '"\n')
-
-	# 	f.write("}\n")
-
-
 def print_to_xdot_global():
 
 	input_json = None

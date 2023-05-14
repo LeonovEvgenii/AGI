@@ -1,10 +1,12 @@
 from scripts.classes.Knowledge_base import Knowledge_base
 from scripts.classes._Class import _Class
 from scripts.classes._Object import _Object
+from scripts.classes.Drawer import Drawer
 
 class Core():
     def __init__(self):
         self.kb = Knowledge_base()
+        self.drawer = Drawer(self.kb)
 
     
     def formatting(self, input_str):
@@ -41,11 +43,11 @@ class Core():
                     
                     class_in_list = False
 
-                    for _class in self.kb.local_list_classes:
+                    for _class in self.kb.local_classes:
                         if _class.name == word:
                             new_object = _Object(_class, i + 1)
                             input_list_objects.append(_Object(_class, i + 1))
-                            self.kb.local_list_objects.append(_Object(_class, i + 1))
+                            self.kb.local_objects.append(_Object(_class, i + 1))
 
                             _class.list_objects.append(new_object)
                             class_in_list = True
@@ -59,11 +61,11 @@ class Core():
                     if not class_in_list:
                         new_class = _Class(word)
                         input_list_classes.append(new_class)
-                        self.kb.local_list_classes.append(new_class)
+                        self.kb.local_classes.append(new_class)
 
                         new_object = _Object(new_class, i + 1)
                         input_list_objects.append(new_object)
-                        self.kb.local_list_objects.append(new_object)
+                        self.kb.local_objects.append(new_object)
 
                         new_class.list_objects.append(new_object)
 
@@ -81,13 +83,12 @@ class Core():
         [ print(i) for i in input_classes ]
 
         print("\nсписок локальных объектов")
-        [ print(i) for i in self.kb.local_list_objects ]
+        [ print(i) for i in self.kb.local_objects ]
         print("список локальных классов")
-        [ print(i) for i in self.kb.local_list_classes ]
+        [ print(i) for i in self.kb.local_classes ]
 
     
     def write_local_links(self, input_objects, input_classes):
-
         count_obj = len(input_objects)
         
         for index, obj in enumerate(input_objects):
@@ -96,8 +97,25 @@ class Core():
             
             if index + 1 != count_obj:
                 input_pair.add(obj)
-                input_pair.add(input_objects[index + 1])
+                input_pair.add(input_objects[index + 1]) # проблема в доступе по индексу
+                # можно только append пользоваться или self.kb.create_local_link
+                # при отрисовке невозможно нфти обхект в списке обхектов т к [index + 1] создает другой объект
                 self.kb.local_links.append(input_pair)
+
+            # if index % 2 == 0:
+            #     if index + 1 != count_obj:
+            #         input_pair.add(obj)
+            #         # input_pair.add(input_objects[index + 1])
+            #         if len(input_pair) == 2:
+            #             self.kb.local_links.append(input_pair)
+            #             input_pair.clear()
+            #         # self.kb.create_local_link(obj, input_objects.next())
+            # else:
+            #     if index + 1 != count_obj:
+            #         input_pair.add(obj)
+            #         if len(input_pair) == 2:
+            #             self.kb.local_links.append(input_pair)
+            #             input_pair.clear()
 
         # теперь нужно добавить связь ноды объекта с нодой класса
         # по хорошему надо сделать класс нода, от которого наследуются класс класс и обект
@@ -111,8 +129,11 @@ class Core():
                 self.kb.create_local_link(_class, obj)
 
         
+    def test_links(self):
+
         # отрисовка пар
         for i in self.kb.local_links:
             print("пара")
             for j in i:
                 print(j.name, j.__class__.__name__)
+

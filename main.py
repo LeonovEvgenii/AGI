@@ -1,8 +1,10 @@
-# from class_node import Node
 import os
 import subprocess
 import json
 import re
+
+import signal
+import sys
 
 # это не все существующие функции и приходится импортировать только избранные
 from scripts.util.functions import write_to_local_graph_json, save_new_nodes
@@ -225,8 +227,16 @@ def all_tests(core):
 		run_dialog("dialogs/" + file)
 		core.clear_local_graph()
 
+# выяснить что это за два параметра
+# https://stackoverflow.com/questions/4205317/capture-keyboardinterrupt-in-python-without-try-except
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
+
 
 if __name__ == "__main__":
+
+	signal.signal(signal.SIGINT, signal_handler)
 
 	core = Core()
 
@@ -284,6 +294,4 @@ if __name__ == "__main__":
 		# f = open('output.json', 'w')
 		# f.close()
 
-		# забыл почистить старый запуск dot файла
-		# локальный dot закомитил - удалить
 		core.drawer.print_to_xdot_local()

@@ -1,17 +1,3 @@
 strict graph G {
-"1
-_Object 0" -- "2
-_Object 0"
-"3
-_Object 0" -- "2
-_Object 0"
-"1
-_Object 0" -- "1
-_Class"
-"2
-_Class" -- "2
-_Object 0"
-"3
-_Object 0" -- "3
-_Class"
+
 }

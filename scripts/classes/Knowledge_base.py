@@ -18,7 +18,9 @@ class Knowledge_base():
 
         self.local_links = []
 
-        self.path_json_local = os.getcwd() + "/json/local/" # !!!! убрать, локальный json не нужен
+        self.path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
+        self.path_python_programm = os.getcwd() + "/knowledge_base/python_programm/"
+
 
     def create_local_link(self, obj_1, obj_2):
 

@@ -1,3 +1,6 @@
+# https://question-it.com/questions/1218482/kak-pometit-kraja-grafa-ispolzuja-python-i-graphviz
+# у xdot есть свой питоновски модуль
+
 class Drawer():
     def __init__(self, knowledge_base):
         self.kb = knowledge_base

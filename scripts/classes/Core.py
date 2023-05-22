@@ -166,6 +166,7 @@ class Core():
                 # (можно в локальном, потом в глобальном поиск делать)
                 # Выдаем ответ после результата на что похоже, если он не пустой
 
+        
 
 
         # path_json_local = os.getcwd() + "/json/local/"
@@ -237,3 +238,15 @@ class Core():
         # global_output = global_output.strip()
 
         # return global_output
+
+    
+    def compare(self, search_word):
+        
+        # возвращает true если все части опредления совпали с графом
+        # граф из kb, искомое определение параметром
+
+        # for link in 
+        
+        return True
+
+        pass

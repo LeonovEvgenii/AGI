@@ -38,46 +38,53 @@ class Core():
 
             input_list_words = self.formatting(input_str)
 
-            input_objects = []
-            input_classes = []
-
             if input_list_words:
-
-                for i, word in enumerate(input_list_words):
-                    
-                    class_in_list = False
-
-                    for _class in self.kb.local_classes:
-                        if _class.name == word:
-                            new_object = _Object(_class, i + 1)
-                            input_objects.append(new_object)
-                            self.kb.local_objects.append(new_object)
-
-                            _class.list_objects.append(new_object)
-                            class_in_list = True
-                        
-                    # Проверки на уже существование класса осуществляются только для локального графа.
-                    # Во время выполненения нод может быть косяк, когда сначала поиск идет по локальному графу
-                    # потом по глобальному. В слове из локального графа может не оказаться определения.
-                    # Но логично, что сначала смотрим на локальный граф, т к это последний контекст.
-                    # Сейчас переход в глобальный осуществляется только по команде в ручном режиме.
-
-                    if not class_in_list:
-                        new_class = _Class(word)
-                        input_classes.append(new_class)
-                        self.kb.local_classes.append(new_class)
-
-                        new_object = _Object(new_class, i + 1)
-                        input_objects.append(new_object)
-                        self.kb.local_objects.append(new_object)
-
-                        new_class.list_objects.append(new_object)
-
-                # не забываем, что input_list_classes только новые классы возвращаются
-                # если ничего не вернулось, значит они уже есть в local_list_classes
+                
+                input_objects, input_classes = self.words_to_lists(input_list_words)
                 return input_objects, input_classes
+                
             else:
                 print("Строка не содержит ни одного ключевого слова")
+
+
+    def words_to_lists(self, input_list_words):
+
+        input_objects = []
+        input_classes = []
+
+        for i, word in enumerate(input_list_words):
+                    
+            class_in_list = False
+
+            for _class in self.kb.local_classes:
+                if _class.name == word:
+                    new_object = _Object(_class, i + 1)
+                    input_objects.append(new_object)
+                    self.kb.local_objects.append(new_object)
+
+                    _class.list_objects.append(new_object)
+                    class_in_list = True
+                
+            # Проверки на уже существование класса осуществляются только для локального графа.
+            # Во время выполненения нод может быть косяк, когда сначала поиск идет по локальному графу
+            # потом по глобальному. В слове из локального графа может не оказаться определения.
+            # Но логично, что сначала смотрим на локальный граф, т к это последний контекст.
+            # Сейчас переход в глобальный осуществляется только по команде в ручном режиме.
+
+            if not class_in_list:
+                new_class = _Class(word)
+                input_classes.append(new_class)
+                self.kb.local_classes.append(new_class)
+
+                new_object = _Object(new_class, i + 1)
+                input_objects.append(new_object)
+                self.kb.local_objects.append(new_object)
+
+                new_class.list_objects.append(new_object)
+
+        # не забываем, что input_list_classes только новые классы возвращаются
+        # если ничего не вернулось, значит они уже есть в local_list_classes
+        return input_objects, input_classes
 
 
     def test_intput_lists(self, input_objects, input_classes):
@@ -151,9 +158,26 @@ class Core():
 
                 path_python = self.kb.path_python_programm + python_file
 
+                # subprocess блокирует выполнение основной программы, пока дочерний процесс не завершится
                 output = subprocess.check_output(["python3", path_python] + list_name_input_object, encoding ='utf-8')
 
-                print(output)
+                # если слово при выполнении генерирует новые ноды или связи
+                # оно возвращает результат в виде текста
+                # таким образом каждое слово можно запускать независимо, 
+                # передавая ему параметры при необходимости
+
+                # если запускать слово treadingом или multiprcessingом,
+                # то не известно когда они закончатся
+                # и код в них не может быть изменен
+
+                if output:
+
+                    output = output.replace('\n', '')
+                    list_words = self.formatting(output)
+                    generate_objects, generate_classes = self.words_to_lists(list_words)
+                    self.write_local_links(generate_objects, generate_classes)
+
+                    print("в core", output)
 
                 # Результат возвращается в виде объектов. 
                 # Если не объект, то можно подумать убрать субпроцесс. 
@@ -240,13 +264,9 @@ class Core():
         # return global_output
 
     
-    def compare(self, search_word):
+    def compare(self, search_word="два"):
         
-        # возвращает true если все части опредления совпали с графом
-        # граф из kb, искомое определение параметром
-
-        # for link in 
+        for link in self.kb.local_links:
+            pass
         
         return True
-
-        pass

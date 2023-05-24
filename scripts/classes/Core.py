@@ -72,7 +72,22 @@ class Core():
             # Сейчас переход в глобальный осуществляется только по команде в ручном режиме.
 
             if not class_in_list:
-                new_class = _Class(word)
+                new_class = _Class(word, self.kb.path_json_local)
+
+                решить где создается файл класса
+                в базе знаний
+                или
+                в самом классе
+
+                в run_node придется вызывать 
+                kb.update(obj)
+                или
+                оbj.update()
+
+                по идее если файлы поменяются на что то дургое, то должно быть в kb
+                еще файл тз перенести в папку тз и разделы документа тз раскидать по файлам
+                в коде принятые решения помечать тегом и дублировать в тз
+
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
 

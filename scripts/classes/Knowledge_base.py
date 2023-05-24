@@ -18,6 +18,7 @@ class Knowledge_base():
 
         self.local_links = []
 
+        self.path_json_local = os.getcwd() + "/knowledge_base/json_description_words/local/"
         self.path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
         self.path_python_programm = os.getcwd() + "/knowledge_base/python_programm/"
 
@@ -35,6 +36,13 @@ class Knowledge_base():
         # проверка на существование элемнта не нужна
         # т к из за разного времени ввода экземпляры класса объект всегда будут разные
         # даже если делать проверку, то через оператор in, а не через set в общем списке связей
+
+    def create_node(self, node):
+        pass
+
+    def update_node(self, node):
+        pass
+
 
 
     # бесполезный метод на тот случай, если локальный граф хранится  в json файлах

@@ -72,21 +72,11 @@ class Core():
             # Сейчас переход в глобальный осуществляется только по команде в ручном режиме.
 
             if not class_in_list:
-                new_class = _Class(word, self.kb.path_json_local)
+                new_class = _Class(word)
+                self.kb.add_node(new_class)
 
-                решить где создается файл класса
-                в базе знаний
-                или
-                в самом классе
-
-                в run_node придется вызывать 
-                kb.update(obj)
-                или
-                оbj.update()
-
-                по идее если файлы поменяются на что то дургое, то должно быть в kb
-                еще файл тз перенести в папку тз и разделы документа тз раскидать по файлам
-                в коде принятые решения помечать тегом и дублировать в тз
+                # у палки был не name а class_name в фале исполнения
+                # дописать метод update_node
 
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
@@ -174,6 +164,7 @@ class Core():
                 path_python = self.kb.path_python_programm + python_file
 
                 # subprocess блокирует выполнение основной программы, пока дочерний процесс не завершится
+                # принятое решение № 19
                 output = subprocess.check_output(["python3", path_python] + list_name_input_object, encoding ='utf-8')
 
                 # если слово при выполнении генерирует новые ноды или связи

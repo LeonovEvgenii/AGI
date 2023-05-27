@@ -1,4 +1,5 @@
-import os # !!! починить, убрать, проверить использование
+import os
+import json
 
 class Knowledge_base():
     def __init__(self):
@@ -37,12 +38,27 @@ class Knowledge_base():
         # т к из за разного времени ввода экземпляры класса объект всегда будут разные
         # даже если делать проверку, то через оператор in, а не через set в общем списке связей
 
-    def create_node(self, node):
-        pass
+    # принятое решение № 20, 21
+    def add_node(self, node):
+
+        file_name = self.path_json_local + node.name + ".json"
+
+        json_dic = {}
+        json_dic['name'] = node.name
+        json_dic['definitions'] = []
+        json_dic['objects'] = []
+        with open(file_name, 'w') as outfile:
+            json.dump(json_dic, outfile, ensure_ascii=False)
+        outfile.close()
 
     def update_node(self, node):
         pass
 
+    def read_node(self, node):
+        pass
+
+    def delete_node(self, node):
+        pass
 
 
     # бесполезный метод на тот случай, если локальный граф хранится  в json файлах

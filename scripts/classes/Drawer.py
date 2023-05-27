@@ -4,7 +4,7 @@
 class Drawer():
     def __init__(self, knowledge_base):
         self.kb = knowledge_base
-        self.path_local_xdot = "knowledge_base/graphs_links/local_graph.dot"
+        self.path_local_dot = "knowledge_base/graphs_links/local_graph.dot"
 
 
     def print_to_xdot_local(self):
@@ -16,7 +16,7 @@ class Drawer():
         # Источником связей могут служить список или файл json
         # Приоритетный источник список
 
-        with open(self.path_local_xdot, 'w') as f:
+        with open(self.path_local_dot, 'w') as f:
             f.write("strict graph G {\n")
 
             # for _class in self.kb.local_classes:
@@ -69,3 +69,10 @@ class Drawer():
         # 	f.write("}\n")
 
         # здесь так же может быть код открытия в визуализаторе
+
+
+    def clear_local_dot(self):
+        with open(self.path_local_dot, 'w') as f:
+            f.write("strict graph G {\n")
+            f.write("}\n")
+        f.close()

@@ -12,6 +12,8 @@ class Core():
         self.kb = Knowledge_base()
         self.drawer = Drawer(self.kb)
 
+        self.clear_local_graph()
+
     
     def formatting(self, input_str):
         input_str = input_str.lower()
@@ -73,10 +75,19 @@ class Core():
 
             if not class_in_list:
                 new_class = _Class(word)
-                self.kb.add_node(new_class)
 
-                # у палки был не name а class_name в фале исполнения
+
+                # если в классах класс и объект создаются и добаляются отдельно,
+                # (где то им все равно приходится по отдельности создаваться)
+                # то и в базе знаний сделаю отдельные методы для работы с ними
+                self.kb.create_class(new_class)
+
+
+
+                # переделать создание файлка после создания хотя бы одного объекта
+                # дописать очистку связей локального графа
                 # дописать метод update_node
+                
 
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
@@ -124,6 +135,18 @@ class Core():
             print("пара")
             for j in i:
                 print(j.name, j.__class__.__name__)
+
+
+    def clear_local_graph(self):
+        # print("\nочищаю локальный граф\n")
+        self.kb.clear_local_files()
+        self.kb.clear_local_links()
+        self.drawer.clear_local_dot()
+
+        # f = open('output.json', 'w')
+        # f.close()
+
+            
 
     def run_nodes(self, input_objects, local_classes):
 

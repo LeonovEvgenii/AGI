@@ -38,51 +38,75 @@ class Knowledge_base():
         # т к из за разного времени ввода экземпляры класса объект всегда будут разные
         # даже если делать проверку, то через оператор in, а не через set в общем списке связей
 
-    # принятое решение № 20, 21
-    def add_node(self, node):
 
-        file_name = self.path_json_local + node.name + ".json"
+    # структура методов
+    # группы
+    # add
+    # update
+    # read
+    # del
+
+    # подгруппы через подчеркивание
+    # class
+    # obj
+    # py
+    # def
+    # link
+
+    # например
+    # add_class
+    # read_py
+
+    # по идее все что связано с классом более общное
+    # obj py def link  можно перегрузить по типу данных функции, но в питоне с этим проблемы
+    
+
+    # принятое решение № 20, 21
+    def create_class(self, new_class):
+
+        # работаю не со всеми типами нод, а только с классами
+        # могут быть ноды второродне, первородне
+        # у каждой из них может быть по несколько объектов
+
+        file_name = self.path_json_local + new_class.name + ".json"
 
         json_dic = {}
-        json_dic['name'] = node.name
+        json_dic['name'] = new_class.name
         json_dic['definitions'] = []
         json_dic['objects'] = []
+        json_dic['python_file'] = ""
         with open(file_name, 'w') as outfile:
             json.dump(json_dic, outfile, ensure_ascii=False)
         outfile.close()
 
-    def update_node(self, node):
+    def create_object(self, new_obj):
+        # по сути все ноды в базе знаний это классы
+        # обновление в данном методе объекта (его добавление)
+        # так же может быть и добавление кода питона
+        # отказался от именования add_node, update_node, read_nide, delete_node
+        # т к есть еще взаимодействие не со всем классом, а с его частями
+        
+        file_name = self.path_json_local + new_obj.name + ".json"
+
+
+        # открыть файл класса
+
+        # перед записью объектов в json им необходимо id присовоить
+        # может быть оставшиеся поля, типа времени
+
+        # создать структуру объекта в json
+
+        # записать в файл
+
+
         pass
 
-    def read_node(self, node):
-        pass
 
-    def delete_node(self, node):
-        pass
-
-
-    # бесполезный метод на тот случай, если локальный граф хранится  в json файлах
-    # может быть переписан, чтобы очищать локальную память без перезагрузки
-    def clear_local_graph(self):
-
-        print("\nочищаю локальный граф\n")
-
-        # f = open('knowledge_base/graphs_links/local_graph.json', 'w') # вынести в класс !!!!!
-
-        with open('knowledge_base/graphs_links/local_graph.dot', 'w') as f:
-            f.write("strict graph G {\n")
-            f.write("}\n")
-        f.close()
-
-        f = open('output.json', 'w')
-        f.close()
-
-        try:
-            local_files = os.listdir(self.path_json_local)
-        except FileNotFoundError:
-            return
-
+    def clear_local_files(self):
+        local_files = os.listdir(self.path_json_local)
         if local_files:
             os.system("rm " + self.path_json_local + "*")
 
-    
+
+    def clear_local_links(self):
+        pass

@@ -62,9 +62,11 @@ class Core():
                 if _class.name == word:
                     new_object = _Object(_class, i + 1)
                     _class.add_obj(new_object)
+                    self.kb.create_object(new_object)
 
                     input_objects.append(new_object)
                     self.kb.local_objects.append(new_object)
+
 
                     class_in_list = True
                 
@@ -84,15 +86,14 @@ class Core():
                 # так же в данном методе уже производится проверка о необходимости создания класса
                 self.kb.create_class(new_class)
 
-                # написать создание одного объекта в БЗ
                 # дописать очистку связей локального графа
-                # дописать метод update_node
 
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
 
                 new_object = _Object(new_class, i + 1)
                 new_class.add_obj(new_object) # можно спрятать внутрь конструктора объекта
+                self.kb.create_object(new_object)
 
                 input_objects.append(new_object)
                 self.kb.local_objects.append(new_object)
@@ -123,8 +124,12 @@ class Core():
             if index + 1 != count_obj:
                 self.kb.create_local_link(obj, input_objects[index + 1])
 
-        for _class in self.kb.local_classes:
+        # когда бегу по всем классам, могут быть дубли ссылок из списка введеных классов
+        # в прошлой итерации ввода
+        # поэтому перехожу на множество ссылок
 
+        # не использую локальные классы, т к в таком случае некоторые связи с классами не обазуются
+        for _class in self.kb.local_classes:
             for k, obj in _class.dict_objects.items():
                 self.kb.create_local_link(_class, obj)
 

@@ -61,10 +61,11 @@ class Core():
             for _class in self.kb.local_classes:
                 if _class.name == word:
                     new_object = _Object(_class, i + 1)
+                    _class.add_obj(new_object)
+
                     input_objects.append(new_object)
                     self.kb.local_objects.append(new_object)
 
-                    _class.list_objects.append(new_object)
                     class_in_list = True
                 
             # Проверки на уже существование класса осуществляются только для локального графа.
@@ -80,23 +81,22 @@ class Core():
                 # если в классах класс и объект создаются и добаляются отдельно,
                 # (где то им все равно приходится по отдельности создаваться)
                 # то и в базе знаний сделаю отдельные методы для работы с ними
+                # так же в данном методе уже производится проверка о необходимости создания класса
                 self.kb.create_class(new_class)
 
-
-
-                # переделать создание файлка после создания хотя бы одного объекта
+                # написать создание одного объекта в БЗ
                 # дописать очистку связей локального графа
                 # дописать метод update_node
-                
 
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
 
                 new_object = _Object(new_class, i + 1)
+                new_class.add_obj(new_object) # можно спрятать внутрь конструктора объекта
+
                 input_objects.append(new_object)
                 self.kb.local_objects.append(new_object)
 
-                new_class.list_objects.append(new_object)
 
         # не забываем, что input_list_classes только новые классы возвращаются
         # если ничего не вернулось, значит они уже есть в local_list_classes
@@ -123,8 +123,9 @@ class Core():
             if index + 1 != count_obj:
                 self.kb.create_local_link(obj, input_objects[index + 1])
 
-        for _class in input_classes:
-            for obj in _class.list_objects:
+        for _class in self.kb.local_classes:
+
+            for k, obj in _class.dict_objects.items():
                 self.kb.create_local_link(_class, obj)
 
 
@@ -134,7 +135,11 @@ class Core():
         for i in self.kb.local_links:
             print("пара")
             for j in i:
-                print(j.name, j.__class__.__name__)
+                if j.__class__.__name__ == "_Object":
+                    print(j.name, j.id, j.__class__.__name__)
+                else:
+                    print(j.name, j.__class__.__name__)
+
 
 
     def clear_local_graph(self):

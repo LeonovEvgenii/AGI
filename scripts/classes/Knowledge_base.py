@@ -64,10 +64,6 @@ class Knowledge_base():
     # принятое решение № 20, 21
     def create_class(self, new_class):
 
-        # работаю не со всеми типами нод, а только с классами
-        # могут быть ноды второродне, первородне
-        # у каждой из них может быть по несколько объектов
-
         file_name = self.path_json_local + new_class.name + ".json"
 
         json_dic = {}

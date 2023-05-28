@@ -28,9 +28,7 @@ class Drawer():
                 for node in link: # нельзя вязть и просто перебрать элементы т к в множестве так нельзя)
                     if node.__class__.__name__ == "_Object":
 
-                        # print(node)
-                        # print(node.link_class.list_objects)
-                        number = node.link_class.list_objects.index(node) # оригинальный извращенец
+                        number = node.id
 
                         f.write('"' + node.name + "\n" + node.__class__.__name__ + " " + str(number) + '"')
                     else:

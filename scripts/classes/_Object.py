@@ -11,6 +11,8 @@ class _Object(Node):
         
         self.link_class = new_class
 
+        self.id = None
+
         self.number_in_sentence = number_in_sentence
 
         self.create_unix_time = time()

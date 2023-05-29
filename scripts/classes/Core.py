@@ -79,14 +79,11 @@ class Core():
             if not class_in_list:
                 new_class = _Class(word)
 
-
                 # если в классах класс и объект создаются и добаляются отдельно,
                 # (где то им все равно приходится по отдельности создаваться)
                 # то и в базе знаний сделаю отдельные методы для работы с ними
                 # так же в данном методе уже производится проверка о необходимости создания класса
                 self.kb.create_class(new_class)
-
-                # дописать очистку связей локального графа
 
                 input_classes.append(new_class)
                 self.kb.local_classes.append(new_class)
@@ -94,6 +91,8 @@ class Core():
                 new_object = _Object(new_class, i + 1)
                 new_class.add_obj(new_object) # можно спрятать внутрь конструктора объекта
                 self.kb.create_object(new_object)
+
+                self.kb.create_def("333", [new_object.name, new_object.name])
 
                 input_objects.append(new_object)
                 self.kb.local_objects.append(new_object)
@@ -211,12 +210,13 @@ class Core():
 
                 if output:
 
+                    print("в core", output)
+
                     output = output.replace('\n', '')
                     list_words = self.formatting(output)
                     generate_objects, generate_classes = self.words_to_lists(list_words)
                     self.write_local_links(generate_objects, generate_classes)
 
-                    print("в core", output)
 
                 # Результат возвращается в виде объектов. 
                 # Если не объект, то можно подумать убрать субпроцесс. 

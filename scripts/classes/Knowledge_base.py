@@ -88,8 +88,6 @@ class Knowledge_base():
         # если сделаем свою сериализацию этих полей, то это двойная работа
 
 
-
-
     # структура методов
     # группы
     # add
@@ -137,6 +135,16 @@ class Knowledge_base():
 
         data['objects'][new_obj.id] = json_obj
 
+        self.data_to_json(file_name, data)
+
+    # можно передавать в параметры, слова можно объекты
+    def create_def(self, class_name, list_words):
+
+        # во все create нужно добавить проверку на существование создаваемого объекта
+
+        file_name = self.path_json_local + class_name + ".json"
+        data = self.json_to_data(file_name)
+        data['definitions'].append(list_words)
         self.data_to_json(file_name, data)
 
 

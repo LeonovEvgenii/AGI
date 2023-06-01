@@ -17,3 +17,11 @@ http://ai-center.botik.ru/planning/index.php?ptl=materials/graphplan-overview.ht
 Г.С. Осипов, А.И. Панов, Н.В. Чудова, Ю.М. Кузнецова
 https://www.rfbr.ru/rffi/ru/popular_science_articles/o_2052012#1
 
+
+Воплощенный агент/обучение
+https://en.wikipedia.org/wiki/Embodied_agent
+
+https://habr.com/ru/articles/145309/
+https://habr.com/ru/articles/145467/
+
+https://github.com/daniel-kurushin/article

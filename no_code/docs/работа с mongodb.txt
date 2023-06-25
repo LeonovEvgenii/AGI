@@ -1,0 +1,18 @@
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+sudo apt-get update
+
+sudo apt-get install mongodb-org
+
+sudo systemctl start mongod
+
+pip3 install pymongo
+
+https://www.mongodb.com/try/download/compass
+
+mongodb://localhost:27017
+

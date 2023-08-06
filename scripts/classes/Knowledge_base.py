@@ -1,6 +1,9 @@
 import os
 import json
 
+from scripts.classes._Class import _Class
+
+
 class Knowledge_base():
     def __init__(self):
         
@@ -87,6 +90,8 @@ class Knowledge_base():
         # хрнаить ссылки нужно именно в классах, т к в них все поля содержатся
         # если сделаем свою сериализацию этих полей, то это двойная работа
 
+    # внутри всех методов в kb делать проверку/преобразование из строки в объект
+    # пример в методе create_class
 
     # структура методов
     # группы
@@ -111,7 +116,12 @@ class Knowledge_base():
     
 
     # принятое решение № 20, 21
+    # принятые решения хотя бы раз сюда продублировать или хотя бы самому прочитать, для освежения в памяти
+    # сделать перегузку по типу строка и по готовому объекту
     def create_class(self, new_class):
+
+        if str(type(new_class)) == "<class 'str'>":
+            new_class = _Class(new_class)
 
         file_name = self.path_json_local + new_class.name + ".json"
 
@@ -137,11 +147,31 @@ class Knowledge_base():
 
         self.data_to_json(file_name, data)
 
+
+    def get_names_local(self):
+        return [file[:-5] for file in os.listdir(self.path_json_local)]
+    
+    def get_names_global(self):
+        return [file[:-5] for file in os.listdir(self.path_json_global)]
+
+    def class_exist(self, class_name):
+
+        if class_name in self.get_names_local():
+            return True
+        elif class_name in self.get_names_global():
+            return True
+        
+        return False
+
+
     # можно передавать в параметры, слова можно объекты
     def create_def(self, class_name, list_words):
 
         # во все create нужно добавить проверку на существование создаваемого объекта
 
+        if self.class_exist(class_name):
+            self.create_class(class_name)
+        
         file_name = self.path_json_local + class_name + ".json"
         data = self.json_to_data(file_name)
         data['definitions'].append(list_words)

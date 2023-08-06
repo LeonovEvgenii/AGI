@@ -92,6 +92,12 @@ class Core():
                 new_class.add_obj(new_object) # можно спрятать внутрь конструктора объекта
                 self.kb.create_object(new_object)
 
+                # ответить на вопросы:
+                # пареметры в функции kb передаются в виде объетов или в виде строк
+                # функции kb помимо всего делаемого, возвращают созданный объект
+                # содаваться могут class obj py def link, они все возвращаемыми объектами будут
+                # проверить не полностью на диалоге секунда
+                # может там и другие ключевые слова чинить придется
                 self.kb.create_def("333", [new_object.name, new_object.name])
 
                 input_objects.append(new_object)
@@ -162,6 +168,8 @@ class Core():
         # ссылка на программу хранится в одноименном файле
         # можно кстати один файл со всем иссылками деражть, но я не знаю какие баги появятся
 
+        # оформить в виде отдельной функции
+        # уже написана в кб
         list_name_class_global = [file[:-5] for file in os.listdir(self.kb.path_json_global)]
 
         list_name_input_object = [obj.name for obj in input_objects]

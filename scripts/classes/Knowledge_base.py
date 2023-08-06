@@ -1,7 +1,21 @@
 import os
 import json
+import sys
 
-from scripts.classes._Class import _Class
+sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
+from _Class import _Class
+
+
+# Почему используется конструкция выше, вместо той, что ниже
+# from scripts.classes._Class import _Class
+# Я импортирую эти же файлы из субпроцесса
+# Там переменные __file__ и с нею связанные другие
+# То есть запус не от main.py
+# соответсвенно относительные пути ломаются
+# Я не смог перенастроить в субпроцессе относительный путь на main.py
+# и в этом не много смысла. Т к имена должным быть теми, где файл лежит 
+# и это доступ к внутренним полям через двойное подчеркивание.
+# Поэтому импорт абсолютный
 
 
 class Knowledge_base():
@@ -147,6 +161,18 @@ class Knowledge_base():
 
         self.data_to_json(file_name, data)
 
+    # можно передавать в параметры, слова можно объекты
+    def create_def(self, class_name, list_words):
+
+        # во все create нужно добавить проверку на существование создаваемого объекта
+
+        if self.class_exist(class_name):
+            self.create_class(class_name)
+        
+        file_name = self.path_json_local + class_name + ".json"
+        data = self.json_to_data(file_name)
+        data['definitions'].append(list_words)
+        self.data_to_json(file_name, data)
 
     def get_names_local(self):
         return [file[:-5] for file in os.listdir(self.path_json_local)]
@@ -164,18 +190,7 @@ class Knowledge_base():
         return False
 
 
-    # можно передавать в параметры, слова можно объекты
-    def create_def(self, class_name, list_words):
-
-        # во все create нужно добавить проверку на существование создаваемого объекта
-
-        if self.class_exist(class_name):
-            self.create_class(class_name)
-        
-        file_name = self.path_json_local + class_name + ".json"
-        data = self.json_to_data(file_name)
-        data['definitions'].append(list_words)
-        self.data_to_json(file_name, data)
+    
 
 
     def clear_local_files(self):

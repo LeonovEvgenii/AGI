@@ -1,7 +1,10 @@
 import os
 import json
+import sys
 
-from scripts.classes.Node import Node
+sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
+from Node import Node
+
 
 class _Class(Node):
     def __init__(self, word):

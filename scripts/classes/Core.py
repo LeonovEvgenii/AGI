@@ -98,7 +98,7 @@ class Core():
                 # содаваться могут class obj py def link, они все возвращаемыми объектами будут
                 # проверить не полностью на диалоге секунда
                 # может там и другие ключевые слова чинить придется
-                self.kb.create_def("333", [new_object.name, new_object.name])
+                # self.kb.create_def("333", [new_object.name, new_object.name])
 
                 input_objects.append(new_object)
                 self.kb.local_objects.append(new_object)

@@ -1,63 +1,22 @@
+# сохрани_определение 1 2 3
+
 import sys
-import json
-import os
-
-# sys.path.append(os.getcwd())
-# from util.functions import write_to_local_graph_json, print_to_xdot_local
 
 
-if sys.argv[2][-3:] == ".py":
-    # сохранение превородных определений, сделаю позже
-    pass
-else:
+sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
+# комментарий NOQA нужен для autopep8, чтоб не перемещатлась стока выше sys.path.append()
+from Knowledge_base import Knowledge_base  # NOQA
 
-    сейчас эту функуюию по добавлению определения пишу в kb
+kb = Knowledge_base()
 
-    существует ли класс
-        создать определение
-            открыть
-            взять дату
-            сформировать определение
-            записать дату
-    не существует
-        создать класс
-        создать определение
-    pass
+kb.create_def(sys.argv[2], sys.argv[3:])
 
+# первородные определения не сохраняются
+# нет сообщения о том, что недостаточно количество параметров
+# как работает флаг "необходимость_дальнейшего_выполнения"
+# когда потом срабатывает отрисовка
 
 
 # определения собираются из нод классов
-
-# defenition = {}
-# defenition['name'] = sys.argv[1]
-# defenition['definitions'] = [sys.argv[2:]]
-
-# # создание связей слова которое определяется с каждым словом входящим в его состав
-# for node in defenition['definitions'][0]:
-#     write_to_local_graph_json([defenition['name'], node])
-
-
-# path_to_file = "json/local/" + str(defenition['name']) + ".json"
-# if os.path.exists(path_to_file):
-#     file = open(os.getcwd() + "/" + path_to_file)
-#     json_file = json.load(file)
-#     file.close()
-
-#     if "definitions" in json_file:
-#         json_file["definitions"].append(defenition['definitions'][0])
-
-#     with open(path_to_file, 'w') as outfile:
-#         json.dump(json_file, outfile, ensure_ascii=False)
-
-# else:
-#     with open("json/local/" + str(defenition['name']) + ".json", 'w') as outfile:
-#         json.dump(defenition, outfile, ensure_ascii=False)
-
-# output = {}
-
-# output["необходимость_дальнейшего_выполнения"] = False
-# with open("output.json", 'w') as outfile:
-#     json.dump(output, outfile, ensure_ascii=False)
-
-# print_to_xdot_local()
+# создание связей слова которое определяется с каждым словом входящим в его состав
 

@@ -2,6 +2,8 @@ import os
 import json
 import sys
 
+# т к использую абсолютные импорты, указать в редми куда ложить программу
+# автоматически подставлять имя пользователя
 sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
 from _Class import _Class
 

@@ -1,4 +1,5 @@
 # сохрани_определение 1 2 3
+# сохрани_определение 1 2.py
 
 import sys
 
@@ -31,6 +32,7 @@ params = sys.argv[2:]
 if len(params) > 1:
     if params[0][-3:] != ".py":
         if len(params) == 2 and params[1][-3:] == ".py":
+            kb.create_py(params[0], params[1])
             print("первород")
             exit(0)
         for param in params:

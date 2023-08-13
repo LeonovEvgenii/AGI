@@ -38,20 +38,73 @@ class Knowledge_base():
         
         self.path_python_programm = path_to_workspace + "/knowledge_base/python_programm/"
 
-
     def json_to_data(self, path):
         data = None
         with open(path) as json_file:
             data = json.load(json_file)
             json_file.close()
         return data
-    
 
     def data_to_json(self, path, data):
         with open(path, 'w') as outfile:
             json.dump(data, outfile, ensure_ascii=False)
             outfile.close()
 
+    # внутри всех методов в kb делать проверку/преобразование из строки в объект
+    # пример в методе create_class
+
+    # структура методов
+    # группы
+    # create
+    # update
+    # read
+    # del
+
+    # подгруппы через подчеркивание
+    # class
+    # obj
+    # py
+    # def
+    # link
+
+    # например
+    # create_class
+    # read_py
+
+    # по идее все что связано с классом более общное
+    # obj py def link  можно перегрузить по типу данных функции, но в питоне с этим проблемы
+
+    # принятое решение № 20, 21
+    # принятые решения хотя бы раз сюда продублировать или хотя бы самому прочитать, для освежения в памяти
+    # сделать перегузку по типу строка и по готовому объекту
+    def create_class(self, new_class):
+
+        if str(type(new_class)) == "<class 'str'>":
+            new_class = _Class(new_class)
+
+        file_name = self.path_json_local + new_class.name + ".json"
+
+        json_dic = {}
+        json_dic['name'] = new_class.name
+        json_dic['definitions'] = []
+        json_dic['objects'] = {}
+        json_dic['python_file'] = ""
+
+        self.data_to_json(file_name, json_dic)
+
+    def create_object(self, new_obj):
+        
+        file_name = self.path_json_local + new_obj.name + ".json"
+
+        data = self.json_to_data(file_name)
+
+        json_obj = {}
+        json_obj['short_readable_time'] = new_obj.short_readable_time
+        # можно так то и другие поля сериализовывать
+
+        data['objects'][new_obj.id] = json_obj
+
+        self.data_to_json(file_name, data)
 
     def create_local_link(self, obj_1, obj_2):
 
@@ -97,75 +150,33 @@ class Knowledge_base():
         # хрнаить ссылки нужно именно в классах, т к в них все поля содержатся
         # если сделаем свою сериализацию этих полей, то это двойная работа
 
-    # внутри всех методов в kb делать проверку/преобразование из строки в объект
-    # пример в методе create_class
-
-    # структура методов
-    # группы
-    # add
-    # update
-    # read
-    # del
-
-    # подгруппы через подчеркивание
-    # class
-    # obj
-    # py
-    # def
-    # link
-
-    # например
-    # add_class
-    # read_py
-
-    # по идее все что связано с классом более общное
-    # obj py def link  можно перегрузить по типу данных функции, но в питоне с этим проблемы
-    
-
-    # принятое решение № 20, 21
-    # принятые решения хотя бы раз сюда продублировать или хотя бы самому прочитать, для освежения в памяти
-    # сделать перегузку по типу строка и по готовому объекту
-    def create_class(self, new_class):
-
-        if str(type(new_class)) == "<class 'str'>":
-            new_class = _Class(new_class)
-
-        file_name = self.path_json_local + new_class.name + ".json"
-
-        json_dic = {}
-        json_dic['name'] = new_class.name
-        json_dic['definitions'] = []
-        json_dic['objects'] = {}
-        json_dic['python_file'] = ""
-
-        self.data_to_json(file_name, json_dic)
-
-    def create_object(self, new_obj):
-        
-        file_name = self.path_json_local + new_obj.name + ".json"
-
-        data = self.json_to_data(file_name)
-
-        json_obj = {}
-        json_obj['short_readable_time'] = new_obj.short_readable_time
-        # можно так то и другие поля сериализовывать
-
-        data['objects'][new_obj.id] = json_obj
-
-        self.data_to_json(file_name, data)
-
     # можно передавать в параметры, слова можно объекты
     def create_def(self, class_name, list_words):
 
         # во все create нужно добавить проверку на существование создаваемого объекта
 
-        if self.class_exist(class_name):
+        if not self.class_exist(class_name):
             self.create_class(class_name)
         
         file_name = self.path_json_local + class_name + ".json"
-        data = self.json_to_data(file_name)
-        data['definitions'].append(list_words)
-        self.data_to_json(file_name, data)
+        dict_class = self.json_to_data(file_name)
+        dict_class['definitions'].append(list_words)
+        self.data_to_json(file_name, dict_class)
+
+    def create_py(self, class_name, file_py):
+
+        if not self.class_exist(class_name):
+            self.create_class(class_name)
+
+        file_name_class = self.path_json_local + class_name + ".json"
+        dict_class = self.json_to_data(file_name_class)
+        dict_class["python_file"] = file_py
+        self.data_to_json(file_name_class, dict_class)
+
+    def read_class(self, name):
+        file_name = self.path_json_local + name + ".json"
+        return self.json_to_data(file_name)
+
 
     def get_names_local(self):
         return [file[:-5] for file in os.listdir(self.path_json_local)]
@@ -182,15 +193,10 @@ class Knowledge_base():
         
         return False
 
-
-    
-
-
     def clear_local_files(self):
         local_files = os.listdir(self.path_json_local)
         if local_files:
             os.system("rm " + self.path_json_local + "*")
-
 
     def clear_local_links(self):
 

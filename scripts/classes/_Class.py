@@ -2,8 +2,13 @@ import os
 import json
 import sys
 
-sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
-from Node import Node
+# файл используется еще из subrocess, а там другой sys.path
+# абсолютные импрорты для добавления в sys.path использовать не хочется
+# sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
+try:
+    from scripts.classes.Node import Node
+except ModuleNotFoundError:
+    from Node import Node
 
 
 class _Class(Node):

@@ -261,3 +261,10 @@
     https://stackoverflow.com/questions/2012036/graphviz-how-to-connect-subgraphs
     Сайтик?
 
+19. Проблема относительного импорта в subprocess
+    Создать установщик, который бы прописывал необходимые абсолютные импорты.
+    Или
+    Решения:
+    https://stackoverflow.com/questions/16981921/relative-imports-in-python-3
+    Попробовать оформить проект как package или с __init__.py
+    Есть описание в слове сохрани_определение save_defenition.py

@@ -2,22 +2,13 @@ import os
 import json
 import sys
 
-# т к использую абсолютные импорты, указать в редми куда ложить программу
-# автоматически подставлять имя пользователя
-sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
-from _Class import _Class
-
-
-# Почему используется конструкция выше, вместо той, что ниже
-# from scripts.classes._Class import _Class
-# Я импортирую эти же файлы из субпроцесса
-# Там переменные __file__ и с нею связанные другие
-# То есть запус не от main.py
-# соответсвенно относительные пути ломаются
-# Я не смог перенастроить в субпроцессе относительный путь на main.py
-# и в этом не много смысла. Т к имена должным быть теми, где файл лежит 
-# и это доступ к внутренним полям через двойное подчеркивание.
-# Поэтому импорт абсолютный
+# файл используется еще из subrocess, а там другой sys.path
+# абсолютные импрорты для добавления в sys.path использовать не хочется
+# sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
+try:
+    from scripts.classes._Class import _Class
+except ModuleNotFoundError:
+    from _Class import _Class
 
 
 class Knowledge_base():

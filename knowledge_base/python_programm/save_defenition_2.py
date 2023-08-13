@@ -21,12 +21,6 @@ from Knowledge_base import Knowledge_base  # NOQA
 
 kb = Knowledge_base()
 
-# kb.create_def(sys.argv[2], sys.argv[3:])
-
-
-# функция БЗ чтение класса
-
-
 params = sys.argv[2:]
 
 if len(params) > 1:
@@ -37,26 +31,15 @@ if len(params) > 1:
             exit(0)
         for param in params:
             if param [-3:] == ".py":
-                print("ошибка")
+                print("py указывается при второродном определении")
                 exit(0)
+        kb.create_def(params[0], params[1:])
         print("вторород")
     else:
-        print("ошибка")
+        print("py указывается первым параметром")
 else:
-    print("ошибка")
+    print("нет параметров")
     # обработать ошибку в core
-
-# если больше 1
-#     если первый не ру
-#         если их два и второ ру
-#             открыть класс
-#             сохр первор
-#         если их больше двух и нет ру
-#             открыть класс
-#             сохр втор
-#     иначе ошибка
-# иначе ошибка
-
 
 
 # как работает флаг "необходимость_дальнейшего_выполнения"

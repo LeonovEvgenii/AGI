@@ -59,6 +59,7 @@ class Knowledge_base():
     # update
     # read
     # del
+    # exist
 
     # подгруппы через подчеркивание
     # class
@@ -157,6 +158,11 @@ class Knowledge_base():
 
         if not self.class_exist(class_name):
             self.create_class(class_name)
+        elif self.py_exist(class_name):
+            # эти ошибки нужно обрабатывать как-то по другому
+            # сейчас субпросесс, поэтому все валится в ноды,
+            # а должно в отдельный поток ошибок
+            print("уже существует определение на py")
         
         file_name = self.path_json_local + class_name + ".json"
         dict_class = self.json_to_data(file_name)
@@ -167,6 +173,12 @@ class Knowledge_base():
 
         if not self.class_exist(class_name):
             self.create_class(class_name)
+        elif self.def_exist(class_name):
+            # эти ошибки нужно обрабатывать как-то по другому
+            # сейчас субпросесс, поэтому все валится в ноды,
+            # а должно в отдельный поток ошибок
+            print("уже существует обычное определение")
+
 
         file_name_class = self.path_json_local + class_name + ".json"
         dict_class = self.json_to_data(file_name_class)
@@ -192,6 +204,21 @@ class Knowledge_base():
             return True
         
         return False
+
+    def def_exist(self, class_name):
+        dict_class = self.read_class(class_name)
+        if len(dict_class["definitions"]) > 0:
+            return True
+        else:
+            return False
+
+    def py_exist(self, class_name):
+        dict_class = self.read_class(class_name)
+        if dict_class["python_file"] != "":
+            return True
+        else:
+            return False
+
 
     def clear_local_files(self):
         local_files = os.listdir(self.path_json_local)

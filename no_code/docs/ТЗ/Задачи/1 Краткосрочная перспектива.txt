@@ -268,3 +268,9 @@
     https://stackoverflow.com/questions/16981921/relative-imports-in-python-3
     Попробовать оформить проект как package или с __init__.py
     Есть описание в слове сохрани_определение save_defenition.py
+
+20. Режимы рисования (вкл/откл)
+    - служебные слова
+    - классы
+
+    

@@ -191,6 +191,10 @@ class Knowledge_base():
         file_name = self.path_json_local + name + ".json"
         return self.json_to_data(file_name)
 
+    def read_defs(self, name):
+        all_class = self.read_class(name)
+        return all_class["definitions"]
+
 
     def get_names_local(self):
         return [file[:-5] for file in os.listdir(self.path_json_local)]

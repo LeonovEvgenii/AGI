@@ -184,11 +184,11 @@ class Core():
             python_file = ""
 
             if in_obj.link_class.name_python_programm:
-                print("есть в локальном")
+                # print("есть в локальном")
                 print(in_obj.link_class.name_python_programm)
                 # сохраняем путь к программе
             elif in_obj.name in list_name_class_global:
-                print("есть в глобальном")
+                # print("есть в глобальном")
 
                 # это должно быть в классе knoewledge как метод возвращающий путь
                 with open(self.kb.path_json_global + in_obj.name + ".json") as json_file:
@@ -321,9 +321,44 @@ class Core():
         # return global_output
 
     
-    def compare(self, search_word="два"):
+    def compare(self, input_objects, input_classes, search_word="два"):
         
-        for link in self.kb.local_links:
-            pass
-        
-        return True
+        all_input = input_objects + input_classes
+
+        all_types = ["_object", "_class"]
+
+        words_def = self.kb.read_defs(search_word)[0]
+
+        res = []
+
+        for def_word in words_def:
+            for input_word in all_input:
+                
+                if def_word in all_types:
+                    # print(input_word.name, type(input_word), "сравниваю по типу с ", def_word)
+
+                    end_type = str(type(input_word)).split(".")[-1]
+                    end_type = end_type[:-2].lower()
+
+                    if end_type == def_word:
+                        res.append(True)
+                        print(input_word.name)
+                        print(type(input_word))
+                        print(True)
+                        print()
+                        break
+                    else:
+                        res.append(False)
+                        print(input_word.name)
+                        print(type(input_word))
+                        print(False)
+                        print()
+                        all_input.remove(input_word)
+
+                else:
+                    print(input_word.name, "сравниваю по названию с ", def_word)
+                    # сравнениена названий
+                    pass
+
+        print(res)
+

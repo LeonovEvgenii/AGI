@@ -1,0 +1,31 @@
+Рассмотрю еще одну графовую БД
+https://dgraph.io/docs/clients/python/
+https://github.com/dgraph-io/pydgraph
+https://dgraph.io/tour/
+https://github.com/dgraph-io/dgraph
+https://dgraph.io/
+
+Выполнил
+curl https://get.dgraph.io -sSf | bash
+
+Dgraph binaries v22.0.2 have been installed successfully in /usr/local/bin.
+Please visit https://dgraph.io/docs/get-started for further instructions on usage.
+
+
+
+Делал поиск по формулировке
+Install Dgraph on Ubuntu
+Пробовал выполнять две инструкции
+
+https://computingforgeeks.com/how-to-install-dgraph-on-ubuntu/
+
+https://medium.com/ruralscript/installing-dgraph-on-ubuntu-the-simple-way-9f1634935a6
+
+В обоих случаях не запускаются демоны
+Команду на запуск не чрез браузер я не нашел
+Закончилось терпение по разбирательству в запуске
+Посижу на файлах или монгоДБ
+
+Позже, возможно, вернусь к вопросу работы с БД с чужой помощью или если основной 
+функционал будет дописан и нуждаться в ускорении.
+

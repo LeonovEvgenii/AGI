@@ -1,0 +1,9 @@
+https://www.python.org/downloads/windows/
+https://code.visualstudio.com/Download
+winget install --id Git.Git -e --source winget
+перезагрузить cmd
+cd C:\
+mkdir git
+cd git
+git clone https://github.com/LeonovEvgenii/AGI.git
+cd AGI

@@ -1,113 +1,31 @@
-# from class_node import Node
+# Иллюстрация работы
+# в первый ввод вводим
+# сохрани_определение два _object _class _object
+
+# Во второй вводим
+# палка палка
+
+# В выводе в обоих случаях получаем
+# количество совпадений слов из предложения со словами из орпеделения слова "два"
+
+# решил не продолжать работать в данной ветке/релизе
+# т к много архитектурных изменений необходимо сделать
+# в частности производить сравнение нод не только по названию, но и по типу
+
 import os
-import subprocess
 import json
 import re
 
-from util.functions import write_to_local_graph_json, print_to_xdot_local, clear_local_graph, save_new_nodes
+import signal
+import sys
 
-path_json_local = os.getcwd() + "/json/local/"
-path_json_global = os.getcwd() + "/json/global/"
+# это не все существующие функции и приходится импортировать только избранные
+from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 
-def proseccing_input_words(input_str):
-	input_str = input_str.lower()
-
-	punctuation = '!"#$%&\'()*,;@[\\]^`{|}~'
-	for p in punctuation:
-		if p in input_str:
-			input_str = input_str.replace(p, '')
-
-	input_list_words = input_str.split(" ")
-	
-	input_list_words = [ i for i in input_list_words if i]
-
-	return input_list_words
+from scripts.classes.Core import Core
 
 
-def get_input_words():
-
-	while 1:
-		input_str = input("Ввод: ")
-		if input_str == "":
-			print("Введена пустая строка")
-			continue
-
-		input_list_words = proseccing_input_words(input_str)
-
-		if input_list_words:
-			return input_list_words
-		else:
-			print("Строка не содержит ни одного ключевого слова")
-
-
-def run_nodes(input_list_words):
-
-	# обработка последовательная т к при параллельной дублирование
-
-	output = ""
-
-	list_local_json_files = os.listdir(path_json_local)
-	list_globa_json_files = os.listdir(path_json_global)
-	list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
-
-	path_python = os.getcwd() + "/python_programm"
-
-	global_output = ""
-
-	for i, word in enumerate(input_list_words):
-
-		for file in list_all_json_files:
-			if word == file[:-5]:
-
-				if file in list_globa_json_files:
-					json_file = open(path_json_global + file)
-				elif file in list_local_json_files:
-					json_file = open(path_json_local + file)
-				else:
-					continue
-					
-				data = json.load(json_file)
-
-				# если нет питона то не выполняем, а так все слова в предложении выполняются
-				if "file" in data:
-					list_without_run_word = input_list_words.copy()
-					list_without_run_word.remove(word)
-
-					output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
-
-					# проверка, если удалялись файлы, актуализировать из список
-					if os.stat(os.getcwd() + "/output.json").st_size != 0:
-						# не пустой файл
-						with open(os.getcwd() + "/output.json") as json_file:
-							data = json.load(json_file)
-
-							if "файл_удален" in data:
-								if data["файл_удален"] == True:
-									list_local_json_files = os.listdir(path_json_local)
-									list_globa_json_files = os.listdir(path_json_global)
-									list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
-									continue
-							json_file.close()
-
-					if output:
-						output = output.replace("\n", "")
-						output_list_words = [word]
-						output_list_words += output.split(" ")
-						save_new_nodes(output_list_words)
-						if word != "рекурсия":
-							write_to_local_graph_json(output_list_words)
-							print_to_xdot_local()
-						global_output += " "
-						global_output += output
-				json_file.close()
-
-	global_output = global_output.strip()
-
-	return global_output
-
-
-
-def open_graph(path):
+def open_graph(path, core):
 	lines = None
 	with open(path, "r") as original_file:
 		lines = original_file.readlines()
@@ -130,7 +48,7 @@ def open_graph(path):
 	write_file_graph.close()
 
 
-def run_dialog(path):
+def run_dialog(path, core):
 	lines = None
 	with open(path, "r") as dialog_file:
 		lines = dialog_file.readlines()
@@ -150,15 +68,15 @@ def run_dialog(path):
 			pair = []
 
 	for pair in pairs:
-		input_list_words = proseccing_input_words(pair[0])
+		input_list_words = core.formatting(pair[0])
 
 		print("Ввод: "+pair[0])
 
-		output = run_nodes(input_list_words)
+		output = core.run_nodes(input_list_words)
 
 		if "рекурсия" not in input_list_words:
 			write_to_local_graph_json(input_list_words)
-			print_to_xdot_local()
+			core.print_to_xdot_local()
 			save_new_nodes(input_list_words)
 
 
@@ -175,50 +93,82 @@ def run_dialog(path):
 	print("\nдиалог выполнился\n")
 		
 
-def all_tests():
+def all_tests(core):
 
 	test_files = os.listdir("dialogs/")
 
 	for file in test_files:
 		run_dialog("dialogs/" + file)
-		clear_local_graph()
+		core.clear_local_graph()
+
+# выяснить что это за два параметра
+# https://stackoverflow.com/questions/4205317/capture-keyboardinterrupt-in-python-without-try-except
+def signal_handler(signal, frame):
+    print(' You pressed Ctrl+C! bye bye')
+    sys.exit(0)
 
 
 if __name__ == "__main__":
 
-	clear_local_graph()
+	signal.signal(signal.SIGINT, signal_handler)
+
+	core = Core()
 
 	# open_graph("graphs/kolobok.dot")
 
-	# run_dialog("dialogs/recursion.txt")
-	# run_dialog("dialogs/second.txt")
-	# run_dialog("dialogs/year.txt")
-	# run_dialog("dialogs/history.txt") # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
+	# временная мера по передаче core параметром
+	# решить: сделать функцию частью core и вызывать как метод или оставить в main
+	# run_dialog("dialogs/recursion.txt", core)
+	# run_dialog("dialogs/second.txt", core)
+	# run_dialog("dialogs/year.txt", core)
+	# run_dialog("dialogs/history.txt", core) # пока нельзя выполнять, т к нет сравнения текущего вреени с правильным ответом
 	# exit(0)
 
-	# all_tests()
+	# core.all_tests(core)
 	# exit(0)
 
 	while 1:
 
-		input_list_words = get_input_words()
+		input_objects, input_classes = core.input_words()
+		# core.test_intput_lists(input_objects, input_classes)
 
-		output = run_nodes(input_list_words)
+		# в принятые решения
+		# локальный граф не храню в json, т к он все равно чистится при перезапусках.
+		# с дебагом без файлов, я надеюсь справлюсь
+		# связи образуются между соседними членами предложения, 
+		# т к предложение несет логику связи именно этих слов в таком порядке
+		# дополнительные связи и порядок образуются при выполнении нод
+		core.write_local_links(input_objects, input_classes)
+		# core.test_links()
 
-		stop_words = ["рекурсия", "удали_из_локального"]
+		# сначало выполнение кода, 
+		# сгенерированные ответы не всегда записываются в БД
+		# в список локальных нод попадают
+		# потом запись в БД вместе со сгенерированными ответами
 
-		flag_print = True
-		for word in input_list_words:
-			if word in stop_words:
-				flag_print = False
+		output = core.run_nodes(input_objects, input_classes)
+		
 
-		if flag_print:
-			write_to_local_graph_json(input_list_words)
-			print_to_xdot_local()
-			save_new_nodes(input_list_words)
+		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение
+		#  с частью, это возможный ответ.
 
-		print("Вывод:", output)
+		# stop_words = ["рекурсия", "удали_из_локального"]
 
-		f = open('output.json', 'w')
-		f.close()
+		# flag_print = True
+		# for word in input_list_words:
+		# 	if word in stop_words:
+		# 		flag_print = False
 
+		# if flag_print:
+			# write_to_local_graph_json(input_list_words)
+			# print_to_xdot_local()
+			# save_new_nodes(input_list_words)
+
+		# print("Вывод:", output)
+
+		# f = open('output.json', 'w')
+		# f.close()
+
+		core.compare(input_objects, input_classes, "два")
+
+		core.drawer.print_to_xdot_local()

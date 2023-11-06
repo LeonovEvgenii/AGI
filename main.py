@@ -23,6 +23,7 @@ import sys
 from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 
 from scripts.classes.Core import Core
+from scripts.classes.Console import Console
 
 
 def open_graph(path, core):
@@ -112,6 +113,8 @@ if __name__ == "__main__":
 
 	signal.signal(signal.SIGINT, signal_handler)
 
+	console = Console()
+
 	core = Core()
 
 	# open_graph("graphs/kolobok.dot")
@@ -129,8 +132,14 @@ if __name__ == "__main__":
 
 	while 1:
 
+		# console.read_input_data()
+		exit(0)
+
+		core.input_graph = console.get_graph()
+
 		input_objects, input_classes = core.input_words()
 		# core.test_intput_lists(input_objects, input_classes)
+
 
 		# в принятые решения
 		# локальный граф не храню в json, т к он все равно чистится при перезапусках.

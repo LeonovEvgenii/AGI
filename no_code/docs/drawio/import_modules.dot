@@ -1,0 +1,13 @@
+digraph G {
+  "Core"->"main"
+  "Console"->"main"
+  "Converter"->"Console"
+  "Graph"->"Converter"
+  "Link"->"Graph"
+  "First_born"->"Graph"
+  "Second_born"->"Graph"
+  "_Class"->"First_born"
+  "_Class"->"Second_born"
+  "Node"->"_Class"
+  "Graph"->"Second_born"
+}

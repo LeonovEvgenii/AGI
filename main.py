@@ -25,6 +25,10 @@ from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 from scripts.classes.Core import Core
 from scripts.classes.Console import Console
 
+from scripts.classes.Graph import Graph
+from scripts.classes.Second_born import Second_born
+from scripts.classes.First_born import First_born
+
 
 def open_graph(path, core):
 	lines = None
@@ -112,6 +116,22 @@ def signal_handler(signal, frame):
 if __name__ == "__main__":
 
 	signal.signal(signal.SIGINT, signal_handler)
+
+	g = Graph()
+
+	f1 = First_born("f1")
+	f2 = First_born("f2")
+	f3 = First_born("f3")
+
+	g.add_node(f1)
+	g.add_node(f2)
+	g.add_node(f3)
+
+	s1 = Second_born("s1")
+	s1.definition = g
+
+	exit(0)
+
 
 	console = Console()
 

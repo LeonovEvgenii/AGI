@@ -127,8 +127,16 @@ if __name__ == "__main__":
 	g.add_node(f2)
 	g.add_node(f3)
 
-	s1 = Second_born("s1")
-	s1.definition = g
+	s1 = Second_born("s1", g)
+
+	s2 = Second_born("s2")
+
+	g2 = Graph()
+	g2.add_node(s1)
+
+	s2.definition = g2
+
+	print(s1.definition)
 
 	exit(0)
 

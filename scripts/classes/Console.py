@@ -1,4 +1,5 @@
 from scripts.classes.Converter import Converter
+from scripts.classes.First_born import First_born
 
 class Console(Converter):
 
@@ -21,8 +22,26 @@ class Console(Converter):
 
             if input_list_words:
                 
-                input_objects, input_classes = self.words_to_lists(input_list_words)
-                return input_objects, input_classes
+                for word in input_list_words:
+
+                    # необходимо просмотреть функцию words_to_lists
+                    # нужно связи в выходной граф добавлять
+                    # потренироваться на настощих вервородных вершинах
+                    # определить когда вершина меняется с первородной на второроднуюы
+                    # вспомнить как работать с новыми вершинами и уже известными для первородных и второродных
+                    # служебные слова сохранения определений
+                    # служебные слова записать в инструкцию
+                    # служебные слова по сути первородные ноды
+                    # сначало сохранение перворобной ноды без ссылки на питон, только название сохранить
+                    # получестя, все незнакомые слова становятся первородными, до указангия определения
+                    # первородные могут исполняться, везде должны быть заглушки от отсутсвия ссылки на скрипт
+                    f1 = First_born(word)
+                    self.output_graph.add_node(f1)
+
+                break
+
+                # input_objects, input_classes = self.words_to_lists(input_list_words)
+                # return input_objects, input_classes
                 
             else:
                 print("Строка не содержит ни одного ключевого слова")

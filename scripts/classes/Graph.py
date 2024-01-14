@@ -18,5 +18,8 @@ class Graph():
             rez_str += node.__str__()
             rez_str += " "
 
-        return rez_str
+        if rez_str:
+            return "Список вершин графа: " + rez_str
+        else:
+            return "граф пустой"
 

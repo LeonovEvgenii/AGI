@@ -117,28 +117,30 @@ if __name__ == "__main__":
 
 	signal.signal(signal.SIGINT, signal_handler)
 
-	g = Graph()
+	#####
+	# рабочий фрагмент демонстрации работы с графами и определеними
+	# g = Graph()
 
-	f1 = First_born("f1")
-	f2 = First_born("f2")
-	f3 = First_born("f3")
+	# f1 = First_born("f1")
+	# f2 = First_born("f2")
+	# f3 = First_born("f3")
 
-	g.add_node(f1)
-	g.add_node(f2)
-	g.add_node(f3)
+	# g.add_node(f1)
+	# g.add_node(f2)
+	# g.add_node(f3)
 
-	s1 = Second_born("s1", g)
+	# s1 = Second_born("s1", g)
 
-	s2 = Second_born("s2")
+	# s2 = Second_born("s2")
 
-	g2 = Graph()
-	g2.add_node(s1)
+	# g2 = Graph()
+	# g2.add_node(s1)
 
-	s2.definition = g2
+	# s2.definition = g2
 
-	print(s1.definition)
+	# print(s2.definition)
 
-	exit(0)
+	# exit(0)
 
 
 	console = Console()
@@ -160,7 +162,10 @@ if __name__ == "__main__":
 
 	while 1:
 
-		# console.read_input_data()
+		# можно проверку наличия нового входного текста сделать в отдельном потоке
+		console.read_input_data()
+		print(console.get_graph())
+
 		exit(0)
 
 		core.input_graph = console.get_graph()

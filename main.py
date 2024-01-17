@@ -163,8 +163,14 @@ if __name__ == "__main__":
 	while 1:
 
 		# можно проверку наличия нового входного текста сделать в отдельном потоке
-		console.read_input_data()
-		print(console.get_graph())
+		input_graph = console.read_input_data()
+
+		# print(input_graph)
+
+		# спорное решение, где сохранять ввод в бд (в консоли  или в kb)
+		# оказывается есть списо объектов классов и объектов в kb
+		core.kb.save_nodes_from_graph()
+
 
 		exit(0)
 

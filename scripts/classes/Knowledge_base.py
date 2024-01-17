@@ -24,7 +24,7 @@ class Knowledge_base():
         # так же удобно иметь весь список нод
         # пока оставлю оба варианта, надеюсь багов при переключении все отловлю
         self.local_nodes = []
-        self.local_objects = [] 
+        self.local_objects = []
         self.local_classes = []
 
         self.local_links = set()
@@ -238,3 +238,5 @@ class Knowledge_base():
 
         self.data_to_json(self.path_links_local, data)
         
+    def save_nodes_from_graph(self):
+        pass

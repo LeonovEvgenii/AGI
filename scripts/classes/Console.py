@@ -26,7 +26,7 @@ class Console(Converter):
 
                     # необходимо просмотреть функцию words_to_lists
                     # нужно связи в выходной граф добавлять
-                    # потренироваться на настощих вервородных вершинах
+                    # потренироваться на настощих первородных вершинах
                     # определить когда вершина меняется с первородной на второроднуюы
                     # вспомнить как работать с новыми вершинами и уже известными для первородных и второродных
                     # служебные слова сохранения определений
@@ -38,7 +38,7 @@ class Console(Converter):
                     f1 = First_born(word)
                     self.output_graph.add_node(f1)
 
-                break
+                return self.output_graph
 
                 # input_objects, input_classes = self.words_to_lists(input_list_words)
                 # return input_objects, input_classes

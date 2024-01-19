@@ -167,9 +167,11 @@ if __name__ == "__main__":
 
 		# print(input_graph)
 
-		# спорное решение, где сохранять ввод в бд (в консоли  или в kb)
-		# оказывается есть списо объектов классов и объектов в kb
-		core.kb.save_nodes_from_graph()
+		# перекидываюсь графами в main
+		# т к модули не должны друг о друге знать
+		core.kb.local_graph.save_nodes_from_graph(input_graph)
+
+		print(core.kb.local_graph)
 
 
 		exit(0)

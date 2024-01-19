@@ -10,6 +10,8 @@ try:
 except ModuleNotFoundError:
     from _Class import _Class
 
+from scripts.classes.Graph import Graph
+
 
 class Knowledge_base():
     def __init__(self):
@@ -28,6 +30,8 @@ class Knowledge_base():
         self.local_classes = []
 
         self.local_links = set()
+
+        self.local_graph = Graph("локальный")
 
         path_to_workspace = os.getcwd()
 
@@ -238,5 +242,3 @@ class Knowledge_base():
 
         self.data_to_json(self.path_links_local, data)
         
-    def save_nodes_from_graph(self):
-        pass

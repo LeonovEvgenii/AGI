@@ -5,7 +5,8 @@ from scripts.classes.Second_born import Second_born
 
 class Graph():
 
-    def __init__(self):
+    def __init__(self, name=""):
+        self.name = name
         self.nodes = []
         self.links = []
 
@@ -19,7 +20,16 @@ class Graph():
             rez_str += " "
 
         if rez_str:
-            return "Список вершин графа: " + rez_str
+            return 'Список вершин графа "' + self.name + '" :' + rez_str
         else:
             return "граф пустой"
+
+    def save_nodes_from_graph(self, graph):
+        
+        for node in graph.nodes:
+            if node not in self.nodes:
+                self.nodes.append(node)
+            else:
+                # сравнить две ноды по определениям
+                pass
 

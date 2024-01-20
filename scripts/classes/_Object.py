@@ -5,11 +5,13 @@ from scripts.classes._Class import _Class
 from scripts.classes.Node import Node
 
 class _Object(Node):
-    def __init__(self, new_class, number_in_sentence):
+    def __init__(self, class_name, number_in_sentence):
         
-        super().__init__(new_class.name)
+        super().__init__(class_name)
         
-        self.link_class = new_class
+        # раньше передовался объект класса в конструктор
+        # а теперь только имя
+        # self.link_class = class_name
 
         self.id = None
 

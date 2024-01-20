@@ -10,6 +10,8 @@ try:
 except ModuleNotFoundError:
     from Node import Node
 
+from scripts.classes._Object import _Object
+
 
 class _Class(Node):
     def __init__(self, word):
@@ -25,9 +27,12 @@ class _Class(Node):
         self.definitions = []
         self.count_obj = 0
 
-    def add_obj(self, obj):
-        self.dict_objects[self.count_obj] = obj
-        obj.id = self.count_obj
+    def add_obj(self, number_in_sentence):
+
+        new_object = _Object(self.name, number_in_sentence)
+
+        self.dict_objects[self.count_obj] = new_object
+        new_object.id = self.count_obj
         self.count_obj += 1
 
     def __str__(self):

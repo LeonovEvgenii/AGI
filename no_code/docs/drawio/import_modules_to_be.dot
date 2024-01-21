@@ -1,0 +1,31 @@
+digraph G {
+
+  основная идея изменения была в том, чтобы создать классы
+  First_class
+  First_object
+
+  Second_class
+  Second_object
+
+  но пока по старому работает
+
+  может тогда не придется в графе отдельно классы отображать, а только объекты
+  но это решение я пока не принял
+
+
+  "Node"->"_Class"
+  "_Class"->"First_born"
+  "_Class"->"Second_born"
+
+
+  "Core"->"main"
+  "Console"->"main"
+  "Converter"->"Console"
+  "Graph"->"Converter"
+  "Link"->"Graph"
+  "First_born"->"Graph"
+  "Second_born"->"Graph"
+  
+  
+  "Graph"->"Second_born"
+}

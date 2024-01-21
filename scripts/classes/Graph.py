@@ -1,6 +1,7 @@
 from scripts.classes.Link import Link
 from scripts.classes.First_born import First_born
 from scripts.classes.Second_born import Second_born
+from scripts.classes._Object import _Object
 
 
 class Graph():
@@ -41,7 +42,21 @@ class Graph():
             # перый объект внутри класса автоматически не создается
         else:
             # добавляем в объект
-            c_class.add_obj(number_in_sentence)
+
+            # в параметры создания объекта передается только имя класса
+            # сам _Object создается не внутри _Class, а снаружи
+            # для добавления в спсок всех объектов в клссе Graph.
+            # Мог бы и внутри _Class создаваться, но тогда его возвращать надо в Graph
+
+            # это кстати идея
+            # сделать автоматическое создание одного объекта при создании класса
+            # сделать метод возврата всех объетов
+            # в классе граф при актуализации всех нод идет добавление класса и вытаскивание из него всех объектов
+            # раньше кстати так и было, создавался и класс и объект
+
+            new_object = _Object(c_class.name, number_in_sentence)
+            c_class.add_obj(new_object)
+            self.objects.append(new_object)
 
         self.merge_list_nodes()
 
@@ -49,14 +64,10 @@ class Graph():
     def merge_list_nodes(self):
         self.nodes = self.classes + self.objects
 
-
-
-
-
     def __str__(self):
         rez_str = ""
         for node in self.nodes:
-            rez_str += node.__str__()
+            rez_str += node.name + node.get_type()
             rez_str += " "
 
         if rez_str:
@@ -64,14 +75,4 @@ class Graph():
         else:
             return "граф пустой"
 
-    def save_nodes_from_graph(self, graph):
-        
-        return
-
-        for node in graph.nodes:
-            if node not in self.nodes:
-                self.nodes.append(node)
-            else:
-                # сравнить две ноды по определениям
-                pass
 

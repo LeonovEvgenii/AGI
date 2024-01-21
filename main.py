@@ -165,15 +165,17 @@ if __name__ == "__main__":
 		# можно проверку наличия нового входного текста сделать в отдельном потоке
 		input_graph = console.read_input_data()
 
-		# print(input_graph)
+		print(input_graph)
 
 		# перекидываюсь графами в main
 		# т к модули не должны друг о друге знать
-		core.kb.local_graph.save_nodes_from_graph(input_graph)
+		# core.kb.local_graph.save_nodes_from_graph(input_graph)
 
 		# print(core.kb.local_graph)
 
 		# core.test_intput_lists(input_objects, input_classes)
+
+		continue
 
 		exit(0)
 

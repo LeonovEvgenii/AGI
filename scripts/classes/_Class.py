@@ -42,5 +42,6 @@ class _Class(Node):
     def local_to_global(self):
         pass
 
-    
+    def get_type(self):
+        return "_cls"
 

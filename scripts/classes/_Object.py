@@ -1,7 +1,6 @@
 from time import time
 from datetime import datetime, timedelta
 
-from scripts.classes._Class import _Class
 from scripts.classes.Node import Node
 
 class _Object(Node):
@@ -27,3 +26,5 @@ class _Object(Node):
     # def __str__(self):
     #     return self.name + "\t" + self.short_readable_time + "\t" + str(self.number_in_sentence)
 
+    def get_type(self):
+        return "_obj"

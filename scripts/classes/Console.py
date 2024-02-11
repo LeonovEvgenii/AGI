@@ -1,24 +1,20 @@
 from scripts.classes.Converter import Converter
-from scripts.classes.First_born import First_born
+
 
 class Console(Converter):
 
     def __init__(self):
-
         super().__init__()
-
-        input_data = ""
 
     def read_input_data(self):
 
         while 1:
-            input_str = input("Ввод: ")
-            self.input_str = input_str
-            if input_str == "":
+            self.input_str = input("Ввод: ")
+            if self.input_str == "":
                 print("Введена пустая строка")
                 continue
 
-            input_list_words = self.formatting(input_str)
+            input_list_words = self.formatting(self.input_str)
 
             if input_list_words:
                 

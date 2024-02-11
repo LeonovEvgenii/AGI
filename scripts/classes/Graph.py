@@ -2,6 +2,7 @@ from scripts.classes.Link import Link
 from scripts.classes.First_born import First_born
 from scripts.classes.Second_born import Second_born
 from scripts.classes._Object import _Object
+from scripts.classes.Link import Link
 
 
 class Graph():
@@ -27,19 +28,29 @@ class Graph():
 
     def add_node(self, word, number_in_sentence):
 
-        # проверка на класс
-        #     если нет, создаем класс
-        #         внутри класса первый объект
-        #     если да
-        #         добавляем в объект
-
+        new_object = None
 
         c_class = self.return_class(word)
 
         if c_class == False:
-            # создаем класс
-            self.classes.append(First_born(word))
-            # перый объект внутри класса автоматически не создается
+
+            new_class = First_born(word)
+            self.classes.append(new_class)
+
+            # Перый объект класса создается
+            # и не в конструкторе класса, т к его еще вернуть обратно надо и ссылку создать.
+            # Операции над ссылками - это задача графа, а не класса _Class.
+            # И так понятно, что все классы имеют связь со своими объектами.
+            # А из конструктора класса возвращаться может только один объект и это объект класса класс,
+            # а не объект класса _Object.
+            # Технически можно вернуть два объекта, но логически это запутывает.
+            new_object = _Object(new_class.name, number_in_sentence)
+            new_class.add_obj(new_object)
+            self.objects.append(new_object)
+
+            # !!!!!
+            # здесь же можно добавить создание связей класса с объектом
+
         else:
             # добавляем в объект
 
@@ -60,9 +71,19 @@ class Graph():
 
         self.merge_list_nodes()
 
+        return new_object
+
 
     def merge_list_nodes(self):
+        # можно изменить способ добавления объектов в общий список нод.
+        # Бежим по спискам объектов каждого класса
+        # и сначала добавлем класс, потом все объекты к нему относящиеся.
         self.nodes = self.classes + self.objects
+
+    def add_link(self, old_node, new_node):
+        link = Link(old_node, new_node)
+        self.links.append(link)
+
 
     def __str__(self):
         rez_str = ""

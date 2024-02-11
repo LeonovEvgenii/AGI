@@ -17,6 +17,8 @@ class Console(Converter):
             input_list_words = self.formatting(self.input_str)
 
             if input_list_words:
+
+                old_node = None
                 
                 for i, word in enumerate(input_list_words):
 
@@ -38,12 +40,14 @@ class Console(Converter):
                     # еще раз прописываем функционал каждого класса
                     # читаем про модули, __init__, подключение файлов
 
-                    self.output_graph.add_node(word, number_in_sentence = i + 1)
+                    new_node = self.output_graph.add_node(word, number_in_sentence = i + 1)
+
+                    if old_node:
+                        self.output_graph.add_link(old_node, new_node)
+
+                    old_node = new_node
 
                 return self.output_graph
-
-                # input_objects, input_classes = self.words_to_lists(input_list_words)
-                # return input_objects, input_classes
                 
             else:
                 print("Строка не содержит ни одного ключевого слова")

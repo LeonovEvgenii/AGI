@@ -22,12 +22,10 @@ import sys
 # это не все существующие функции и приходится импортировать только избранные
 from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 
-from scripts.classes.Core import Core
 from scripts.classes.Console import Console
-
-from scripts.classes.Graph import Graph
-from scripts.classes.Second_born import Second_born
-from scripts.classes.First_born import First_born
+from scripts.classes.Drawer import Drawer
+from scripts.classes.Knowledge_base import Knowledge_base
+from scripts.classes.Core import Core
 
 
 def open_graph(path, core):
@@ -145,6 +143,9 @@ if __name__ == "__main__":
 
 	console = Console()
 
+	drawer = Drawer()
+
+
 	core = Core()
 
 	# open_graph("graphs/kolobok.dot")
@@ -162,18 +163,25 @@ if __name__ == "__main__":
 
 	while 1:
 
+		# перекидываюсь графами в main
+		# т к модули не должны друг о друге знать
+
 		# можно проверку наличия нового входного текста сделать в отдельном потоке
 		input_graph = console.read_input_data()
 
 		print(input_graph)
 
-		# перекидываюсь графами в main
-		# т к модули не должны друг о друге знать
+		# этап отрисовки входного графа или локального
+
+		drawer.graph_to_xdot(input_graph)
+
+		# этап сохранения графа в БД
 		# core.kb.local_graph.save_nodes_from_graph(input_graph)
 
 		# print(core.kb.local_graph)
 
 		# core.test_intput_lists(input_objects, input_classes)
+
 
 		continue
 

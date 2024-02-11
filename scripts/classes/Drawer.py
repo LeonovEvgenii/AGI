@@ -2,8 +2,7 @@
 # у xdot есть свой питоновски модуль
 
 class Drawer():
-    def __init__(self, knowledge_base):
-        self.kb = knowledge_base
+    def __init__(self):
         self.path_local_dot = "knowledge_base/graphs_links/local_graph.dot"
 
 
@@ -74,3 +73,6 @@ class Drawer():
             f.write("strict graph G {\n")
             f.write("}\n")
         f.close()
+
+    def graph_to_xdot(self):
+        pass

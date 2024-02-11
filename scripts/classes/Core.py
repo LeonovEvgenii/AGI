@@ -2,15 +2,16 @@ import subprocess
 import os
 import json
 
-from scripts.classes.Knowledge_base import Knowledge_base
 from scripts.classes._Class import _Class
 from scripts.classes._Object import _Object
-from scripts.classes.Drawer import Drawer
+
+# !!! убрать
+from scripts.classes.Knowledge_base import Knowledge_base
+
 
 class Core():
     def __init__(self):
         self.kb = Knowledge_base()
-        self.drawer = Drawer(self.kb)
 
         self.clear_local_graph()
 
@@ -65,7 +66,7 @@ class Core():
         # print("\nочищаю локальный граф\n")
         self.kb.clear_local_files()
         self.kb.clear_local_links()
-        self.drawer.clear_local_dot()
+        # self.drawer.clear_local_dot()
 
         # f = open('output.json', 'w')
         # f.close()

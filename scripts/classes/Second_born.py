@@ -14,3 +14,6 @@ class Second_born(_Class):
     # такая функция невозможна из-за циклического импорта
     # def create_def(self, list_nodes):
     #     self.g = Graph()
+        
+    def __str__(self) -> str:
+        return "второродная: " + self.name

@@ -6,3 +6,6 @@ class First_born(_Class):
         super().__init__(word)
 
         self.path_python_file = ""
+
+    def __str__(self) -> str:
+        return "первородная: " + self.name

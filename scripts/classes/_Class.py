@@ -35,8 +35,8 @@ class _Class(Node):
         new_object.id = self.count_obj
         self.count_obj += 1
 
-    def __str__(self):
-        return self.name
+    def __str__(self) -> str:
+        return "класс: " + self.name
     
     # метод перевода из локального в глобальный, со всеми проверками
     def local_to_global(self):

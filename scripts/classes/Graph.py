@@ -73,7 +73,6 @@ class Graph():
 
         return new_object
 
-
     def merge_list_nodes(self):
         # можно изменить способ добавления объектов в общий список нод.
         # Бежим по спискам объектов каждого класса
@@ -84,15 +83,20 @@ class Graph():
         link = Link(old_node, new_node)
         self.links.append(link)
 
-
-    def __str__(self):
-        rez_str = ""
+    def __str__(self) -> str:
+        print_nodes = ""
         for node in self.nodes:
-            rez_str += node.name + node.get_type()
-            rez_str += " "
+            print_nodes += node.name + node.get_type()
+            print_nodes += " "
 
-        if rez_str:
-            return 'Список вершин графа "' + self.name + '" :' + rez_str
+        print_links = ""
+        for link in self.links:
+            print_links += "\t" + str(link) + "\n"
+
+        if print_nodes:
+            return 'Граф:\n\t"' + self.name \
+                + '"\nсписок вершин:\n\t' + print_nodes \
+                + '\nсписок связей:\n' + print_links
         else:
             return "граф пустой"
 

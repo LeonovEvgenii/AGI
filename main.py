@@ -169,7 +169,7 @@ if __name__ == "__main__":
 		# можно проверку наличия нового входного текста сделать в отдельном потоке
 		input_graph = console.read_input_data()
 
-		print(input_graph)
+		# print(input_graph)
 
 		# этап отрисовки входного графа или локального
 

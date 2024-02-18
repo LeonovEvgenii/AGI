@@ -26,5 +26,8 @@ class _Object(Node):
     # def __str__(self):
     #     return self.name + "\t" + self.short_readable_time + "\t" + str(self.number_in_sentence)
 
+    def __str__(self) -> str:
+        return "объект: " + self.name
+
     def get_type(self):
         return "_obj"

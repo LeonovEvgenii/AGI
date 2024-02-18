@@ -1,9 +1,18 @@
-# https://question-it.com/questions/1218482/kak-pometit-kraja-grafa-ispolzuja-python-i-graphviz
+# https://graphviz.readthedocs.io/en/stable/manual.html
 # у xdot есть свой питоновски модуль
+
+# пердыдущие варианты реализации
+# 1) из файл json. Разделение на пары из аходного предложения.
+# 2) из объектов knowledge_base. Использование множества как структуры данных.
+#  Подпись в каждой ноде какой класс и объект.
+
+
 
 class Drawer():
     def __init__(self):
         self.path_local_dot = "knowledge_base/graphs_links/local_graph.dot"
+
+    # здесь так же может быть код открытия в визуализаторе
 
 
     def print_to_xdot_local(self):
@@ -17,10 +26,6 @@ class Drawer():
 
         with open(self.path_local_dot, 'w') as f:
             f.write("strict graph G {\n")
-
-            # for _class in self.kb.local_classes:
-            #     for i, obj in enumerate(_class.list_objects):
-            #         f.write('"' + obj.name + '\n' + str(i + 1) + '"\n')
 
             for link in self.kb.local_links:
                 flag_two = False
@@ -44,35 +49,22 @@ class Drawer():
 
 
 
-        # Старый код чтения из json
-
-        # input_json = None
-        # with open("graphs/local_graph.json") as json_file:
-        # 	input_json = json.load(json_file)
-
-        # file_name = "graphs/local_graph.dot"
-        # with open(file_name, 'w') as f:
-        # 	f.write("strict graph G {\n")
-
-        # 	for node in input_json['nodes']:
-        # 		f.write('"' + node + '"\n')
-
-        # 	for save_pair in input_json['links']:
-        # 		if len(save_pair) == 2: 
-        # 			f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
-        # 		else:
-        # 			f.write('"' + save_pair[0] + '"\n')
-
-        # 	f.write("}\n")
-
-        # здесь так же может быть код открытия в визуализаторе
-
-
     def clear_local_dot(self):
         with open(self.path_local_dot, 'w') as f:
             f.write("strict graph G {\n")
             f.write("}\n")
         f.close()
 
-    def graph_to_xdot(self):
-        pass
+    # еще необходим функционал режима отображения связей с классом и отсутвия отображения этих связей
+    # продумать различные тесты с повотряющимися нодами и т п
+    # добавить режим отображения id объектов
+
+    def graph_to_xdot(self, graph):
+
+        with open(self.path_local_dot, 'w') as f:
+            f.write("strict graph G {\n")
+
+            for link in graph.links:
+                f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
+
+            f.write("}\n")

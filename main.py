@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
 		# этап отрисовки входного графа или локального
 
-		drawer.graph_to_xdot(input_graph)
+		drawer.graph_to_xdot(input_graph, "cls")
 
 		# этап сохранения графа в БД
 		# core.kb.local_graph.save_nodes_from_graph(input_graph)

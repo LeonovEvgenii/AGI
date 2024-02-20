@@ -4,6 +4,9 @@ from datetime import datetime, timedelta
 from scripts.classes.Node import Node
 
 class _Object(Node):
+
+    id = 0
+
     def __init__(self, class_name, number_in_sentence):
         
         super().__init__(class_name)
@@ -12,7 +15,15 @@ class _Object(Node):
         # а теперь только имя
         # self.link_class = class_name
 
-        self.id = None
+        # id нужно выностить в класс
+        # если оставить как есть будет только +1 срабатывать один раз
+        # даже других _классов
+        # если статичноым сделать , на все _объекты
+        # распространяться будет.
+        # В классе педелать нужно список _объектов на словарь
+        # с idшниками
+
+        self.id += 1
 
         self.number_in_sentence = number_in_sentence
 

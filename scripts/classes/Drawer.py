@@ -58,7 +58,7 @@ class Drawer():
     # продумать различные тесты с повотряющимися нодами и т п
     # добавить режим отображения id объектов
 
-    def graph_to_xdot(self, graph, mode):
+    def graph_to_xdot(self, graph, mode="cls"):
 
         with open(self.path_local_dot, 'w') as f:
             f.write("strict graph G {\n")
@@ -81,6 +81,28 @@ class Drawer():
                     if link.one_node.get_type() == "_cls" or link.two_node.get_type() == "_cls":
                         continue
 
-                f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
+                # проверку сделать, если нет связей
+
+                link_str = '"'
+
+                link_str += str(link.one_node)
+
+                if link.one_node.get_type() == "_obj":
+                    link_str += " id: "
+                    link_str += str(link.one_node.id)
+
+                link_str += '" -- "'
+
+                link_str += str(link.two_node)
+                
+                if link.two_node.get_type() == "_obj":
+                    link_str += " id: "
+                    link_str += str(link.two_node.id)
+
+                link_str += '"\n'
+                
+                f.write(link_str)
+
+                # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
 
             f.write("}\n")

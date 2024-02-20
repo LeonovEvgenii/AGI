@@ -48,9 +48,6 @@ class Graph():
             new_class.add_obj(new_object)
             self.objects.append(new_object)
 
-            # !!!!!
-            # здесь же можно добавить создание связей класса с объектом
-
             self.add_link(new_class, new_object)
 
         else:
@@ -70,6 +67,9 @@ class Graph():
             new_object = _Object(c_class.name, number_in_sentence)
             c_class.add_obj(new_object)
             self.objects.append(new_object)
+
+            self.add_link(c_class, new_object)
+
 
         self.merge_list_nodes()
 

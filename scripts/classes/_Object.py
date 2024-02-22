@@ -5,7 +5,9 @@ from scripts.classes.Node import Node
 
 class _Object(Node):
 
-    id = 0
+    # поле отвечающее за уникальность объектов
+    # его значение берется от счетчика новых объектов в классе _Class
+    id
 
     def __init__(self, class_name, number_in_sentence):
         
@@ -15,15 +17,7 @@ class _Object(Node):
         # а теперь только имя
         # self.link_class = class_name
 
-        # id нужно выностить в класс
-        # если оставить как есть будет только +1 срабатывать один раз
-        # даже других _классов
-        # если статичноым сделать , на все _объекты
-        # распространяться будет.
-        # В классе педелать нужно список _объектов на словарь
-        # с idшниками
-
-        self.id += 1
+        
 
         self.number_in_sentence = number_in_sentence
 

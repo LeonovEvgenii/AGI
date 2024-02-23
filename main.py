@@ -176,12 +176,12 @@ if __name__ == "__main__":
 		drawer.graph_to_xdot(input_graph, "cls")
 
 		# этап сохранения графа в БД
+		# пока пропущу, т к можно работать с операциями над графами над объектами
+		# а за счет тестов, делать это в одной сессии запуска
 		# core.kb.local_graph.save_nodes_from_graph(input_graph)
 
 		# print(core.kb.local_graph)
-
 		# core.test_intput_lists(input_objects, input_classes)
-
 
 		continue
 
@@ -193,7 +193,7 @@ if __name__ == "__main__":
 		# связи образуются между соседними членами предложения, 
 		# т к предложение несет логику связи именно этих слов в таком порядке
 		# дополнительные связи и порядок образуются при выполнении нод
-		core.write_local_links(input_objects, input_classes)
+		# core.write_local_links(input_objects, input_classes)
 		# core.test_links()
 
 		# сначало выполнение кода, 

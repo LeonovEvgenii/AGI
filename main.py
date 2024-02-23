@@ -183,9 +183,7 @@ if __name__ == "__main__":
 		# print(core.kb.local_graph)
 		# core.test_intput_lists(input_objects, input_classes)
 
-		continue
-
-		exit(0)
+		
 
 		# в принятые решения
 		# локальный граф не храню в json, т к он все равно чистится при перезапусках.
@@ -201,8 +199,14 @@ if __name__ == "__main__":
 		# в список локальных нод попадают
 		# потом запись в БД вместе со сгенерированными ответами
 
-		output = core.run_nodes(input_objects, input_classes)
+		output = core.run_nodes_2(input_graph)
 		
+
+		continue
+
+		exit(0)
+
+
 
 		# попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение
 		#  с частью, это возможный ответ.

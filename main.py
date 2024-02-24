@@ -199,7 +199,7 @@ if __name__ == "__main__":
 		# в список локальных нод попадают
 		# потом запись в БД вместе со сгенерированными ответами
 
-		output = core.run_nodes_2(input_graph)
+		output_graph = core.run_nodes_2(input_graph)
 		
 
 		continue

@@ -202,9 +202,7 @@ if __name__ == "__main__":
 		output_graph = core.run_nodes_2(input_graph)
 		
 
-		continue
-
-		exit(0)
+		console.write_output_data(output_graph)
 
 
 
@@ -228,6 +226,6 @@ if __name__ == "__main__":
 		# f = open('output.json', 'w')
 		# f.close()
 
-		core.compare(input_objects, input_classes, "два")
+		# core.compare(input_objects, input_classes, "два")
 
-		core.drawer.print_to_xdot_local()
+		# core.drawer.print_to_xdot_local()

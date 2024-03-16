@@ -230,8 +230,8 @@ class Core():
 
         # return global_output
 
-    def run_nodes_2(self, input_praph):
-        pass
+    def run_nodes_2(self, input_graph):
+        return input_graph
 
 
     def compare(self, input_objects, input_classes, search_word="два"):

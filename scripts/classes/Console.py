@@ -128,3 +128,8 @@ class Console(Converter):
     def text_to_graph():
         pass
 
+    def write_output_data(self, output_graph):
+
+        for link in output_graph.links:
+
+            pass

@@ -8,12 +8,19 @@
 import unittest
 
 from scripts.classes.Console import Console
-
+from scripts.classes.Drawer import Drawer
+from scripts.classes.Core import Core
 
 class main_test(unittest.TestCase):
 	def test_one_sum(self):
 
 		console = Console()
+		drawer = Drawer()
+		core = Core()
+
+		input_graph = console.paste_input_data("2 + 3")
+
+		print(input_graph)
 
 		a = 2 + 3
 

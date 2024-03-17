@@ -167,7 +167,12 @@ if __name__ == "__main__":
 		# т к модули не должны друг о друге знать
 
 		# можно проверку наличия нового входного текста сделать в отдельном потоке
-		input_graph = console.read_input_data()
+		# input_graph = console.read_input_data()
+
+		# input_graph = console.text_to_graph("1 2 3")
+		input_graph = console.text_to_graph()
+
+
 
 		print(input_graph)
 

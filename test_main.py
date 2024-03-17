@@ -18,13 +18,16 @@ class main_test(unittest.TestCase):
 		drawer = Drawer()
 		core = Core()
 
-		input_graph = console.paste_input_data("2 + 3")
+		input_graph = console.content_to_graph("2 + 3")
 
 		print(input_graph)
 
-		a = 2 + 3
+		output_graph = core.run_nodes_2(input_graph)
 
-		self.assertEqual(a, 5)
+		# console.graph_to_content(output_graph, print=True) # если печатать в консоль (не для теста)
+		output_text = console.graph_to_content(output_graph)
+
+		self.assertEqual(output_text, "5")
 
 	def test_two_sum(self):
 

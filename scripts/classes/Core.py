@@ -231,6 +231,10 @@ class Core():
         # return global_output
 
     def run_nodes_2(self, input_graph):
+
+        # работа с локальным графом, глобальным и контекстом
+        # контекст может быть на уровне консоли, может быть на уровне run_node
+
         return input_graph
 
 

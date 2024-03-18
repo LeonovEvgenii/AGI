@@ -11,7 +11,7 @@ from scripts.classes.Console import Console
 from scripts.classes.Drawer import Drawer
 from scripts.classes.Core import Core
 
-class main_test(unittest.TestCase):
+class Main_test(unittest.TestCase):
 	def test_one_sum(self):
 
 		console = Console()

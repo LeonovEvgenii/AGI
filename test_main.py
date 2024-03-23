@@ -12,6 +12,17 @@ from scripts.classes.Drawer import Drawer
 from scripts.classes.Core import Core
 
 class Main_test(unittest.TestCase):
+	def test_console(self):
+
+		console = Console()
+
+		input_graph = console.content_to_graph("1 2 3 4")
+
+		output_text = console.graph_to_content(input_graph)
+
+		self.assertEqual(output_text, "1 2 3 4")
+	
+	
 	def test_one_sum(self):
 
 		console = Console()
@@ -36,3 +47,7 @@ class Main_test(unittest.TestCase):
 		c = [a, b]
 
 		self.assertEqual(c, [5, 4])
+
+if __name__ =="__main__":
+	mt = Main_test()
+	mt.test_console()

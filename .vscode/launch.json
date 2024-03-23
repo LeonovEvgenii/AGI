@@ -9,6 +9,15 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "subProcess": true
+        },
+        {
+            "name": "тесты main",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/test_main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "subProcess": true
         }
     ]
 }

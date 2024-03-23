@@ -72,7 +72,7 @@ class Console(Converter):
         self.write_output_data(input_graph)
         
         if print_flag:
-            print()
+            print(self.get_content())
 
         return self.get_content()
 

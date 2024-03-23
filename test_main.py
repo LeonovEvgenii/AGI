@@ -18,6 +18,7 @@ class Main_test(unittest.TestCase):
 
 		input_graph = console.content_to_graph("1 2 3 4")
 
+		# output_text = console.graph_to_content(input_graph, print_flag=True)
 		output_text = console.graph_to_content(input_graph)
 
 		self.assertEqual(output_text, "1 2 3 4")

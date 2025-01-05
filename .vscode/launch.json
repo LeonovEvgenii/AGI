@@ -3,21 +3,29 @@
     "configurations": [
         {
             "name": "main в корне",
-            "type": "python",
+            
+            "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "subProcess": true
+            "subProcess": true,
+            
+            "program": "${workspaceFolder}/main.py",
         },
+        
         {
             "name": "тесты main",
-            "type": "python",
+            
+            "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/test_main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "subProcess": true
+            "subProcess": true,
+
+            "module": "unittest",
+            "args": [
+                "test_main.py"
+            ],
         }
     ]
 }

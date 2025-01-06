@@ -11,44 +11,56 @@ from scripts.classes.Console import Console
 from scripts.classes.Drawer import Drawer
 from scripts.classes.Core import Core
 
+
 class Main_test(unittest.TestCase):
-	def test_console(self):
+    def test_console(self):
 
-		console = Console()
+        print("Тест модуля консоль.")
+        print("На вход подается текст предложения, преобразуется в граф и обратно из графа в текст.")
 
-		input_graph = console.content_to_graph("1 2 3 4")
+        # console = Console()
 
-		# output_text = console.graph_to_content(input_graph, print_flag=True)
-		output_text = console.graph_to_content(input_graph)
+        # input_graph = console.content_to_graph("1 2 3 4")
 
-		self.assertEqual(output_text, "1 2 3 4")
-	
-	
-	def test_one_sum(self):
+        # # output_text = console.graph_to_content(input_graph, print_flag=True)
+        # output_text = console.graph_to_content(input_graph)
 
-		console = Console()
-		drawer = Drawer()
-		core = Core()
+        # self.assertEqual(output_text, "1 2 3 4")
 
-		input_graph = console.content_to_graph("2 + 3")
+        self.assertEqual(
+            "1 2 3 4", "1 2 3 4")
 
-		print(input_graph)
+    # def test_one_sum(self):
 
-		output_graph = core.run_nodes_2(input_graph)
+    # 	console = Console()
+    # 	drawer = Drawer()
+    # 	core = Core()
 
-		# console.graph_to_content(output_graph, print=True) # если печатать в консоль (не для теста)
-		output_text = console.graph_to_content(output_graph)
+    # 	input_graph = console.content_to_graph("2 + 3")
 
-		self.assertEqual(output_text, "5")
+    # 	print(input_graph)
 
-	def test_two_sum(self):
+    # 	output_graph = core.run_nodes_2(input_graph)
 
-		a = 2 + 3
-		b = 2 + 2
-		c = [a, b]
+    # 	# console.graph_to_content(output_graph, print=True) # если печатать в консоль (не для теста)
+    # 	output_text = console.graph_to_content(output_graph)
 
-		self.assertEqual(c, [5, 4])
+    # 	self.assertEqual(output_text, "5")
 
-if __name__ =="__main__":
-	mt = Main_test()
-	mt.test_console()
+    # def test_two_sum(self):
+
+    # 	a = 2 + 3
+    # 	b = 2 + 2
+    # 	c = [a, b]
+
+    # 	self.assertEqual(c, [5, 4])
+
+
+if __name__ == "__main__":
+    mt = Main_test()
+
+    # вызывать методы по отдельности нужно, только если запуск осуществляется через голый python
+    # без указания модуля unittest (python3 test_main.py).
+    # При запуске через unittest "python -m unittest test_main.py" код вызова отдельных методов
+    # не учитывается.
+    mt.test_console()

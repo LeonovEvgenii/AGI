@@ -36,16 +36,13 @@ def open_graph(path, core):
 
     data_json = []
     for line in lines:
-        match = re.findall(
-            r'"(.*)".{0,}(->|--).{0,}"(.*)";{0,}', line)
+        match = re.findall(r'"(.*)".{0,}(->|--).{0,}"(.*)";{0,}', line)
         if match != []:
-            tmp = [
-                match[0][0], match[0][2]]
+            tmp = [match[0][0], match[0][2]]
             data_json.append(tmp)
 
     with open("graphs/local_graph.json", 'w') as json_file:
-        json.dump(
-            data_json, json_file, ensure_ascii=False)
+        json.dump(data_json, json_file, ensure_ascii=False)
     json_file.close()
 
     with open('graphs/local_graph.dot', 'w') as write_file_graph:
@@ -74,20 +71,16 @@ def run_dialog(path, core):
             pair = []
 
     for pair in pairs:
-        input_list_words = core.formatting(
-            pair[0])
+        input_list_words = core.formatting(pair[0])
 
         print("Ввод: "+pair[0])
 
-        output = core.run_nodes(
-            input_list_words)
+        output = core.run_nodes(input_list_words)
 
         if "рекурсия" not in input_list_words:
-            write_to_local_graph_json(
-                input_list_words)
+            write_to_local_graph_json(input_list_words)
             core.print_to_xdot_local()
-            save_new_nodes(
-                input_list_words)
+            save_new_nodes(input_list_words)
 
         if pair[1] != output:
             print("\nожидаемый ответ < " +
@@ -126,8 +119,7 @@ if __name__ == "__main__":
 
     exit(0)
 
-    signal.signal(
-        signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
 
     #####
     # рабочий фрагмент демонстрации работы с графами и определеними
@@ -188,8 +180,7 @@ if __name__ == "__main__":
 
         # этап отрисовки входного графа или локального
 
-        drawer.graph_to_xdot(
-            input_graph, "cls")
+        drawer.graph_to_xdot(input_graph, "cls")
 
         # этап сохранения графа в БД
         # пока пропущу, т к можно работать с операциями над графами над объектами
@@ -213,11 +204,9 @@ if __name__ == "__main__":
         # в список локальных нод попадают
         # потом запись в БД вместе со сгенерированными ответами
 
-        output_graph = core.run_nodes_2(
-            input_graph)
+        output_graph = core.run_nodes_2(input_graph)
 
-        console.write_output_data(
-            output_graph)
+        console.write_output_data(output_graph)
 
         # попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение
         #  с частью, это возможный ответ.

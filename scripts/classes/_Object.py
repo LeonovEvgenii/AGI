@@ -1,7 +1,8 @@
 from time import time
-from datetime import datetime, timedelta
+from datetime import datetime, timezone
 
 from scripts.classes.Node import Node
+
 
 class _Object(Node):
 
@@ -10,19 +11,20 @@ class _Object(Node):
     id
 
     def __init__(self, class_name, number_in_sentence):
-        
+
         super().__init__(class_name)
-        
+
         # раньше передовался объект класса в конструктор
         # а теперь только имя
         # self.link_class = class_name
 
-        
-
         self.number_in_sentence = number_in_sentence
 
-        self.create_unix_time = time()
-        readable_time_and_zone = datetime.utcfromtimestamp(self.create_unix_time) + timedelta(hours = 5)
+        self.unix_time = time()
+        readable_time_and_zone = datetime.fromtimestamp(
+            self.unix_time,
+            tz=timezone.utc
+        )
         self.short_readable_time = readable_time_and_zone.strftime('%H:%M:%S')
 
         # Пока не добавляю в список объектов в файл класса (локальный).

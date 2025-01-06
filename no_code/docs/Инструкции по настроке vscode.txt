@@ -1,0 +1,34 @@
+Настройка autopep8
+
+Расширение ставится не только в магазине, но и обязательно через apt
+sudo apt install python3-autopep8
+
+Локальная настройка производится через файл setup.cfg (переименовывать нельзя)
+(лежать должен именно в корне)
+с текстом
+
+[pep8]
+max-line-length = 40
+
+Галочка форматирования при сохранении выставляется в глобальных настройках vscode
+"editor.formatOnSave": true
+
+Проверка работоспособности длинны строки хорошо выполняется на примере.
+При длине строки 40
+
+
+def example_function(param1, param2, param3, param4, param5):
+    result = param1 + param2 + param3 + param4 + param5
+    return result
+
+
+example_function(1, 2, 4, 5)
+
+
+Сброс переименовывания файла при смене раскладки
+
+(причина - всплывающее окно gnome)
+
+https://github.com/ankostis/gnome-shell-quick-lang-switch
+https://stackoverflow.com/questions/48044429/override-alt-to-toggle-menu-bar-on-vs-code
+

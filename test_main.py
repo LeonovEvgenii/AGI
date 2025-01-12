@@ -15,19 +15,20 @@ from scripts.classes.Core import Core
 class Main_test(unittest.TestCase):
     def test_console(self):
 
-        print("Тест модуля консоль.")
+        print("\nТест модуля консоль.")
         print("На вход подается текст предложения, преобразуется в граф и обратно из графа в текст.")
 
         console = Console()
 
         input_graph = console.content_to_graph("1 2 3 4")
 
+        print(input_graph)
+        print(type(input_graph))
+
         # # output_text = console.graph_to_content(input_graph, print_flag=True)
         # output_text = console.graph_to_content(input_graph)
 
         # self.assertEqual(output_text, "1 2 3 4")
-
-        print("jjjj")
 
         self.assertEqual("1 2 3 4", "1 2 3 4")
 

@@ -16,6 +16,8 @@ class Console(Converter):
 
         input_list_words = self.__create_list_words(formatted_text)
 
+        self.output_graphs = []
+
         # проверку не вынести в __create_list_words т к здесь нужно решать: если список пустой сразу вернуть граф
         # тип возвращаемого значения граф, даже если без нод
         if input_list_words:
@@ -24,18 +26,23 @@ class Console(Converter):
 
             for i, word in enumerate(input_list_words):
 
-                new_node = self.output_graph.add_node(
+                # !!! убрать магическое число
+                new_node = self.output_graphs[0].add_node(
                     word, number_in_sentence=i + 1)
 
                 if old_node:
-                    self.output_graph.add_link(old_node, new_node)
+                    self.output_graphs[0].add_link(old_node, new_node)
 
                 old_node = new_node
 
         else:
+
             print("Строка не содержит ни одного ключевого слова")
 
-        return self.get_graph()
+        # Почему возвращается именно список графов, а не один
+        # Аналитика между графами / предложениями производится в core, а не в консоле.
+
+        return self.get_output_graphs()
 
     def __check(self, text):
         if text == None:

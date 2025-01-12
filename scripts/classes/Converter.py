@@ -16,14 +16,20 @@ class Converter():
     output_content = None
     input_content = None
 
-    output_graph = None # используется для преобразования контента в граф
-    input_graph = None # используется для преобразования графа в контент
+    output_graphs = None  # используется для преобразования контента в граф
+    input_graphs = None  # используется для преобразования графа в контент
 
     def __init__(self):
-        self.output_graph = Graph("входной_граф")
+        self.input_graphs = [Graph("входной_граф")]
 
-    def get_graph(self):
-        return self.output_graph
+    # В одном конверторе есть методы и для входных графов и для выходных, т к
+    # один и тот же объект (например console) используется для преобразования вперед (контент в граф)
+    # и назад (граф в контент)
+    def get_output_graphs(self):
+        return self.output_graphs
+
+    def get_input_graphs(self):
+        return self.input_graphs
 
     def get_content(self):
         # Не возникает неоднозначности какой контент возвращать (входной или выходной).

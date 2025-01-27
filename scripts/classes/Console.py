@@ -10,7 +10,7 @@ class Console(Converter):
 
     def content_to_graph(self, text_raw):
 
-        checked_text = self.__check(text_raw)
+        checked_text = self.__check_for_emptiness(text_raw)
 
         formatted_text = self.__formatting(checked_text)
 
@@ -44,7 +44,7 @@ class Console(Converter):
 
         return self.get_output_graphs()
 
-    def __check(self, text):
+    def __check_for_emptiness(self, text):
         if text == None:
             while 1:
                 input_str = input("Ввод: ")
@@ -53,8 +53,10 @@ class Console(Converter):
                     continue
                 else:
                     break
+            return input_str
 
-        return input_str
+        else:
+            return text
 
     def __formatting(self, input_str) -> list:
         input_str = input_str.lower()
@@ -66,7 +68,7 @@ class Console(Converter):
 
         return input_str
 
-    def __create_list_words(input_str):
+    def __create_list_words(self, input_str):
 
         input_list_words = input_str.split(" ")
 

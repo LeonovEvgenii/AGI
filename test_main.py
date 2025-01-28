@@ -20,7 +20,7 @@ class Main_test(unittest.TestCase):
 
         console = Console()
 
-        input_graph = console.content_to_graph("1 2 3 4")
+        input_graph = console.content_to_graph("1 2 3 4. 5 6 7 8")
 
         print(input_graph)
         print(type(input_graph))

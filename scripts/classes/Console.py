@@ -14,26 +14,35 @@ class Console(Converter):
 
         formatted_text = self.__formatting(checked_text)
 
-        input_list_words = self.__create_list_words(formatted_text)
+        list_sentences = self.__create_list_sentences(formatted_text)
 
         self.output_graphs = []
 
-        # проверку не вынести в __create_list_words т к здесь нужно решать: если список пустой сразу вернуть граф
+        # проверку не вынести в __create_list_words т к здесь нужно решать:
+        # если список пустой сразу вернуть граф
         # тип возвращаемого значения граф, даже если без нод
-        if input_list_words:
+        if list_sentences:
 
             old_node = None
 
-            for i, word in enumerate(input_list_words):
+            for input_list_words in list_sentences:
 
-                # !!! убрать магическое число
-                new_node = self.output_graphs[0].add_node(
-                    word, number_in_sentence=i + 1)
+                # надо решить, будет ли на уровне ковертера хранение графов отдельных
+                # предложений и если не на конвертере, то где
+                graph_sentences = []
 
-                if old_node:
-                    self.output_graphs[0].add_link(old_node, new_node)
+                for i, word in enumerate(input_list_words):
 
-                old_node = new_node
+                    # !!! убрать магическое число
+                    new_node = self.output_graphs[0].add_node(
+                        word, number_in_sentence=i + 1)
+
+                    if old_node:
+                        self.output_graphs[0].add_link(old_node, new_node)
+
+                    old_node = new_node
+
+                self.output_graphs.append
 
         else:
 
@@ -68,13 +77,19 @@ class Console(Converter):
 
         return input_str
 
-    def __create_list_words(self, input_str):
+    def __create_list_sentences(self, input_str):
 
-        input_list_words = input_str.split(" ")
+        input_list_sentences = input_str.split(".")
 
-        input_list_words = [i for i in input_list_words if i]
+        # можно так же хранить номер предложения в тексте
+        for number, val in enumerate(input_list_sentences):
+            input_list_sentences[number] = val.split(" ")
 
-        return input_list_words
+        # input_list_words = input_str.split(" ")
+
+        input_list_sentences = [i for i in input_list_sentences if i]
+
+        return input_list_sentences
 
     def graph_to_content(self, input_graph, print_flag=False):
         # можно вызывать родительский метод с тем же названием

@@ -27,8 +27,8 @@ class Console(Converter):
 
             for input_list_words in list_sentences:
 
-                # надо решить, будет ли на уровне ковертера хранение графов отдельных
-                # предложений и если не на конвертере, то где
+                # принятое решение 23
+                # все конвертеры работают с массивами графов.
                 graph_sentences = []
 
                 for i, word in enumerate(input_list_words):

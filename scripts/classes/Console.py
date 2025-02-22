@@ -23,35 +23,41 @@ class Console(Converter):
         # тип возвращаемого значения граф, даже если без нод
         if list_sentences:
 
-            old_node = None
+            for input_sentence in list_sentences:
 
-            for input_list_words in list_sentences:
+                print("Предложение ", input_sentence)
 
-                # принятое решение 23
-                # все конвертеры работают с массивами графов.
-                graph_sentences = []
+                old_node = None
 
-                for i, word in enumerate(input_list_words):
+                for input_words in input_sentence:
 
-                    # !!! убрать магическое число
-                    new_node = self.output_graphs[0].add_node(
-                        word, number_in_sentence=i + 1)
+                    print("Слово ", input_words)
 
-                    if old_node:
-                        self.output_graphs[0].add_link(old_node, new_node)
+                    # # принятое решение 23
+                    # # все конвертеры работают с массивами графов.
+                    # graph_sentences = []
 
-                    old_node = new_node
+                    # for i, word in enumerate(input_list_words):
 
-                self.output_graphs.append
+                    #     # !!! убрать магическое число
+                    #     new_node = self.output_graphs[0].add_node(
+                    #         word, number_in_sentence=i + 1)
+
+                    #     if old_node:
+                    #         self.output_graphs[0].add_link(old_node, new_node)
+
+                    #     old_node = new_node
+
+                    # self.output_graphs.append
 
         else:
 
-            print("Строка не содержит ни одного ключевого слова")
+            print("Входной контент не содержит ни одного ключевого слова")
 
         # Почему возвращается именно список графов, а не один
         # Аналитика между графами / предложениями производится в core, а не в консоле.
 
-        return self.get_output_graphs()
+        return self.output_graphs
 
     def __check_for_emptiness(self, text):
         if text == None:
@@ -82,10 +88,11 @@ class Console(Converter):
         input_list_sentences = input_str.split(".")
 
         # можно так же хранить номер предложения в тексте
-        for number, val in enumerate(input_list_sentences):
-            input_list_sentences[number] = val.split(" ")
+        for number, sentence in enumerate(input_list_sentences):
+            list_words = sentence.split(" ")
+            list_words = [i for i in list_words if i]
 
-        # input_list_words = input_str.split(" ")
+            input_list_sentences[number] = list_words
 
         input_list_sentences = [i for i in input_list_sentences if i]
 

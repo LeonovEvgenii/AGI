@@ -19,31 +19,27 @@ class Converter():
     output_graphs = None  # используется для преобразования контента в граф
     input_graphs = None  # используется для преобразования графа в контент
 
-    def __init__(self):
-        self.input_graphs = [Graph("входной_граф")]
+    # input_content -> output_graphs
+    # input_graphs -> output_content
 
-    # В одном конверторе есть методы и для входных графов и для выходных, т к
-    # один и тот же объект (например console) используется для преобразования вперед (контент в граф)
-    # и назад (граф в контент)
+    def __init__(self):
+        pass
+
+    # решить где и зачем могут использоваться гетеры и сетеры
+    # сейчас в них одна строчка и их хочется убрать
     def get_output_graphs(self):
         return self.output_graphs
 
     def get_input_graphs(self):
         return self.input_graphs
 
-    def get_content(self):
-        # Не возникает неоднозначности какой контент возвращать (входной или выходной).
-        # Однозначно выходной (после обработки).
-        # Входной бесполезно, т к он не обрабатывался.
-        # Так же и с графом.
-        # Имеет смысл возвращать только переработанный граф из контента.
-        # Подаваемый граф на исполнительный механизм и так уже известен был до подачи в конвертер.
+    def get_output_content(self):
         return self.output_content
 
-    def content_to_graph(self):
+    def content_to_graphs(self):
         pass
 
-    def graph_to_content(self):
+    def graphs_to_content(self):
         pass
 
     def filter(self):

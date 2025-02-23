@@ -20,10 +20,12 @@ class Main_test(unittest.TestCase):
 
         console = Console()
 
-        input_graph = console.content_to_graph("1 2 3 4. 5 6 7 8")
+        input_graphs = console.content_to_graph("1 2 3 4. 5 6 7 8")
 
-        print(input_graph)
-        print(type(input_graph))
+        for graph in input_graphs:
+            print(graph)
+
+        # доделать тест, преобразовать графы в текст
 
         # # output_text = console.graph_to_content(input_graph, print_flag=True)
         # output_text = console.graph_to_content(input_graph)

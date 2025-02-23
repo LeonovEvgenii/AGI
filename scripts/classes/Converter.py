@@ -1,4 +1,3 @@
-from scripts.classes.Graph import Graph
 
 
 # я хотел сделать этот класс абстрактным,

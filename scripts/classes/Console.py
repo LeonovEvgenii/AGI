@@ -1,4 +1,5 @@
 from scripts.classes.Converter import Converter
+from scripts.classes.Graph import Graph
 
 
 class Console(Converter):
@@ -16,46 +17,38 @@ class Console(Converter):
 
         list_sentences = self.__create_list_sentences(formatted_text)
 
-        self.output_graphs = []
-
         # проверку не вынести в __create_list_words т к здесь нужно решать:
         # если список пустой сразу вернуть граф
         # тип возвращаемого значения граф, даже если без нод
         if list_sentences:
 
-            for input_sentence in list_sentences:
+            # принятое решение 23
+            # все конвертеры работают с массивами графов.
+            graphs = []
 
-                print("Предложение ", input_sentence)
+            for sentence in list_sentences:
 
                 old_node = None
+                graph = Graph()
 
-                for input_words in input_sentence:
+                for i, word in enumerate(sentence):
 
-                    print("Слово ", input_words)
+                    new_node = graph.add_node(word, number_in_sentence=i + 1)
 
-                    # # принятое решение 23
-                    # # все конвертеры работают с массивами графов.
-                    # graph_sentences = []
+                    if old_node:
+                        graph.add_link(old_node, new_node)
 
-                    # for i, word in enumerate(input_list_words):
+                    old_node = new_node
 
-                    #     # !!! убрать магическое число
-                    #     new_node = self.output_graphs[0].add_node(
-                    #         word, number_in_sentence=i + 1)
-
-                    #     if old_node:
-                    #         self.output_graphs[0].add_link(old_node, new_node)
-
-                    #     old_node = new_node
-
-                    # self.output_graphs.append
+                graphs.append(graph)
 
         else:
-
             print("Входной контент не содержит ни одного ключевого слова")
 
         # Почему возвращается именно список графов, а не один
         # Аналитика между графами / предложениями производится в core, а не в консоле.
+
+        self.output_graphs = graphs
 
         return self.output_graphs
 

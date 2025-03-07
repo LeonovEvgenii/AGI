@@ -20,19 +20,14 @@ class Main_test(unittest.TestCase):
 
         console = Console()
 
-        input_graphs = console.content_to_graph("1 2 3 4. 5 6 7 8")
+        input_graphs = console.content_to_graphs("1 2 3 4. 5 6 7 8.")
 
-        for graph in input_graphs:
-            print(graph)
+        # for graph in input_graphs:
+        #     print(graph)
 
-        # доделать тест, преобразовать графы в текст
+        output_text = console.graphs_to_content(input_graphs)
 
-        # # output_text = console.graph_to_content(input_graph, print_flag=True)
-        # output_text = console.graph_to_content(input_graph)
-
-        # self.assertEqual(output_text, "1 2 3 4")
-
-        self.assertEqual("1 2 3 4", "1 2 3 4")
+        self.assertEqual(output_text, "1 2 3 4. 5 6 7 8.")
 
     # def test_one_sum(self):
 

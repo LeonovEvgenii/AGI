@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
         output_graph = core.run_nodes_2(input_graph)
 
-        console.write_output_data(output_graph)
+        console.graph_to_text(output_graph)
 
         # попмимо выполнения слов, выполнять операцию сравнения с частью графа. Если есть совпадение
         #  с частью, это возможный ответ.

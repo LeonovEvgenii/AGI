@@ -4,12 +4,11 @@ from scripts.classes.Graph import Graph
 
 class Console(Converter):
 
-    output_content = ""
-
     def __init__(self):
         super().__init__()
+        self.output_content = ""
 
-    def content_to_graph(self, text_raw):
+    def content_to_graphs(self, text_raw):
 
         checked_text = self.__check_for_emptiness(text_raw)
 
@@ -91,18 +90,23 @@ class Console(Converter):
 
         return input_list_sentences
 
-    def graph_to_content(self, input_graph, print_flag=False):
+    def graphs_to_content(self, input_graphs):
         # можно вызывать родительский метод с тем же названием
-        # super().graph_to_content()
+        # super().graphs_to_content()
 
-        self.write_output_data(input_graph)
+        text = ""
 
-        if print_flag:
-            print(self.get_content())
+        for input_graph in input_graphs:
+            text += self.graph_to_text(input_graph)
+            text += ". "
 
-        return self.get_content()
+        text = text[:-1]
 
-    def write_output_data(self, input_graph):
+        self.output_content = text
+
+        return text
+
+    def graph_to_text(self, input_graph):
 
         copy_links = input_graph.links.copy()
 
@@ -133,9 +137,13 @@ class Console(Converter):
                 copy_links.remove(link)
                 continue
 
+        sentence_text = ""
+
         for obj_word in sentence:
-            self.output_content += obj_word.name
-            self.output_content += " "
+            sentence_text += obj_word.name
+            sentence_text += " "
 
         # удаляю последний пробел
-        self.output_content = self.output_content[:-1]
+        sentence_text = sentence_text[:-1]
+
+        return sentence_text

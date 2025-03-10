@@ -13,10 +13,11 @@ from scripts.classes.Core import Core
 
 
 class Main_test(unittest.TestCase):
+
     def test_console(self):
 
-        print("\nТест модуля консоль.")
-        print("На вход подается текст предложения, преобразуется в граф и обратно из графа в текст.")
+        # print("\nТест модуля консоль.")
+        # print("На вход подается текст предложения, преобразуется в граф и обратно из графа в текст.")
 
         console = Console()
 
@@ -28,6 +29,30 @@ class Main_test(unittest.TestCase):
         output_text = console.graphs_to_content(input_graphs)
 
         self.assertEqual(output_text, "1 2 3 4. 5 6 7 8.")
+
+    def test_draw_graphs(self):
+        pass
+
+    def test_first_born(self):
+        pass
+
+    def test_second_born(self):
+        pass
+
+    def test_set_definition(self):
+        pass
+
+    def test_get_definition(self):
+        pass
+
+    def test_compare_definition(self):
+        pass
+
+    def test_one_dialog(self):
+        pass
+
+    def test_numeric(self):
+        pass
 
     # def test_one_sum(self):
 

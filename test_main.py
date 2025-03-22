@@ -8,7 +8,7 @@
 import unittest
 
 from scripts.classes.Console import Console
-from scripts.classes.Drawer import Drawer
+from scripts.classes.drawers.Xdot import Xdot
 from scripts.classes.Core import Core
 
 
@@ -30,8 +30,19 @@ class Main_test(unittest.TestCase):
 
         self.assertEqual(output_text, "1 2 3 4. 5 6 7 8.")
 
-    def test_draw_graphs(self):
-        pass
+    def test_draw(self):
+
+        # print("\nТест модуля рисователь.")
+        # print("На вход подаются графы, рисуются, с различными опциями.")
+
+        console = Console()
+
+        input_graphs = console.content_to_graphs("1 2 3 4. 5 6 7 8.")
+
+        xdot = Xdot()
+
+        # далее требуется рисование именно нескольких графов
+        xdot.draw(input_graphs)
 
     def test_first_born(self):
         pass

@@ -23,7 +23,7 @@ import sys
 from scripts.util.functions import write_to_local_graph_json, save_new_nodes
 
 from scripts.classes.Console import Console
-from scripts.classes.Drawer import Drawer
+from scripts.classes.drawers.Xdot import Xdot
 from scripts.classes.Knowledge_base import Knowledge_base
 from scripts.classes.Core import Core
 
@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     console = Console()
 
-    drawer = Drawer()
+    drawer = Xdot()
 
     core = Core()
 

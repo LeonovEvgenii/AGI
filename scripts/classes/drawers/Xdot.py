@@ -6,14 +6,21 @@
 # 2) из объектов knowledge_base. Использование множества как структуры данных.
 #  Подпись в каждой ноде какой класс и объект.
 
+from scripts.classes.drawers.Drawer import Drawer
 
 
-class Drawer():
+class Xdot(Drawer):
+
     def __init__(self):
+        # критика хранения данного места
+        # база знаний - это хранилище графов, а не хранилище xdot
+        # если xdot генерирует спецефичные файлы, то и пусть хранятся рядом с классом
+        # название папки graphs_links не имеет ничего общего с сылками уже
         self.path_local_dot = "knowledge_base/graphs_links/local_graph.dot"
 
-    # здесь так же может быть код открытия в визуализаторе
+        self.path_local = "dot.dot"
 
+    # устаревший метод, скорее всего как и класс knowledge_base
 
     def print_to_xdot_local(self):
 
@@ -29,25 +36,25 @@ class Drawer():
 
             for link in self.kb.local_links:
                 flag_two = False
-                for node in link: # нельзя вязть и просто перебрать элементы т к в множестве так нельзя)
+                for node in link:  # нельзя вязть и просто перебрать элементы т к в множестве так нельзя)
                     if node.__class__.__name__ == "_Object":
 
                         number = node.id
 
-                        f.write('"' + node.name + "\n" + node.__class__.__name__ + " " + str(number) + '"')
+                        f.write('"' + node.name + "\n" +
+                                node.__class__.__name__ + " " + str(number) + '"')
                     else:
-                        f.write('"' + node.name + "\n" + node.__class__.__name__ + '"')
+                        f.write('"' + node.name + "\n" +
+                                node.__class__.__name__ + '"')
                     if flag_two:
                         break
                     else:
                         f.write(' -- ')
                         flag_two = True
-                        
+
                 f.write('\n')
 
             f.write("}\n")
-
-
 
     def clear_local_dot(self):
         with open(self.path_local_dot, 'w') as f:
@@ -58,9 +65,11 @@ class Drawer():
     # продумать различные тесты с повотряющимися нодами и т п
     # добавить режим отображения id объектов
 
-    def graph_to_xdot(self, graph, mode="cls"):
+    def draw(self, graph, mode="cls"):
 
-        with open(self.path_local_dot, 'w') as f:
+        graph = graph[0]
+
+        with open(self.path_local, 'w') as f:
             f.write("strict graph G {\n")
 
             for link in graph.links:
@@ -94,13 +103,13 @@ class Drawer():
                 link_str += '" -- "'
 
                 link_str += str(link.two_node)
-                
+
                 if link.two_node.get_type() == "_obj":
                     link_str += " id: "
                     link_str += str(link.two_node.id)
 
                 link_str += '"\n'
-                
+
                 f.write(link_str)
 
                 # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')

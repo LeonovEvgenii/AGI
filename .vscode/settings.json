@@ -1,21 +1,16 @@
 {
-    "cSpell.language": "en,ru",
-    "cSpell.words": [
-        "консоле",
-        "хардкодения",
-        "autopep",
-        "cloc",
-        "endregion",
-        "gitflic",
-        "xdot"
-    ],
-    "python.testing.unittestArgs": [
-        "-v",
-        "-s",
-        ".",
-        "-p",
-        "test_*.py"
-    ],
-    "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": true
+  "cSpell.language": "en,ru",
+  "cSpell.words": [
+    "консоле",
+    "рисователь",
+    "хардкодения",
+    "autopep",
+    "cloc",
+    "endregion",
+    "gitflic",
+    "xdot"
+  ],
+  "python.testing.unittestArgs": ["-v", "-s", ".", "-p", "test_*.py"],
+  "python.testing.pytestEnabled": false,
+  "python.testing.unittestEnabled": true
 }

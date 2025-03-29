@@ -1,47 +1,39 @@
-from abc import ABC, abstractmethod
+"""Общий класс для всех конвертеров данных в граф и наоборот."""
 
-# я хотел сделать этот класс абстрактным,
-# но тогда в нем ничего нельзя будет реализовывать.
-# И нативно в питоне нельзя создавать абстрактные классы,
-# а только с библиотекой abc.
-# Хочу писать реализацию и не подключать библиотеку,
-# поэтому оставлю так.
+from abc import ABC, abstractmethod
 
 
 class Converter(ABC):
+    """Класс конвертера."""
 
     def __init__(self):
+        """Конструктор конвертера."""
         # Сначала хотел создать два касса конверторов:
         # один для преобразования контента в граф,
         # другой, наоборот, из графа в контент.
-        # Но, т к они могут работать с общими библиотеками, решил оставить в одном классе.
+        # Но, т к они могут работать с общими библиотеками,
+        # решил оставить в одном классе.
         self.output_content = None
         self.input_content = None
 
-        self.output_graphs = None  # используется для преобразования контента в граф
-        self.input_graphs = None  # используется для преобразования графа в контент
+        # используется для преобразования контента в граф
+        self.output_graphs = None
+
+        # используется для преобразования графа в контент
+        self.input_graphs = None
 
         # input_content -> output_graphs
         # input_graphs -> output_content
 
-    # решить где и зачем могут использоваться гетеры и сетеры
-    # сейчас в них одна строчка и их хочется убрать
-    def get_output_graphs(self):
-        return self.output_graphs
-
-    def get_input_graphs(self):
-        return self.input_graphs
-
-    def get_output_content(self):
-        return self.output_content
-
     @abstractmethod
     def content_to_graphs(self):
+        """Обязательные методы ради которых создавался конвертер."""
         pass
 
     @abstractmethod
     def graphs_to_content(self):
+        """Обязательные методы ради которых создавался конвертер."""
         pass
 
-    def filter(self):
-        pass
+    # Возможно добавление методов для фильтрации
+    # Слово filter зарезервировано в python

@@ -16,8 +16,8 @@ from scripts.classes.drawers.Xdot import Xdot
 class Main_test(unittest.TestCase):
     """Основной класс для работы тестов."""
 
-    def __test_console(self):
-
+    def test_console(self):
+        """Тест консоли."""
         # print("\nТест модуля консоль.")
         # print("На вход подается текст предложения, преобразуется в граф и
         # обратно из графа в текст.")
@@ -33,8 +33,8 @@ class Main_test(unittest.TestCase):
 
         self.assertEqual(output_text, '1 2 3 4. 5 6 7 8.')
 
-    def __test_draw(self):
-
+    def test_draw(self):
+        """Тест рисовалки."""
         # print("\nТест модуля рисователь.")
         # print("На вход подаются графы, рисуются, с различными опциями.")
 
@@ -47,25 +47,32 @@ class Main_test(unittest.TestCase):
         # далее требуется рисование именно нескольких графов
         xdot.draw(input_graphs)
 
-    def __test_first_born(self):
+    def test_first_born(self):
+        """Тест первородной ноды."""
         pass
 
-    def __test_second_born(self):
+    def test_second_born(self):
+        """Тест второродной ноды."""
         pass
 
-    def __test_set_definition(self):
+    def test_set_definition(self):
+        """Тест задания определения ноды."""
         pass
 
-    def __test_get_definition(self):
+    def test_get_definition(self):
+        """Тест получения определения ноды."""
         pass
 
-    def __test_compare_definition(self):
+    def test_compare_definition(self):
+        """Тест сравнения определений."""
         pass
 
-    def __test_one_dialog(self):
+    def test_one_dialog(self):
+        """Тест диалога."""
         pass
 
-    def __test_numeric(self):
+    def test_numeric(self):
+        """Тест предметной области цифры."""
         pass
 
     # def test_one_sum(self):
@@ -102,4 +109,4 @@ if __name__ == '__main__':
     # через голый python без указания модуля unittest (python3 test_main.py).
     # При запуске через unittest "python -m unittest test_main.py" код вызова
     # отдельных методов не учитывается.
-    mt.__test_console()
+    mt.test_console()

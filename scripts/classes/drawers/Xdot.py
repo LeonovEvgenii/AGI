@@ -28,8 +28,9 @@ class Xdot(Drawer):
     # устаревший метод, скорее всего как и класс knowledge_base
 
     def print_to_xdot_local(self):
-
-        # чистить dot пока не надо, т к при перезапуске он все равно перетирается
+        """."""
+        # чистить dot пока не надо, т к при перезапуске он все равно
+        # перетирается
         # в гите я его почищу
         # необходимости в принудительной операции пока нет, но будет потом
 
@@ -37,19 +38,22 @@ class Xdot(Drawer):
         # Приоритетный источник список
 
         with open(self.path_local_dot, 'w') as f:
-            f.write("strict graph G {\n")
+            f.write('strict graph G {\n')
 
             for link in self.kb.local_links:
                 flag_two = False
-                for node in link:  # нельзя вязть и просто перебрать элементы т к в множестве так нельзя)
-                    if node.__class__.__name__ == "_Object":
+                # нельзя взять и просто перебрать элементы т к в множестве так
+                # нельзя)
+                for node in link:
+                    if node.__class__.__name__ == '_Object':
 
                         number = node.id
 
-                        f.write('"' + node.name + "\n" +
-                                node.__class__.__name__ + " " + str(number) + '"')
+                        f.write('"' + node.name + '\n' +
+                                node.__class__.__name__ + ' ' + str(number)
+                                + '"')
                     else:
-                        f.write('"' + node.name + "\n" +
+                        f.write('"' + node.name + '\n' +
                                 node.__class__.__name__ + '"')
                     if flag_two:
                         break
@@ -59,12 +63,14 @@ class Xdot(Drawer):
 
                 f.write('\n')
 
-            f.write("}\n")
+            f.write('}\n')
 
+    # вернуться к вопросу удаления этого метода после приборки в main
     def clear_local_dot(self):
+        """Создание пустого файла шаблона."""
         with open(self.path_local_dot, 'w') as f:
-            f.write("strict graph G {\n")
-            f.write("}\n")
+            f.write('strict graph G {\n')
+            f.write('}\n')
         f.close()
 
     # продумать различные тесты с повторяющимися нодами и т п
@@ -123,6 +129,7 @@ class Xdot(Drawer):
 
                     f.write(link_str)
 
-                    # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
+                    # f.write('"' + str(link.one_node) + '" -- "' +
+                    #         str(link.two_node) + '"\n')
 
             f.write('}\n')

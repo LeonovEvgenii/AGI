@@ -17,11 +17,11 @@ class Main_test(unittest.TestCase):
     """Основной класс для работы тестов."""
 
     def test_console(self):
-        """Тест консоли."""
-        # print("\nТест модуля консоль.")
-        # print("На вход подается текст предложения, преобразуется в граф и
-        # обратно из графа в текст.")
+        """Тест модуля консоль.
 
+        На вход подается текст предложения, преобразуется в граф и
+        обратно из графа в текст.
+        """
         console = Console()
 
         input_graphs = console.content_to_graphs('1 2 3 4. 5 6 7 8.')
@@ -34,17 +34,16 @@ class Main_test(unittest.TestCase):
         self.assertEqual(output_text, '1 2 3 4. 5 6 7 8.')
 
     def test_draw(self):
-        """Тест рисовалки."""
-        # print("\nТест модуля рисователь.")
-        # print("На вход подаются графы, рисуются, с различными опциями.")
+        """Тест модуля рисователь.
 
+        На вход подаются графы, рисуются, с различными опциями.
+        """
         console = Console()
 
         input_graphs = console.content_to_graphs('1 2 3 4. 5 6 7 8.')
 
         xdot = Xdot()
 
-        # далее требуется рисование именно нескольких графов
         xdot.draw(input_graphs)
 
     def test_first_born(self):

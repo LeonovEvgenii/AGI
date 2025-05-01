@@ -1,8 +1,10 @@
-# https://graphviz.readthedocs.io/en/stable/manual.html
-# у xdot есть свой питоновски модуль
+"""Работа с graphviz и xdot."""
 
-# пердыдущие варианты реализации
-# 1) из файл json. Разделение на пары из аходного предложения.
+# https://graphviz.readthedocs.io/en/stable/manual.html
+# у xdot есть свой питоновский модуль
+
+# предыдущие варианты реализации
+# 1) из файла json. Разделение на пары из входного предложения.
 # 2) из объектов knowledge_base. Использование множества как структуры данных.
 #  Подпись в каждой ноде какой класс и объект.
 
@@ -10,15 +12,18 @@ from scripts.classes.drawers.Drawer import Drawer
 
 
 class Xdot(Drawer):
+    """Основной класс."""
 
     def __init__(self):
+        """Конструктор."""
         # критика хранения данного места
         # база знаний - это хранилище графов, а не хранилище xdot
-        # если xdot генерирует спецефичные файлы, то и пусть хранятся рядом с классом
-        # название папки graphs_links не имеет ничего общего с сылками уже
-        self.path_local_dot = "knowledge_base/graphs_links/local_graph.dot"
+        # если xdot генерирует специфичные файлы, то и пусть хранятся рядом с
+        # классом
+        # название папки graphs_links не имеет ничего общего с ссылками уже
+        self.path_local_dot = 'knowledge_base/graphs_links/local_graph.dot'
 
-        self.path_local = "dot.dot"
+        self.path_local = 'dot.dot'
 
     # устаревший метод, скорее всего как и класс knowledge_base
 
@@ -62,32 +67,35 @@ class Xdot(Drawer):
             f.write("}\n")
         f.close()
 
-    # продумать различные тесты с повотряющимися нодами и т п
+    # продумать различные тесты с повторяющимися нодами и т п
     # добавить режим отображения id объектов
 
-    def draw(self, graph, mode="cls"):
-
+    def draw(self, graph, mode='cls'):
+        """Основной метод отрисовки."""
         graph = graph[0]
 
         with open(self.path_local, 'w') as f:
-            f.write("strict graph G {\n")
+            f.write('strict graph G {\n')
 
             for link in graph.links:
 
-                # Предпологаемые режимы рисования:
+                # Предполагаемые режимы рисования:
                 # Сразу отметаю отображение только нод.
                 # их можно посмотреть в виде списка в консоли.
-                # Так же, они неудобно визуализируются graphviz без связей (в строчку).
+                # Так же, они неудобно визуализируются graphviz без
+                # связей (в строчку).
                 # Поэтому интересно отображение только связей.
                 # Режим только объекты.
                 # Режим тех же объектов, но еще классы им принадлежащие.
                 # Больше комбинаций быть не может.
-                # Вывод одного определения или нескольких должен решаться правилами формирования ответа
+                # Вывод одного определения или нескольких должен решаться
+                # правилами формирования ответа
                 # и может быть отрисован с помощью режима с классами.
                 # Не думаю, что будут определения целиком из классов.
 
-                if mode == "obj":
-                    if link.one_node.get_type() == "_cls" or link.two_node.get_type() == "_cls":
+                if mode == 'obj':
+                    if (link.one_node.get_type() == '_cls'
+                            or link.two_node.get_type() == '_cls'):
                         continue
 
                 # проверку сделать, если нет связей
@@ -96,16 +104,16 @@ class Xdot(Drawer):
 
                 link_str += str(link.one_node)
 
-                if link.one_node.get_type() == "_obj":
-                    link_str += " id: "
+                if link.one_node.get_type() == '_obj':
+                    link_str += ' id: '
                     link_str += str(link.one_node.id)
 
                 link_str += '" -- "'
 
                 link_str += str(link.two_node)
 
-                if link.two_node.get_type() == "_obj":
-                    link_str += " id: "
+                if link.two_node.get_type() == '_obj':
+                    link_str += ' id: '
                     link_str += str(link.two_node.id)
 
                 link_str += '"\n'
@@ -114,4 +122,4 @@ class Xdot(Drawer):
 
                 # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
 
-            f.write("}\n")
+            f.write('}\n')

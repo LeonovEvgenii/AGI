@@ -7,6 +7,7 @@
 # команда на запуск
 # python -m unittest test_main.py
 
+import os
 import unittest
 
 from scripts.classes.Console import Console
@@ -31,6 +32,8 @@ class Main_test(unittest.TestCase):
 
         output_text = console.graphs_to_content(input_graphs)
 
+        # у этого метода есть третий параметр, печать строки, если тест не
+        # прошел
         self.assertEqual(output_text, '1 2 3 4. 5 6 7 8.')
 
     def test_draw(self):
@@ -44,7 +47,36 @@ class Main_test(unittest.TestCase):
 
         xdot = Xdot()
 
-        xdot.draw(input_graphs)
+        path = 'test_xdot.dot'
+
+        xdot.draw(input_graphs, path=path)
+
+        with open(path, 'r') as f:
+            file_content = f.read()
+
+        sample = """strict graph G {
+"первородная: 1" -- "объект: 1 id: 0"
+"первородная: 2" -- "объект: 2 id: 0"
+"объект: 1 id: 0" -- "объект: 2 id: 0"
+"первородная: 3" -- "объект: 3 id: 0"
+"объект: 2 id: 0" -- "объект: 3 id: 0"
+"первородная: 4" -- "объект: 4 id: 0"
+"объект: 3 id: 0" -- "объект: 4 id: 0"
+"первородная: 5" -- "объект: 5 id: 0"
+"первородная: 6" -- "объект: 6 id: 0"
+"объект: 5 id: 0" -- "объект: 6 id: 0"
+"первородная: 7" -- "объект: 7 id: 0"
+"объект: 6 id: 0" -- "объект: 7 id: 0"
+"первородная: 8" -- "объект: 8 id: 0"
+"объект: 7 id: 0" -- "объект: 8 id: 0"
+}
+"""
+        self.assertEqual(file_content, sample)
+
+        if os.path.exists(path):
+            os.remove(path)
+        else:
+            print(f'Файл {path} не найден')
 
     def test_first_born(self):
         """Тест первородной ноды."""

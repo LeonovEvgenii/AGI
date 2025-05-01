@@ -23,7 +23,7 @@ class Xdot(Drawer):
         # название папки graphs_links не имеет ничего общего с ссылками уже
         self.path_local_dot = 'knowledge_base/graphs_links/local_graph.dot'
 
-        self.path_local = 'dot.dot'
+        self.path_local = 'local.dot'
 
     # устаревший метод, скорее всего как и класс knowledge_base
 
@@ -70,9 +70,12 @@ class Xdot(Drawer):
     # продумать различные тесты с повторяющимися нодами и т п
     # добавить режим отображения id объектов
 
-    def draw(self, graphs, mode='cls'):
+    def draw(self, graphs, mode='cls', path=''):
         """Основной метод отрисовки."""
-        with open(self.path_local, 'w') as f:
+        if not path:
+            path = self.path_local
+
+        with open(path, 'w') as f:
             f.write('strict graph G {\n')
 
             for graph in graphs:

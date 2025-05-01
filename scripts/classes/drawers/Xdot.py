@@ -70,56 +70,56 @@ class Xdot(Drawer):
     # продумать различные тесты с повторяющимися нодами и т п
     # добавить режим отображения id объектов
 
-    def draw(self, graph, mode='cls'):
+    def draw(self, graphs, mode='cls'):
         """Основной метод отрисовки."""
-        graph = graph[0]
-
         with open(self.path_local, 'w') as f:
             f.write('strict graph G {\n')
 
-            for link in graph.links:
+            for graph in graphs:
 
-                # Предполагаемые режимы рисования:
-                # Сразу отметаю отображение только нод.
-                # их можно посмотреть в виде списка в консоли.
-                # Так же, они неудобно визуализируются graphviz без
-                # связей (в строчку).
-                # Поэтому интересно отображение только связей.
-                # Режим только объекты.
-                # Режим тех же объектов, но еще классы им принадлежащие.
-                # Больше комбинаций быть не может.
-                # Вывод одного определения или нескольких должен решаться
-                # правилами формирования ответа
-                # и может быть отрисован с помощью режима с классами.
-                # Не думаю, что будут определения целиком из классов.
+                for link in graph.links:
 
-                if mode == 'obj':
-                    if (link.one_node.get_type() == '_cls'
-                            or link.two_node.get_type() == '_cls'):
-                        continue
+                    # Предполагаемые режимы рисования:
+                    # Сразу отметаю отображение только нод.
+                    # их можно посмотреть в виде списка в консоли.
+                    # Так же, они неудобно визуализируются graphviz без
+                    # связей (в строчку).
+                    # Поэтому интересно отображение только связей.
+                    # Режим только объекты.
+                    # Режим тех же объектов, но еще классы им принадлежащие.
+                    # Больше комбинаций быть не может.
+                    # Вывод одного определения или нескольких должен решаться
+                    # правилами формирования ответа
+                    # и может быть отрисован с помощью режима с классами.
+                    # Не думаю, что будут определения целиком из классов.
 
-                # проверку сделать, если нет связей
+                    if mode == 'obj':
+                        if (link.one_node.get_type() == '_cls'
+                                or link.two_node.get_type() == '_cls'):
+                            continue
 
-                link_str = '"'
+                    # проверку сделать, если нет связей
 
-                link_str += str(link.one_node)
+                    link_str = '"'
 
-                if link.one_node.get_type() == '_obj':
-                    link_str += ' id: '
-                    link_str += str(link.one_node.id)
+                    link_str += str(link.one_node)
 
-                link_str += '" -- "'
+                    if link.one_node.get_type() == '_obj':
+                        link_str += ' id: '
+                        link_str += str(link.one_node.id)
 
-                link_str += str(link.two_node)
+                    link_str += '" -- "'
 
-                if link.two_node.get_type() == '_obj':
-                    link_str += ' id: '
-                    link_str += str(link.two_node.id)
+                    link_str += str(link.two_node)
 
-                link_str += '"\n'
+                    if link.two_node.get_type() == '_obj':
+                        link_str += ' id: '
+                        link_str += str(link.two_node.id)
 
-                f.write(link_str)
+                    link_str += '"\n'
 
-                # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
+                    f.write(link_str)
+
+                    # f.write('"' + str(link.one_node) + '" -- "' + str(link.two_node) + '"\n')
 
             f.write('}\n')

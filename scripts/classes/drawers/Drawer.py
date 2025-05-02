@@ -2,7 +2,7 @@
 
 from abc import ABC, abstractmethod
 
-from scripts.classes.Graph import Graph
+from scripts.classes.graph.Graph import Graph
 
 
 class Drawer(ABC):

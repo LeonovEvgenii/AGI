@@ -10,12 +10,12 @@ try:
 except ModuleNotFoundError:
     from _Class import _Class
 
-from scripts.classes.Graph import Graph
+from scripts.classes.graph.Graph import Graph
 
 
 class Knowledge_base():
     def __init__(self):
-        
+
         # дискуссионный вопрос о том, какой тип стурктуры должен быть.
         # точно не словарь, т к дубли по названию не допустимы
         # операции над множествами не планируются
@@ -35,11 +35,14 @@ class Knowledge_base():
 
         path_to_workspace = os.getcwd()
 
-        self.path_json_local = path_to_workspace + "/knowledge_base/json_description_words/local/"
-        self.path_json_global = path_to_workspace + "/knowledge_base/json_description_words/global/"
-        
-        self.path_links_local = path_to_workspace + "/knowledge_base/graphs_links/local_graph.json"
-        
+        self.path_json_local = path_to_workspace + \
+            "/knowledge_base/json_description_words/local/"
+        self.path_json_global = path_to_workspace + \
+            "/knowledge_base/json_description_words/global/"
+
+        self.path_links_local = path_to_workspace + \
+            "/knowledge_base/graphs_links/local_graph.json"
+
         self.path_python_programm = path_to_workspace + "/knowledge_base/python_programm/"
 
     def json_to_data(self, path):
@@ -98,7 +101,7 @@ class Knowledge_base():
         self.data_to_json(file_name, json_dic)
 
     def create_object(self, new_obj):
-        
+
         file_name = self.path_json_local + new_obj.name + ".json"
 
         data = self.json_to_data(file_name)
@@ -121,7 +124,7 @@ class Knowledge_base():
         # есть пробелема, но это не точно что set setов делать нелзя
         # по хорошему, local_links сделать множеством, т к оно больше,
         # а перед добалением искать возможную дублирующую пару (для (a, b) искать (b, a) и не добалять вторую)
-        
+
         if pair not in self.local_links:
             self.local_links.add(pair)
 
@@ -168,7 +171,7 @@ class Knowledge_base():
             # а должно в отдельный поток ошибок
             # и exit(-1) нельзя дать т к этот код может вполняться не только в субпроцессе
             print("уже существует определение на py")
-        
+
         file_name = self.path_json_local + class_name + ".json"
         dict_class = self.json_to_data(file_name)
         dict_class['definitions'].append(list_words)
@@ -185,7 +188,6 @@ class Knowledge_base():
             # и exit(-1) нельзя дать т к этот код может вполняться не только в субпроцессе
             print("уже существует обычное определение")
 
-
         file_name_class = self.path_json_local + class_name + ".json"
         dict_class = self.json_to_data(file_name_class)
         dict_class["python_file"] = file_py
@@ -199,10 +201,9 @@ class Knowledge_base():
         all_class = self.read_class(name)
         return all_class["definitions"]
 
-
     def get_names_local(self):
         return [file[:-5] for file in os.listdir(self.path_json_local)]
-    
+
     def get_names_global(self):
         return [file[:-5] for file in os.listdir(self.path_json_global)]
 
@@ -212,7 +213,7 @@ class Knowledge_base():
             return True
         elif class_name in self.get_names_global():
             return True
-        
+
         return False
 
     def def_exist(self, class_name):
@@ -229,7 +230,6 @@ class Knowledge_base():
         else:
             return False
 
-
     def clear_local_files(self):
         local_files = os.listdir(self.path_json_local)
         if local_files:
@@ -241,4 +241,3 @@ class Knowledge_base():
         data['links'] = []
 
         self.data_to_json(self.path_links_local, data)
-        

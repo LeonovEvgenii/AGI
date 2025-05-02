@@ -1,6 +1,7 @@
 from scripts.classes._Class import _Class
 # не могу использовать из-за циклического импорта
-# from scripts.classes.Graph import Graph
+# from scripts.classes.graph.Graph import Graph
+
 
 class Second_born(_Class):
 
@@ -14,6 +15,6 @@ class Second_born(_Class):
     # такая функция невозможна из-за циклического импорта
     # def create_def(self, list_nodes):
     #     self.g = Graph()
-        
+
     def __str__(self) -> str:
         return "второродная: " + self.name

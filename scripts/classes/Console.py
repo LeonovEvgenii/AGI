@@ -56,11 +56,11 @@ class Console(Converter):
         return self.output_graphs
 
     def __check_for_emptiness(self, text):
-        if text == None:
+        if text is None:
             while 1:
-                input_str = input("Ввод: ")
-                if input_str == "":
-                    print("Введена пустая строка")
+                input_str = input('Ввод: ')
+                if input_str == '':
+                    print('Введена пустая строка')
                     continue
                 else:
                     break
@@ -81,11 +81,11 @@ class Console(Converter):
 
     def __create_list_sentences(self, input_str):
 
-        input_list_sentences = input_str.split(".")
+        input_list_sentences = input_str.split('.')
 
         # можно так же хранить номер предложения в тексте
         for number, sentence in enumerate(input_list_sentences):
-            list_words = sentence.split(" ")
+            list_words = sentence.split(' ')
             list_words = [i for i in list_words if i]
 
             input_list_sentences[number] = list_words

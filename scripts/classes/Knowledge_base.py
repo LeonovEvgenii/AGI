@@ -43,7 +43,7 @@ class Knowledge_base():
         self.path_links_local = path_to_workspace + \
             "/knowledge_base/graphs_links/local_graph.json"
 
-        self.path_python_programm = path_to_workspace + "/knowledge_base/python_programm/"
+        self.path_python_program = path_to_workspace + "/knowledge_base/python_programm/"
 
     def json_to_data(self, path):
         data = None

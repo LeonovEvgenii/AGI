@@ -38,12 +38,12 @@ class Core():
                 self.kb.create_local_link(obj, input_objects[index + 1])
 
         # когда бегу по всем классам, могут быть дубли ссылок из списка
-        # введеных классов
+        # введенных классов
         # в прошлой итерации ввода
         # поэтому перехожу на множество ссылок
 
         # не использую локальные классы, т к в таком случае некоторые связи с
-        # классами не обазуются
+        # классами не образуются
         for _class in self.kb.local_classes:
             for k, obj in _class.dict_objects.items():
                 self.kb.create_local_link(_class, obj)
@@ -72,7 +72,7 @@ class Core():
     def run_nodes(self, input_objects, local_classes):
         """Основной метод выполнения кода в понятиях."""
         # ссылка на программу хранится в одноименном файле
-        # можно кстати один файл со всем иссылками деражть, но я не знаю какие
+        # можно кстати один файл со всеми ссылками держать, но я не знаю какие
         # баги появятся
 
         # оформить в виде отдельной функции
@@ -85,7 +85,7 @@ class Core():
 
         for in_obj in input_objects:
 
-            # починить слово "сохрани_определени" как для первородных, так и
+            # починить слово "сохрани_определение" как для первородных, так и
             # второродных
             # глобальные определения хранятся в json, тк базу данных я так и
             # не нашел
@@ -101,7 +101,7 @@ class Core():
             elif in_obj.name in list_name_class_global:
                 # print("есть в глобальном")
 
-                # это должно быть в классе knoewledge как метод возвращающий
+                # это должно быть в классе knowledge как метод возвращающий
                 # путь
                 with open(
                         self.kb.path_json_global + in_obj.name + '.json'
@@ -116,16 +116,16 @@ class Core():
                 # остальные параметры
                 # (передавать ли выполняемое слово как параметр ? )
 
-                path_python = self.kb.path_python_programm + python_file
+                path_python = self.kb.path_python_program + python_file
 
                 # надо что то делать с субпроцессом
                 # он накладывает ограничения на принты внутри себя
                 # т к только первый принт считается результатом субпроцесса
                 # необходимо написать свой модуль выполнения первородных нод
                 # в модуль должны приходить путь к файлу, параметры
-                # а выходить новые ноды как результат вычислений и ошбки
+                # а выходить новые ноды как результат вычислений и ошибки
                 # отдельно
-                # с этимирезультатами должна работать отрисовка
+                # с этими результатами должна работать отрисовка
                 # ее походу пора уже в виде сайта делать
 
                 # subprocess блокирует выполнение основной программы, пока
@@ -163,7 +163,7 @@ class Core():
                 # дополняем локальный граф новыми возвращенными элементами и
                 # связями
 
-                # вызываем программу "на_что_похоже", пареметры введенное
+                # вызываем программу "на_что_похоже", параметры введенное
                 # предложение
                 # (можно в локальном, потом в глобальном поиск делать)
                 # Выдаем ответ после результата на что похоже, если он не
@@ -183,9 +183,9 @@ class Core():
         # output = ""
 
         # list_local_json_files = os.listdir(path_json_local)
-        # list_globa_json_files = os.listdir(path_json_global)
+        # list_global_json_files = os.listdir(path_json_global)
         # list_all_json_files = list(
-        #     set(list_local_json_files + list_globa_json_files)
+        #     set(list_local_json_files + list_global_json_files)
         # )
 
         # path_python = os.getcwd() + "/python_programm"
@@ -200,7 +200,7 @@ class Core():
 
         # 		if word_class == file[:-5]:
 
-        # 			if file in list_globa_json_files:
+        # 			if file in list_global_json_files:
         # 				json_file = open(path_json_global + file)
         # 			elif file in list_local_json_files:
         # 				json_file = open(path_json_local + file)
@@ -230,16 +230,16 @@ class Core():
         # 						if "файл_удален" in data:
         # 							if data["файл_удален"] == True:
         # 								list_local_json_files = os.listdir(path_json_local)
-        # 								list_globa_json_files = os.listdir(path_json_global)
+        # 								list_global_json_files = os.listdir(path_json_global)
         #                               list_all_json_files = list(set(
-        #                                   list_local_json_files + list_globa_json_files
+        #                                   list_local_json_files + list_global_json_files
         #                               ))
         # 								continue
         # 						json_file.close()
 
         # 				if output:
         # 					output = output.replace("\n", "")
-        # 					# !!!  экземпляр скорей всеого придется по новому делать.
+        # 					# !!!  экземпляр скорей всего придется по новому делать.
         #                   # Раньше класс делался.
         #                   output_list_words = [word_class]
         # 					output_list_words += output.split(" ")
@@ -307,7 +307,7 @@ class Core():
                         'сравниваю по названию с ',
                         def_word
                     )
-                    # сравнениена названий
+                    # сравнение названий
                     pass
 
         print(res)

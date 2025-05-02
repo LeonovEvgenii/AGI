@@ -34,11 +34,11 @@ def write_to_local_graph_json(input_list_words):
         with open('graphs/local_graph.json') as json_file:
             out_json = json.load(json_file)
 
-            # добавлеие названий узлов, удаление копий
+            # добавление названий узлов, удаление копий
             out_json['nodes'] = list(
                 set((out_json['nodes'] + input_list_words)))
 
-            # добавлеие связей
+            # добавление связей
             for input_pair in input_pairs:
                 if len(input_pair) == 2:
                     if (input_pair in out_json['links']
@@ -98,21 +98,21 @@ def save_new_nodes(input_list_words):
         path_file_class = 'json/local/' + word_class + '.json'
 
         if not word_class + '.json' in files:
-            defenition = {}
-            defenition['name'] = word_class
-            defenition['instances'] = []
-            defenition['instances'].append(word_instance)
+            definition = {}
+            definition['name'] = word_class
+            definition['instances'] = []
+            definition['instances'].append(word_instance)
             with open(path_file_class, 'w') as outfile:
-                json.dump(defenition, outfile, ensure_ascii=False)
+                json.dump(definition, outfile, ensure_ascii=False)
             outfile.close()
         else:
 
-            defenition = None
+            definition = None
             with open(path_file_class) as json_file:
-                defenition = json.load(json_file)
+                definition = json.load(json_file)
 
-            defenition['instances'].append(word_instance)
+            definition['instances'].append(word_instance)
 
             file_name = path_file_class
             with open(file_name, 'w') as json_file:
-                json.dump(defenition, json_file, ensure_ascii=False)
+                json.dump(definition, json_file, ensure_ascii=False)

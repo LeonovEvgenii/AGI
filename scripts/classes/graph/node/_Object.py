@@ -1,5 +1,7 @@
-from time import time
+# Возможно, на файл с нижним подчеркиванием не нужно писать docstring flake8
+
 from datetime import datetime, timezone
+from time import time
 
 from scripts.classes.graph.node.Node import Node
 
@@ -14,7 +16,7 @@ class _Object(Node):
 
         super().__init__(class_name)
 
-        # раньше передовался объект класса в конструктор
+        # раньше передавался объект класса в конструктор
         # а теперь только имя
         # self.link_class = class_name
 
@@ -28,13 +30,14 @@ class _Object(Node):
         self.short_readable_time = readable_time_and_zone.strftime('%H:%M:%S')
 
         # Пока не добавляю в список объектов в файл класса (локальный).
-        # Общеснено, почему объеснено в классе _Class
+        # Почему объяснено в классе _Class
 
     # def __str__(self):
-    #     return self.name + "\t" + self.short_readable_time + "\t" + str(self.number_in_sentence)
+    #     return (self.name + '\t' + self.short_readable_time + '\t'
+    #             + str(self.number_in_sentence))
 
     def __str__(self) -> str:
-        return "объект: " + self.name
+        return 'объект: ' + self.name
 
     def get_type(self):
-        return "_obj"
+        return '_obj'

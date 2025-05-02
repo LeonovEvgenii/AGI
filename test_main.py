@@ -80,7 +80,12 @@ class Main_test(unittest.TestCase):
 
     def test_first_born(self):
         """Тест первородной ноды."""
-        pass
+        console = Console()
+
+        input_graphs = console.content_to_graphs('время')
+
+        # for graph in input_graphs:
+        #     print(graph)
 
     def test_second_born(self):
         """Тест второродной ноды."""

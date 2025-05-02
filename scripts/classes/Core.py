@@ -15,27 +15,22 @@ class Core():
 
         self.clear_local_graph()
 
-
-    
-
-
     def test_intput_lists(self, input_objects, input_classes):
         print("список входных объектов")
-        [ print(i) for i in input_objects ]
+        [print(i) for i in input_objects]
         print("список входных классов")
-        [ print(i) for i in input_classes ]
+        [print(i) for i in input_classes]
 
         print("\nсписок локальных объектов")
-        [ print(i) for i in self.kb.local_objects ]
+        [print(i) for i in self.kb.local_objects]
         print("список локальных классов")
-        [ print(i) for i in self.kb.local_classes ]
+        [print(i) for i in self.kb.local_classes]
 
-    
     def write_local_links(self, input_objects, input_classes):
-        
+
         count_obj = len(input_objects)
         for index, obj in enumerate(input_objects):
-            
+
             if index + 1 != count_obj:
                 self.kb.create_local_link(obj, input_objects[index + 1])
 
@@ -48,7 +43,6 @@ class Core():
             for k, obj in _class.dict_objects.items():
                 self.kb.create_local_link(_class, obj)
 
-
     def test_links(self):
 
         # отрисовка пар
@@ -60,8 +54,6 @@ class Core():
                 else:
                     print(j.name, j.__class__.__name__)
 
-
-
     def clear_local_graph(self):
         # print("\nочищаю локальный граф\n")
         self.kb.clear_local_files()
@@ -71,8 +63,6 @@ class Core():
         # f = open('output.json', 'w')
         # f.close()
 
-            
-
     def run_nodes(self, input_objects, local_classes):
 
         # ссылка на программу хранится в одноименном файле
@@ -80,7 +70,8 @@ class Core():
 
         # оформить в виде отдельной функции
         # уже написана в кб
-        list_name_class_global = [file[:-5] for file in os.listdir(self.kb.path_json_global)]
+        list_name_class_global = [file[:-5]
+                                  for file in os.listdir(self.kb.path_json_global)]
 
         list_name_input_object = [obj.name for obj in input_objects]
 
@@ -108,11 +99,10 @@ class Core():
                         python_file = data["python_file"]
 
             if python_file:
-                # запускаем субпроцесс, выполняем программу, передаем остальные параметры 
+                # запускаем субпроцесс, выполняем программу, передаем остальные параметры
                 # (передавать ли выполняемое слово как параметр ? )
 
                 path_python = self.kb.path_python_programm + python_file
-
 
                 # надо что то делать с субпроцессом
                 # он накладывает ограничения на принты внутри себя
@@ -125,11 +115,12 @@ class Core():
 
                 # subprocess блокирует выполнение основной программы, пока дочерний процесс не завершится
                 # принятое решение № 19
-                output = subprocess.check_output(["python3", path_python] + list_name_input_object, encoding ='utf-8')
+                output = subprocess.check_output(
+                    ["python3", path_python] + list_name_input_object, encoding='utf-8')
 
                 # если слово при выполнении генерирует новые ноды или связи
                 # оно возвращает результат в виде текста
-                # таким образом каждое слово можно запускать независимо, 
+                # таким образом каждое слово можно запускать независимо,
                 # передавая ему параметры при необходимости
 
                 # если запускать слово treadingом или multiprcessingом,
@@ -142,27 +133,23 @@ class Core():
 
                     output = output.replace('\n', '')
                     list_words = self.formatting(output)
-                    generate_objects, generate_classes = self.words_to_lists(list_words)
+                    generate_objects, generate_classes = self.words_to_lists(
+                        list_words)
                     self.write_local_links(generate_objects, generate_classes)
 
-
-                # Результат возвращается в виде объектов. 
-                # Если не объект, то можно подумать убрать субпроцесс. 
-                # Еще можно строковый вывод через конструктор объекта пропускать. 
+                # Результат возвращается в виде объектов.
+                # Если не объект, то можно подумать убрать субпроцесс.
+                # Еще можно строковый вывод через конструктор объекта пропускать.
                 # Может ли быть несколько возвращенных объектов?
-        
+
                 # дополняем локальный граф новыми возвращенными элементами и связями
-                
-                # вызываем программу "на_что_похоже", пареметры введенное предложение 
+
+                # вызываем программу "на_что_похоже", пареметры введенное предложение
                 # (можно в локальном, потом в глобальном поиск делать)
                 # Выдаем ответ после результата на что похоже, если он не пустой
 
-        
-
-
         # path_json_local = os.getcwd() + "/json/local/"
         # path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
-
 
         # обработка последовательная т к при параллельной дублирование
 
@@ -190,7 +177,7 @@ class Core():
         # 				json_file = open(path_json_local + file)
         # 			else:
         # 				continue
-                        
+
         # 			data = json.load(json_file)
 
         # 			# если нет питона то не выполняем, а так все слова в предложении выполняются
@@ -237,9 +224,8 @@ class Core():
 
         return input_graph
 
-
     def compare(self, input_objects, input_classes, search_word="два"):
-        
+
         all_input = input_objects + input_classes
 
         all_types = ["_object", "_class"]
@@ -250,7 +236,7 @@ class Core():
 
         for def_word in words_def:
             for input_word in all_input:
-                
+
                 if def_word in all_types:
                     # print(input_word.name, type(input_word), "сравниваю по типу с ", def_word)
 
@@ -278,4 +264,3 @@ class Core():
                     pass
 
         print(res)
-

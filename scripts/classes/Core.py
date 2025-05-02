@@ -84,9 +84,9 @@ class Core():
 
             python_file = ""
 
-            if in_obj.link_class.name_python_programm:
+            if in_obj.link_class.name_python_program:
                 # print("есть в локальном")
-                print(in_obj.link_class.name_python_programm)
+                print(in_obj.link_class.name_python_program)
                 # сохраняем путь к программе
             elif in_obj.name in list_name_class_global:
                 # print("есть в глобальном")

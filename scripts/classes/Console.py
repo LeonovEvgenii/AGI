@@ -1,15 +1,18 @@
+"""."""
 from scripts.classes.Converter import Converter
 from scripts.classes.Graph import Graph
 
 
 class Console(Converter):
+    """."""
 
     def __init__(self):
+        """."""
         super().__init__()
-        self.output_content = ""
+        self.output_content = ''
 
     def content_to_graphs(self, text_raw):
-
+        """."""
         checked_text = self.__check_for_emptiness(text_raw)
 
         formatted_text = self.__formatting(checked_text)
@@ -42,10 +45,11 @@ class Console(Converter):
                 graphs.append(graph)
 
         else:
-            print("Входной контент не содержит ни одного ключевого слова")
+            print('Входной контент не содержит ни одного ключевого слова')
 
         # Почему возвращается именно список графов, а не один
-        # Аналитика между графами / предложениями производится в core, а не в консоле.
+        # Аналитика между графами / предложениями производится в core, а не в
+        # консоле.
 
         self.output_graphs = graphs
 
@@ -91,14 +95,15 @@ class Console(Converter):
         return input_list_sentences
 
     def graphs_to_content(self, input_graphs):
+        """."""
         # можно вызывать родительский метод с тем же названием
         # super().graphs_to_content()
 
-        text = ""
+        text = ''
 
         for input_graph in input_graphs:
             text += self.graph_to_text(input_graph)
-            text += ". "
+            text += '. '
 
         text = text[:-1]
 
@@ -107,18 +112,19 @@ class Console(Converter):
         return text
 
     def graph_to_text(self, input_graph):
-
+        """."""
         copy_links = input_graph.links.copy()
 
         sentence = []
 
         for link in copy_links:
 
-            ### Принятое решение ###
+            # Принятое решение #
             # Логика формирования строки отличается от класса drawer.
             # Drawer нужен для дебага, консоль нет.
 
-            if link.one_node.get_type() == "_cls" or link.two_node.get_type() == "_cls":
+            if (link.one_node.get_type() == '_cls'
+                    or link.two_node.get_type() == '_cls'):
                 continue
 
             if len(sentence) == 0:
@@ -137,11 +143,11 @@ class Console(Converter):
                 copy_links.remove(link)
                 continue
 
-        sentence_text = ""
+        sentence_text = ''
 
         for obj_word in sentence:
             sentence_text += obj_word.name
-            sentence_text += " "
+            sentence_text += ' '
 
         # удаляю последний пробел
         sentence_text = sentence_text[:-1]

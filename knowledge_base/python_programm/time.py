@@ -1,11 +1,18 @@
-import sys
+"""Файл слова 'время'."""
+
 import os
+import sys
+import time
+
+from scripts.util.functions import (
+    print_to_xdot_local,
+    save_new_nodes,
+    write_to_local_graph_json)
+
 
 sys.path.append(os.getcwd())
-from util.functions import write_to_local_graph_json, print_to_xdot_local, save_new_nodes
 
-#unix
-import time
+# unix
 unix_time = str(round(time.time()))
 
 # человекочитаемый

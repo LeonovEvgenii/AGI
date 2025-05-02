@@ -10,7 +10,7 @@
 import os
 import unittest
 
-from scripts.classes.Console import Console
+from scripts.classes.conversion.Console import Console
 from scripts.classes.drawers.Xdot import Xdot
 
 

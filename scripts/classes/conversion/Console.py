@@ -1,6 +1,6 @@
 """."""
-from scripts.classes.Converter import Converter
 from scripts.classes.Graph import Graph
+from scripts.classes.conversion.Converter import Converter
 
 
 class Console(Converter):

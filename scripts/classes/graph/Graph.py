@@ -1,7 +1,7 @@
 from scripts.classes.graph.Link import Link
-from scripts.classes.First_born import First_born
-from scripts.classes.Second_born import Second_born
-from scripts.classes._Object import _Object
+from scripts.classes.graph.node.First_born import First_born
+from scripts.classes.graph.node.Second_born import Second_born
+from scripts.classes.graph.node._Object import _Object
 
 
 class Graph():

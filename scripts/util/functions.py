@@ -2,8 +2,8 @@ import os
 import json
 import time
 
-from scripts.classes._Class import _Class
-from scripts.classes._Object import _Object
+from scripts.classes.graph.node._Class import _Class
+from scripts.classes.graph.node._Object import _Object
 
 
 path_json_local = os.getcwd() + "/json/local/"

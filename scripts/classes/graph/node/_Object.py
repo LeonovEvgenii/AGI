@@ -1,7 +1,7 @@
 from time import time
 from datetime import datetime, timezone
 
-from scripts.classes.Node import Node
+from scripts.classes.graph.node.Node import Node
 
 
 class _Object(Node):

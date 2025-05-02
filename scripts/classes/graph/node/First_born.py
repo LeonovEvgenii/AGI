@@ -3,7 +3,7 @@
 Первородная нода возвращает результат выполнения на python.
 """
 
-from scripts.classes._Class import _Class
+from scripts.classes.graph.node._Class import _Class
 
 
 class First_born(_Class):

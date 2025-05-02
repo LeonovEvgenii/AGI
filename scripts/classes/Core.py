@@ -2,8 +2,8 @@ import subprocess
 import os
 import json
 
-from scripts.classes._Class import _Class
-from scripts.classes._Object import _Object
+from scripts.classes.graph.node._Class import _Class
+from scripts.classes.graph.node._Object import _Object
 
 # !!! убрать
 from scripts.classes.Knowledge_base import Knowledge_base

@@ -1,4 +1,4 @@
-from scripts.classes._Class import _Class
+from scripts.classes.graph.node._Class import _Class
 # не могу использовать из-за циклического импорта
 # from scripts.classes.graph.Graph import Graph
 

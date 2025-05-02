@@ -6,7 +6,7 @@ import sys
 # абсолютные импрорты для добавления в sys.path использовать не хочется
 # sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
 try:
-    from scripts.classes._Class import _Class
+    from scripts.classes.graph.node._Class import _Class
 except ModuleNotFoundError:
     from _Class import _Class
 

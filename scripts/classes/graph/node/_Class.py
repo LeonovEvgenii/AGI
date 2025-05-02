@@ -6,18 +6,18 @@ import sys
 # абсолютные импрорты для добавления в sys.path использовать не хочется
 # sys.path.append("/home/evgeniy/git/AGI/scripts/classes")
 try:
-    from scripts.classes.Node import Node
+    from scripts.classes.graph.node.Node import Node
 except ModuleNotFoundError:
     from Node import Node
 
-from scripts.classes._Object import _Object
+from scripts.classes.graph.node._Object import _Object
 
 
 class _Class(Node):
     def __init__(self, word):
-        
+
         super().__init__(word)
-        
+
         self.dict_objects = {}
 
         # питоновская программа хранится как имя файла или путь к файлу, т к код в классе
@@ -35,11 +35,10 @@ class _Class(Node):
 
     def __str__(self) -> str:
         return "класс: " + self.name
-    
+
     # метод перевода из локального в глобальный, со всеми проверками
     def local_to_global(self):
         pass
 
     def get_type(self):
         return "_cls"
-

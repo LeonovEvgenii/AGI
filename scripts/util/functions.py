@@ -1,16 +1,13 @@
-import os
+"""."""
+
 import json
-import time
+import os
 
-from scripts.classes.graph.node._Class import _Class
-from scripts.classes.graph.node._Object import _Object
-
-
-path_json_local = os.getcwd() + "/json/local/"
+path_json_local = os.getcwd() + '/json/local/'
 
 
 def write_to_local_graph_json(input_list_words):
-
+    """."""
     # сейчас образуются пары слов
     # альтернатива сделать связи все со всеми
 
@@ -28,12 +25,13 @@ def write_to_local_graph_json(input_list_words):
             break
 
     # добавить сортировку input_pairs # зачем?
-    # зачем я в файле графа в json в ключе links пишу ноды, у которых нет связей?
+    # зачем я в файле графа в json в ключе links пишу ноды, у которых нет
+    # связей?
 
     # добавление новых пар в список уже существующих
-    if os.stat("graphs/local_graph.json").st_size != 0:
+    if os.stat('graphs/local_graph.json').st_size != 0:
         out_json = None
-        with open("graphs/local_graph.json") as json_file:
+        with open('graphs/local_graph.json') as json_file:
             out_json = json.load(json_file)
 
             # добавлеие названий узлов, удаление копий
@@ -43,7 +41,10 @@ def write_to_local_graph_json(input_list_words):
             # добавлеие связей
             for input_pair in input_pairs:
                 if len(input_pair) == 2:
-                    if input_pair in out_json['links'] or [input_pair[1], input_pair[0]] in out_json['links']:
+                    if (input_pair in out_json['links']
+                            or [
+                                input_pair[1],
+                                input_pair[0]] in out_json['links']):
                         continue
                     else:
                         out_json['links'].append(input_pair)
@@ -53,7 +54,7 @@ def write_to_local_graph_json(input_list_words):
                     else:
                         out_json['links'].append(input_pair)
 
-        with open("graphs/local_graph.json", 'w') as outfile:
+        with open('graphs/local_graph.json', 'w') as outfile:
             json.dump(out_json, outfile, ensure_ascii=False)
 
     else:
@@ -63,19 +64,19 @@ def write_to_local_graph_json(input_list_words):
         out_json['nodes'] = input_list_words
         out_json['links'] = input_pairs
 
-        with open("graphs/local_graph.json", 'w') as outfile:
+        with open('graphs/local_graph.json', 'w') as outfile:
             json.dump(out_json, outfile, ensure_ascii=False)
 
 
 def print_to_xdot_global():
-
+    """."""
     input_json = None
-    with open("graphs/global_graph.json") as json_file:
+    with open('graphs/global_graph.json') as json_file:
         input_json = json.load(json_file)
 
-    file_name = "graphs/global_graph.dot"
+    file_name = 'graphs/global_graph.dot'
     with open(file_name, 'w') as f:
-        f.write("strict graph G {\n")
+        f.write('strict graph G {\n')
 
         for node in input_json['nodes']:
             f.write('"' + node + '"\n')
@@ -83,20 +84,20 @@ def print_to_xdot_global():
         for save_pair in input_json['links']:
             f.write('"' + save_pair[0] + '" -- "' + save_pair[1] + '"\n')
 
-        f.write("}\n")
+        f.write('}\n')
 
 
 def save_new_nodes(input_list_words):
-
+    """."""
     files = os.listdir(path_json_local)
     for word in input_list_words:
-        word_class = word[:word.rfind("$")]
+        word_class = word[:word.rfind('$')]
 
-        word_instance = word[word.rfind("$"):]
+        word_instance = word[word.rfind('$'):]
 
-        path_file_class = "json/local/" + word_class + ".json"
+        path_file_class = 'json/local/' + word_class + '.json'
 
-        if not word_class + ".json" in files:
+        if not word_class + '.json' in files:
             defenition = {}
             defenition['name'] = word_class
             defenition['instances'] = []
@@ -110,7 +111,7 @@ def save_new_nodes(input_list_words):
             with open(path_file_class) as json_file:
                 defenition = json.load(json_file)
 
-            defenition["instances"].append(word_instance)
+            defenition['instances'].append(word_instance)
 
             file_name = path_file_class
             with open(file_name, 'w') as json_file:

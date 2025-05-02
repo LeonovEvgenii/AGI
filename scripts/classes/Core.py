@@ -188,7 +188,7 @@ class Core():
         #     set(list_local_json_files + list_global_json_files)
         # )
 
-        # path_python = os.getcwd() + "/python_programm"
+        # path_python = os.getcwd() + "/python_program"
 
         # global_output = ""
 

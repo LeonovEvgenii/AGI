@@ -188,7 +188,7 @@ if __name__ == "__main__":
         # core.kb.local_graph.save_nodes_from_graph(input_graph)
 
         # print(core.kb.local_graph)
-        # core.test_intput_lists(input_objects, input_classes)
+        # core.test_input_lists(input_objects, input_classes)
 
         # в принятые решения
         # локальный граф не храню в json, т к он все равно чистится при перезапусках.

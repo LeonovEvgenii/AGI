@@ -1,60 +1,66 @@
-import subprocess
-import os
-import json
+"""Файл класса Core."""
 
-from scripts.classes.graph.node._Class import _Class
-from scripts.classes.graph.node._Object import _Object
+import json
+import os
+import subprocess
 
 # !!! убрать
 from scripts.classes.Knowledge_base import Knowledge_base
 
 
 class Core():
+    """Класс с основными операциями над понятиями."""
+
     def __init__(self):
+        """."""
         self.kb = Knowledge_base()
 
         self.clear_local_graph()
 
-    def test_intput_lists(self, input_objects, input_classes):
-        print("список входных объектов")
+    def test_input_lists(self, input_objects, input_classes):
+        """."""
+        print('список входных объектов')
         [print(i) for i in input_objects]
-        print("список входных классов")
+        print('список входных классов')
         [print(i) for i in input_classes]
 
-        print("\nсписок локальных объектов")
+        print('\nсписок локальных объектов')
         [print(i) for i in self.kb.local_objects]
-        print("список локальных классов")
+        print('список локальных классов')
         [print(i) for i in self.kb.local_classes]
 
     def write_local_links(self, input_objects, input_classes):
-
+        """."""
         count_obj = len(input_objects)
         for index, obj in enumerate(input_objects):
 
             if index + 1 != count_obj:
                 self.kb.create_local_link(obj, input_objects[index + 1])
 
-        # когда бегу по всем классам, могут быть дубли ссылок из списка введеных классов
+        # когда бегу по всем классам, могут быть дубли ссылок из списка
+        # введеных классов
         # в прошлой итерации ввода
         # поэтому перехожу на множество ссылок
 
-        # не использую локальные классы, т к в таком случае некоторые связи с классами не обазуются
+        # не использую локальные классы, т к в таком случае некоторые связи с
+        # классами не обазуются
         for _class in self.kb.local_classes:
             for k, obj in _class.dict_objects.items():
                 self.kb.create_local_link(_class, obj)
 
     def test_links(self):
-
+        """."""
         # отрисовка пар
         for i in self.kb.local_links:
-            print("пара")
+            print('пара')
             for j in i:
-                if j.__class__.__name__ == "_Object":
+                if j.__class__.__name__ == '_Object':
                     print(j.name, j.id, j.__class__.__name__)
                 else:
                     print(j.name, j.__class__.__name__)
 
     def clear_local_graph(self):
+        """."""
         # print("\nочищаю локальный граф\n")
         self.kb.clear_local_files()
         self.kb.clear_local_links()
@@ -64,25 +70,29 @@ class Core():
         # f.close()
 
     def run_nodes(self, input_objects, local_classes):
-
+        """Основной метод выполнения кода в понятиях."""
         # ссылка на программу хранится в одноименном файле
-        # можно кстати один файл со всем иссылками деражть, но я не знаю какие баги появятся
+        # можно кстати один файл со всем иссылками деражть, но я не знаю какие
+        # баги появятся
 
         # оформить в виде отдельной функции
         # уже написана в кб
-        list_name_class_global = [file[:-5]
-                                  for file in os.listdir(self.kb.path_json_global)]
+        list_name_class_global = [
+            file[:-5] for file in os.listdir(self.kb.path_json_global)
+        ]
 
         list_name_input_object = [obj.name for obj in input_objects]
 
         for in_obj in input_objects:
 
-            # починить слово "сохрани_определени" как для первородных, так и второродных
-            # глобальные определения хранятся в json, тк базу данных я так и не нашел
+            # починить слово "сохрани_определени" как для первородных, так и
+            # второродных
+            # глобальные определения хранятся в json, тк базу данных я так и
+            # не нашел
             # локальные - в полях класса как ссылка на питон, так и определение
             # при переносе в глобальный - записывается из полей в файл
 
-            python_file = ""
+            python_file = ''
 
             if in_obj.link_class.name_python_program:
                 # print("есть в локальном")
@@ -91,15 +101,19 @@ class Core():
             elif in_obj.name in list_name_class_global:
                 # print("есть в глобальном")
 
-                # это должно быть в классе knoewledge как метод возвращающий путь
-                with open(self.kb.path_json_global + in_obj.name + ".json") as json_file:
+                # это должно быть в классе knoewledge как метод возвращающий
+                # путь
+                with open(
+                        self.kb.path_json_global + in_obj.name + '.json'
+                ) as json_file:
                     data = json.load(json_file)
-                    if "python_file" in data:
+                    if 'python_file' in data:
                         # сохраняем путь к программе
-                        python_file = data["python_file"]
+                        python_file = data['python_file']
 
             if python_file:
-                # запускаем субпроцесс, выполняем программу, передаем остальные параметры
+                # запускаем субпроцесс, выполняем программу, передаем
+                # остальные параметры
                 # (передавать ли выполняемое слово как параметр ? )
 
                 path_python = self.kb.path_python_programm + python_file
@@ -109,14 +123,17 @@ class Core():
                 # т к только первый принт считается результатом субпроцесса
                 # необходимо написать свой модуль выполнения первородных нод
                 # в модуль должны приходить путь к файлу, параметры
-                # а выходить новые ноды как результат вычислений и ошбки отдельно
+                # а выходить новые ноды как результат вычислений и ошбки
+                # отдельно
                 # с этимирезультатами должна работать отрисовка
                 # ее походу пора уже в виде сайта делать
 
-                # subprocess блокирует выполнение основной программы, пока дочерний процесс не завершится
+                # subprocess блокирует выполнение основной программы, пока
+                # дочерний процесс не завершится
                 # принятое решение № 19
                 output = subprocess.check_output(
-                    ["python3", path_python] + list_name_input_object, encoding='utf-8')
+                    ['python3', path_python] + list_name_input_object,
+                    encoding='utf-8')
 
                 # если слово при выполнении генерирует новые ноды или связи
                 # оно возвращает результат в виде текста
@@ -129,7 +146,7 @@ class Core():
 
                 if output:
 
-                    print("в core", output)
+                    print('в core', output)
 
                     output = output.replace('\n', '')
                     list_words = self.formatting(output)
@@ -139,17 +156,27 @@ class Core():
 
                 # Результат возвращается в виде объектов.
                 # Если не объект, то можно подумать убрать субпроцесс.
-                # Еще можно строковый вывод через конструктор объекта пропускать.
+                # Еще можно строковый вывод через конструктор объекта
+                # пропускать.
                 # Может ли быть несколько возвращенных объектов?
 
-                # дополняем локальный граф новыми возвращенными элементами и связями
+                # дополняем локальный граф новыми возвращенными элементами и
+                # связями
 
-                # вызываем программу "на_что_похоже", пареметры введенное предложение
+                # вызываем программу "на_что_похоже", пареметры введенное
+                # предложение
                 # (можно в локальном, потом в глобальном поиск делать)
-                # Выдаем ответ после результата на что похоже, если он не пустой
+                # Выдаем ответ после результата на что похоже, если он не
+                # пустой
 
         # path_json_local = os.getcwd() + "/json/local/"
-        # path_json_global = os.getcwd() + "/knowledge_base/json_description_words/global/"
+
+        # path_json_global = os.path.join(
+        #     os.getcwd(),
+        #     'knowledge_base',
+        #     'json_description_words',
+        #     'global'
+        # )
 
         # обработка последовательная т к при параллельной дублирование
 
@@ -157,7 +184,9 @@ class Core():
 
         # list_local_json_files = os.listdir(path_json_local)
         # list_globa_json_files = os.listdir(path_json_global)
-        # list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+        # list_all_json_files = list(
+        #     set(list_local_json_files + list_globa_json_files)
+        # )
 
         # path_python = os.getcwd() + "/python_programm"
 
@@ -180,12 +209,17 @@ class Core():
 
         # 			data = json.load(json_file)
 
-        # 			# если нет питона то не выполняем, а так все слова в предложении выполняются
+        # 			# если нет питона то не выполняем, а так все слова в предложении
+        #           # выполняются
         # 			if "file" in data:
         # 				list_without_run_word = input_list_words.copy()
         # 				list_without_run_word.remove(word)
 
-        # 				output = subprocess.check_output(["python3", path_python + "/" + data["file"]] + list_without_run_word, encoding='utf-8')
+        #               output = subprocess.check_output(
+        #                   ["python3", path_python + "/" + data["file"]] +
+        #                   list_without_run_word,
+        #                   encoding='utf-8'
+        #               )
 
         # 				# проверка, если удалялись файлы, актуализировать из список
         # 				if os.stat(os.getcwd() + "/output.json").st_size != 0:
@@ -197,13 +231,17 @@ class Core():
         # 							if data["файл_удален"] == True:
         # 								list_local_json_files = os.listdir(path_json_local)
         # 								list_globa_json_files = os.listdir(path_json_global)
-        # 								list_all_json_files = list(set(list_local_json_files + list_globa_json_files))
+        #                               list_all_json_files = list(set(
+        #                                   list_local_json_files + list_globa_json_files
+        #                               ))
         # 								continue
         # 						json_file.close()
 
         # 				if output:
         # 					output = output.replace("\n", "")
-        # 					output_list_words = [word_class] # !!!  экземпляр скорей всеого придется по новому делать. Раньше класс делался.
+        # 					# !!!  экземпляр скорей всеого придется по новому делать.
+        #                   # Раньше класс делался.
+        #                   output_list_words = [word_class]
         # 					output_list_words += output.split(" ")
         # 					save_new_nodes(output_list_words)
         # 					if word_class != "рекурсия":
@@ -218,17 +256,17 @@ class Core():
         # return global_output
 
     def run_nodes_2(self, input_graph):
-
+        """Вторая итерация рефакторинга метода."""
         # работа с локальным графом, глобальным и контекстом
         # контекст может быть на уровне консоли, может быть на уровне run_node
 
         return input_graph
 
-    def compare(self, input_objects, input_classes, search_word="два"):
-
+    def compare(self, input_objects, input_classes, search_word='два'):
+        """Метод сравнения кусков графа."""
         all_input = input_objects + input_classes
 
-        all_types = ["_object", "_class"]
+        all_types = ['_object', '_class']
 
         words_def = self.kb.read_defs(search_word)[0]
 
@@ -238,9 +276,14 @@ class Core():
             for input_word in all_input:
 
                 if def_word in all_types:
-                    # print(input_word.name, type(input_word), "сравниваю по типу с ", def_word)
+                    # print(
+                    #     input_word.name,
+                    #     type(input_word),
+                    #     'сравниваю по типу с ',
+                    #     def_word
+                    #     )
 
-                    end_type = str(type(input_word)).split(".")[-1]
+                    end_type = str(type(input_word)).split('.')[-1]
                     end_type = end_type[:-2].lower()
 
                     if end_type == def_word:
@@ -259,7 +302,11 @@ class Core():
                         all_input.remove(input_word)
 
                 else:
-                    print(input_word.name, "сравниваю по названию с ", def_word)
+                    print(
+                        input_word.name,
+                        'сравниваю по названию с ',
+                        def_word
+                    )
                     # сравнениена названий
                     pass
 

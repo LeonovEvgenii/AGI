@@ -84,6 +84,10 @@ class Main_test(unittest.TestCase):
 
         input_graphs = console.content_to_graphs('время')
 
+        for node in input_graphs[0].nodes:
+            if node.__class__.__name__ == 'First_born':
+                node.path_python_file = 'knowledge_base/python_program/time.py'
+
         # for graph in input_graphs:
         #     print(graph)
 

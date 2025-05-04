@@ -14,6 +14,7 @@ class Graph():
         self.classes = []
         self.objects = []
 
+        # почему это список, а не множество ?
         self.nodes = []
         self.links = []
 

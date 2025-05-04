@@ -17,25 +17,6 @@ class Core():
 
         self.clear_local_graph()
 
-    def write_local_links(self, input_objects, input_classes):
-        """."""
-        count_obj = len(input_objects)
-        for index, obj in enumerate(input_objects):
-
-            if index + 1 != count_obj:
-                self.kb.create_local_link(obj, input_objects[index + 1])
-
-        # когда бегу по всем классам, могут быть дубли ссылок из списка
-        # введенных классов
-        # в прошлой итерации ввода
-        # поэтому перехожу на множество ссылок
-
-        # не использую локальные классы, т к в таком случае некоторые связи с
-        # классами не образуются
-        for _class in self.kb.local_classes:
-            for k, obj in _class.dict_objects.items():
-                self.kb.create_local_link(_class, obj)
-
     def test_links(self):
         """."""
         # отрисовка пар
@@ -140,6 +121,7 @@ class Core():
                     list_words = self.formatting(output)
                     generate_objects, generate_classes = self.words_to_lists(
                         list_words)
+                    # устаревший метод, удалил (write_local_links)
                     self.write_local_links(generate_objects, generate_classes)
 
                 # Результат возвращается в виде объектов.

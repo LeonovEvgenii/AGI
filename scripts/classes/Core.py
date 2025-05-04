@@ -17,18 +17,6 @@ class Core():
 
         self.clear_local_graph()
 
-    def test_input_lists(self, input_objects, input_classes):
-        """."""
-        print('список входных объектов')
-        [print(i) for i in input_objects]
-        print('список входных классов')
-        [print(i) for i in input_classes]
-
-        print('\nсписок локальных объектов')
-        [print(i) for i in self.kb.local_objects]
-        print('список локальных классов')
-        [print(i) for i in self.kb.local_classes]
-
     def write_local_links(self, input_objects, input_classes):
         """."""
         count_obj = len(input_objects)

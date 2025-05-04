@@ -17,17 +17,6 @@ class Core():
 
         self.clear_local_graph()
 
-    def test_links(self):
-        """."""
-        # отрисовка пар
-        for i in self.kb.local_links:
-            print('пара')
-            for j in i:
-                if j.__class__.__name__ == '_Object':
-                    print(j.name, j.id, j.__class__.__name__)
-                else:
-                    print(j.name, j.__class__.__name__)
-
     def clear_local_graph(self):
         """."""
         # print("\nочищаю локальный граф\n")

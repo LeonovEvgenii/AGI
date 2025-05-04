@@ -223,6 +223,7 @@ if __name__ == '__main__':
         # дополнительные связи и порядок образуются при выполнении нод
         # устаревший метод, удалил (write_local_links)
         # core.write_local_links(input_objects, input_classes)
+        # устаревший метод, удалил (test_links)
         # core.test_links()
 
         # с начала выполнение кода,

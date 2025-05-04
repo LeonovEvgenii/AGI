@@ -124,9 +124,17 @@ def signal_handler(signal, frame):
     sys.exit(0)
 
 
+# нужно ли для main делать класс ?
+
 if __name__ == '__main__':
 
-    print('main')
+    console = Console()
+    xdot = Xdot()
+
+    input_graphs = console.content_to_graphs('1 1 1')
+    path = 'main.dot'
+    xdot.draw(input_graphs, path=path)
+    xdot.delete_last_file()
 
     exit(0)
 

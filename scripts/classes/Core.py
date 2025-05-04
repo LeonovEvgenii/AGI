@@ -17,16 +17,6 @@ class Core():
 
         self.clear_local_graph()
 
-    def clear_local_graph(self):
-        """."""
-        # print("\nочищаю локальный граф\n")
-        self.kb.clear_local_files()
-        self.kb.clear_local_links()
-        # self.drawer.clear_local_dot()
-
-        # f = open('output.json', 'w')
-        # f.close()
-
     def run_nodes(self, input_objects, local_classes):
         """Основной метод выполнения кода в понятиях."""
         # ссылка на программу хранится в одноименном файле

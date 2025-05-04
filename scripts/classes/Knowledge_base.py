@@ -260,15 +260,6 @@ class Knowledge_base():
         else:
             return False
 
-    def clear_local_files(self):
-        """."""
-        local_files = os.listdir(self.path_json_local)
-        if local_files:
-            os.system('rm ' + self.path_json_local + '*')
-
-    def clear_local_links(self):
-        """."""
-        data = {}
-        data['links'] = []
-
-        self.data_to_json(self.path_links_local, data)
+    # Здесь может быть метод очистки локального графа.
+    # Не в файле Graph, а именно здесь, т к kb знает, что есть локальный и
+    # глобальные графы.

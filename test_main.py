@@ -10,6 +10,7 @@
 import os
 import unittest
 
+from scripts.classes.Core import Core
 from scripts.classes.conversion.Console import Console
 from scripts.classes.drawers.Xdot import Xdot
 
@@ -88,8 +89,10 @@ class Main_test(unittest.TestCase):
             if node.__class__.__name__ == 'First_born':
                 node.path_python_file = 'knowledge_base/python_program/time.py'
 
-        # for graph in input_graphs:
-        #     print(graph)
+        core = Core()
+
+        # понять, какие параметры и как результат возвращаем
+        core.run_node()
 
     def test_second_born(self):
         """Тест второродной ноды."""

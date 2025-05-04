@@ -15,7 +15,8 @@ class Core():
         """."""
         self.kb = Knowledge_base()
 
-        self.clear_local_graph()
+        # Выполнить поиск по методу и убрать в kb.
+        # self.clear_local_graph()
 
     def run_nodes(self, input_objects, local_classes):
         """Основной метод выполнения кода в понятиях."""
@@ -210,6 +211,14 @@ class Core():
         # контекст может быть на уровне консоли, может быть на уровне run_node
 
         return input_graph
+
+    def run_node(self):
+        """Выполнение одной ноды."""
+        # Алгоритм.
+        # Если нода второродная, рекурсивно проваливаемся.
+        # Если первородная, выполняем определение.
+
+        pass
 
     def compare(self, input_objects, input_classes, search_word='два'):
         """Метод сравнения кусков графа."""

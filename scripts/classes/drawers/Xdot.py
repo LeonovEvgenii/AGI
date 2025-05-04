@@ -8,6 +8,8 @@
 # 2) из объектов knowledge_base. Использование множества как структуры данных.
 #  Подпись в каждой ноде какой класс и объект.
 
+import os
+
 from scripts.classes.drawers.Drawer import Drawer
 
 
@@ -24,6 +26,8 @@ class Xdot(Drawer):
         self.path_local_dot = 'knowledge_base/graphs_links/local_graph.dot'
 
         self.path_local = 'local.dot'
+
+        self.last_path = ''
 
     # устаревший метод, скорее всего как и класс knowledge_base
 
@@ -81,6 +85,8 @@ class Xdot(Drawer):
         if not path:
             path = self.path_local
 
+        self.last_path = path
+
         with open(path, 'w') as f:
             f.write('strict graph G {\n')
 
@@ -133,3 +139,13 @@ class Xdot(Drawer):
                     #         str(link.two_node) + '"\n')
 
             f.write('}\n')
+
+    def delete_last_file(self, path=''):
+        """Удаление последнего файла, который отрисовывался."""
+        if path == '':
+            path = self.last_path
+
+        if os.path.exists(path):
+            os.remove(path)
+        else:
+            print(f'Файл {path} не найден')

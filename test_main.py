@@ -82,6 +82,7 @@ class Main_test(unittest.TestCase):
     def test_first_born(self):
         """Тест первородной ноды."""
         console = Console()
+        core = Core()
 
         input_graphs = console.content_to_graphs('время')
 
@@ -89,10 +90,7 @@ class Main_test(unittest.TestCase):
             if node.__class__.__name__ == 'First_born':
                 node.path_python_file = 'knowledge_base/python_program/time.py'
 
-        core = Core()
-
-        # понять, какие параметры и как результат возвращаем
-        core.run_node()
+                core.run_node(node)
 
     def test_second_born(self):
         """Тест второродной ноды."""

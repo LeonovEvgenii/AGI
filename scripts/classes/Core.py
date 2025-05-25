@@ -212,13 +212,21 @@ class Core():
 
         return input_graph
 
-    def run_node(self):
+    def run_node(self, node):
         """Выполнение одной ноды."""
         # Алгоритм.
         # Если нода второродная, рекурсивно проваливаемся.
         # Если первородная, выполняем определение.
 
-        pass
+        self.__exec_python(node.path_python_file)
+
+    def __exec_python(self, path):
+        # пока не передаю параметры командной строки для вычислений внутри
+        output = subprocess.check_output(
+            ['python3', path],
+            encoding='utf-8')
+
+        return output
 
     def compare(self, input_objects, input_classes, search_word='два'):
         """Метод сравнения кусков графа."""

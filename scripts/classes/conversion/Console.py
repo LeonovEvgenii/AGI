@@ -103,7 +103,7 @@ class Console(Converter):
         text = ''
 
         for input_graph in input_graphs:
-            text += self.graph_to_text(input_graph)
+            text += self.__graph_to_text(input_graph)
             text += '. '
 
         text = text[:-1]
@@ -112,7 +112,7 @@ class Console(Converter):
 
         return text
 
-    def graph_to_text(self, input_graph):
+    def __graph_to_text(self, input_graph):
         """."""
         copy_links = input_graph.links.copy()
 

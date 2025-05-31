@@ -90,7 +90,11 @@ class Main_test(unittest.TestCase):
             if node.__class__.__name__ == 'First_born':
                 node.path_python_file = 'knowledge_base/python_program/time.py'
 
-                core.run_node(node)
+                output_graphs = core.run_node(node)
+
+        # во первых, выводится не красиво
+        # во вторых, возврат времени сделать человекочитаемым
+        print(output_graphs[0])
 
     def test_second_born(self):
         """Тест второродной ноды."""

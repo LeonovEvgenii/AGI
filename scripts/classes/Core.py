@@ -4,8 +4,8 @@ import json
 import os
 import subprocess
 
-# !!! убрать
-from scripts.classes.Knowledge_base import Knowledge_base
+from scripts.classes.Knowledge_base import Knowledge_base  # !!! убрать
+from scripts.classes.conversion.Console import Console
 
 
 class Core():
@@ -13,6 +13,8 @@ class Core():
 
     def __init__(self):
         """."""
+        self.console = Console()
+
         self.kb = Knowledge_base()
 
         # Выполнить поиск по методу и убрать в kb.
@@ -218,7 +220,9 @@ class Core():
         # Если нода второродная, рекурсивно проваливаемся.
         # Если первородная, выполняем определение.
 
-        self.__exec_python(node.path_python_file)
+        output_graphs = self.__exec_python(node.path_python_file)
+
+        return output_graphs
 
     def __exec_python(self, path):
         # пока не передаю параметры командной строки для вычислений внутри
@@ -226,7 +230,9 @@ class Core():
             ['python3', path],
             encoding='utf-8')
 
-        return output
+        output_graphs = self.console.content_to_graphs(output)
+
+        return output_graphs
 
     def compare(self, input_objects, input_classes, search_word='два'):
         """Метод сравнения кусков графа."""

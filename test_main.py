@@ -95,20 +95,19 @@ class Main_test(unittest.TestCase):
 
         self.assertIsInstance(output_graphs[0], Graph)
 
-    def test_second_born(self):
-        """Тест второродной ноды."""
-        pass
-
     def test_set_definition(self):
         """Тест задания определения ноды."""
-        pass
+        # такая функция тоже должна быть для сравнения с результатами теста
+        # get_definition()
 
-    def test_get_definition(self):
-        """Тест получения определения ноды."""
         pass
 
     def test_compare_definition(self):
         """Тест сравнения определений."""
+        pass
+
+    def test_second_born(self):
+        """Тест второродной ноды."""
         pass
 
     def test_one_dialog(self):

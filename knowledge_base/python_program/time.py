@@ -13,6 +13,7 @@ import time
 sys.path.append(os.getcwd())
 
 # unix
+# сейчас нужен unix, т к для определения секунды применяется вычитание
 unix_time = str(round(time.time()))
 
 # человекочитаемый

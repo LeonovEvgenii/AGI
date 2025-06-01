@@ -23,8 +23,8 @@ unix_time = str(round(time.time()))
 
 print(unix_time)
 
-input_list_words = sys.argv[1:]
-input_list_words.append(unix_time)
+# input_list_words = sys.argv[1:]
+# input_list_words.append(unix_time)
 
 # write_to_local_graph_json(input_list_words)
 # print_to_xdot_local()

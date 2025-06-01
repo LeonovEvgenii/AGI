@@ -73,6 +73,8 @@ class Console(Converter):
     def __formatting(self, input_str) -> list:
         input_str = input_str.lower()
 
+        input_str = input_str.replace('\n', ' ')
+
         punctuation = '!"#$%&\'()*,;@[\\]^`{|}~'
         for p in punctuation:
             if p in input_str:

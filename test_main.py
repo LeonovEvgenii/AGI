@@ -13,6 +13,7 @@ import unittest
 from scripts.classes.Core import Core
 from scripts.classes.conversion.Console import Console
 from scripts.classes.drawers.Xdot import Xdot
+from scripts.classes.graph.Graph import Graph
 
 
 class Main_test(unittest.TestCase):
@@ -92,9 +93,7 @@ class Main_test(unittest.TestCase):
 
                 output_graphs = core.run_node(node)
 
-        # во первых, выводится не красиво
-        # во вторых, возврат времени сделать человекочитаемым
-        print(output_graphs[0])
+        self.assertIsInstance(output_graphs[0], Graph)
 
     def test_second_born(self):
         """Тест второродной ноды."""

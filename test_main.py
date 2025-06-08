@@ -14,6 +14,7 @@ from scripts.classes.Core import Core
 from scripts.classes.conversion.Console import Console
 from scripts.classes.drawers.Xdot import Xdot
 from scripts.classes.graph.Graph import Graph
+from scripts.classes.graph.node.Second_born import Second_born
 
 
 class Main_test(unittest.TestCase):
@@ -100,7 +101,19 @@ class Main_test(unittest.TestCase):
         # такая функция тоже должна быть для сравнения с результатами теста
         # get_definition()
 
-        pass
+        console = Console()
+
+        text_definition = 'единица разница время'
+
+        definition_graph = console.content_to_graphs(text_definition)[0]
+
+        defident = Second_born('секунда', definition_graph)
+
+        print(defident.definition)
+        print(defident)
+
+        local_graph = Graph()
+        local_graph.add_node()  # определиться с параметрами
 
     def test_compare_definition(self):
         """Тест сравнения определений."""
